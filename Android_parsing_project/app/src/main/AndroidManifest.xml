@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android_parsing_project">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity_codi"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Android_parsing_project.NoActionBar">
