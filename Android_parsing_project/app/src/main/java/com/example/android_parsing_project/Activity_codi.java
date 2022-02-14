@@ -103,13 +103,13 @@ public class Activity_codi extends AppCompatActivity {
                         final Elements productImg = doc.select("div[class=product-img] img"); //제품사진
                         imageView=  findViewById(R.id.txt_ProductImg);
                         // Glide.with(imageView).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
-                        txt_ProductBrand.setText(product_Brand.text());
+                        txt_ProductTitle.setText(product_INFO.text());
                         txt_ProductPrice.setText(price.text());
                         //
                         int count=0;
                         for (Element element : product_Brand){
                             if(count==0){
-                                txt_ProductTitle.setText(element.text());}
+                                txt_ProductBrand.setText(element.text());}
                             else if(count>1)
                             {
                                 txt_ProductTag.setText(element.text());
@@ -138,7 +138,8 @@ public class Activity_codi extends AppCompatActivity {
                             Cadapter.addItem(data);
                         }
 
-                        for(Element ele : Similar_Url)
+                     //비슷한 상품 출력
+                        for(Element ele : Similar_Img)
                         {
                             listSUrl.add("https:"+ele.attr("src"));
                         }
@@ -151,7 +152,7 @@ public class Activity_codi extends AppCompatActivity {
                             listSTitle.add(ele.text());
                         }
                         for(Element ele : Similar_Price) {
-                            listSTitle.add(ele.text());
+                            listSPrice.add(ele.text());
                         }
 
 
@@ -160,7 +161,7 @@ public class Activity_codi extends AppCompatActivity {
                             CodiDTO data = new CodiDTO();
                             data.setImageUrl(listSUrl.get(i));
                             data.setBrand(listSBrand.get(i));
-                            data.setTitle(listTitle.get(i));
+                            data.setTitle(listSTitle.get(i));
                             data.setPrice(listSPrice.get(i));
 
                             Sadapter.addItem(data);
