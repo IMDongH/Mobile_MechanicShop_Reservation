@@ -29,11 +29,9 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:host="parsing/test"
-                    android:scheme="http" />
-                <data
-                    android:host="parsing/test"
-                    android:scheme="https" />
+                    android:host="fashion"
+                    android:scheme="deeplink"/>
+
 
             </intent-filter>
         </activity>

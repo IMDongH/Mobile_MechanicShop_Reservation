@@ -31,32 +31,31 @@ public class Activity_codi extends AppCompatActivity {
     RecyclerView recyclerView_Codi, recyclerView_Similar;
     CodiAdapter Cadapter;
     SimilarAdapter Sadapter;
-    String Codi_Url =null;
+    String Codi_Url ="https://store.musinsa.com/app/goods/1551840";
     ImageView txt_ProductImg ;
     TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
-
+    String TAG="DONG";
+    String DEFAULT_URL="https://store.musinsa.com/app/goods/";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codi);
 
-      Intent intent = getIntent();
-        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-            Uri uri = intent.getData();
+        Intent intent = getIntent();
+        String action =intent.getAction();
+        String data = intent.getDataString();
+        final String DEFAULT_PATH = "deeplink://fashion/";
 
-            if(uri != null) {
-                String url = uri.getQueryParameter("url");
-
-
-                Log.w("MyTag","when : " + url);
-                Codi_Url= "https://store.musinsa.com/app/goods/"+url;
-
+        if (action!=null && data != null) {
+            if (data.startsWith(DEFAULT_PATH)) {
+                String param = data.replace(DEFAULT_PATH, "");
+                Codi_Url= DEFAULT_URL+param;
+                Log.w(TAG,param);
             }
-            else {
-                Log.w("MyTag","worng");
-                Codi_Url= null;
+            else
+            {
+                Log.w(TAG,"nonononono");
             }
-
         }
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
@@ -99,6 +98,7 @@ public class Activity_codi extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
+
                 Document doc = Jsoup.connect(Codi_Url).get();
 
                 final Elements Codi_Img = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] img");
