@@ -19,7 +19,7 @@ public class CodiDTO {
         this.title = title;
     }
 
-    public void setBrand(String name) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 

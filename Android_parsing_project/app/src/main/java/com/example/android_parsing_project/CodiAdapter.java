@@ -59,9 +59,20 @@ public class CodiAdapter extends RecyclerView.Adapter<CodiAdapter.ItemViewHolder
         }
 
         void onBind(CodiDTO data){
-
-            txt_ProductBrand.setText(data.getBrand());
-            txt_ProductTitle.setText(data.getTitle());
+            String brand=data.getBrand();
+            String title=data.getTitle();
+            if(brand!=null)
+            txt_ProductBrand.setText(brand);
+            else
+            {
+                txt_ProductBrand.setText("null");
+            }
+            if(title!=null)
+            txt_ProductTitle.setText(title);
+            else
+            {
+                txt_ProductTitle.setText("null");
+            }
             Glide.with(itemView.getContext()).load(data.getImageUrl()).error(R.drawable.ic_launcher_background).into(Img_ProductImg);
 
         }

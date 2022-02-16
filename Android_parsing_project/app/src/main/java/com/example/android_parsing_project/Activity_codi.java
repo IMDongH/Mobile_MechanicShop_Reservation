@@ -1,5 +1,7 @@
 package com.example.android_parsing_project;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,14 +31,33 @@ public class Activity_codi extends AppCompatActivity {
     RecyclerView recyclerView_Codi, recyclerView_Similar;
     CodiAdapter Cadapter;
     SimilarAdapter Sadapter;
-    String Codi_Url = "https://store.musinsa.com/app/goods/1609490";
-    ImageView imageView ;
+    String Codi_Url =null;
+    ImageView txt_ProductImg ;
     TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codi);
+
+      Intent intent = getIntent();
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            Uri uri = intent.getData();
+
+            if(uri != null) {
+                String url = uri.getQueryParameter("url");
+
+
+                Log.w("MyTag","when : " + url);
+                Codi_Url= "https://store.musinsa.com/app/goods/"+url;
+
+            }
+            else {
+                Log.w("MyTag","worng");
+                Codi_Url= null;
+            }
+
+        }
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
@@ -74,6 +95,7 @@ public class Activity_codi extends AppCompatActivity {
         ArrayList<String> listSBrand = new ArrayList<>();
         ArrayList<String> listSUrl = new ArrayList<>();
         ArrayList<String> listSPrice = new ArrayList<>();
+
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -101,8 +123,8 @@ public class Activity_codi extends AppCompatActivity {
                     @Override
                     public void run() {
                         final Elements productImg = doc.select("div[class=product-img] img"); //제품사진
-                        imageView=  findViewById(R.id.txt_ProductImg);
-                        // Glide.with(imageView).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
+                        txt_ProductImg=  findViewById(R.id.txt_ProductImg);
+                        Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
                         txt_ProductTitle.setText(product_INFO.text());
                         txt_ProductPrice.setText(price.text());
                         //
@@ -112,10 +134,14 @@ public class Activity_codi extends AppCompatActivity {
                                 txt_ProductBrand.setText(element.text());}
                             else if(count>1)
                             {
-                                txt_ProductTag.setText(element.text());
+                                listTag.add(element.text());
                             }
                             count++;
                         }
+                        StringBuffer Hashtag = new StringBuffer();
+                        for(int i=0; i<listTag.size(); i++)
+                        Hashtag.append(listTag.get(i));
+                        txt_ProductTag.setText(Hashtag);
 
                         for(Element element: Codi_title) {
                             listTitle.add(element.text());
@@ -129,8 +155,9 @@ public class Activity_codi extends AppCompatActivity {
                             listUrl.add("https:"+element.attr("src"));
                         }
 
-                        for (int i = 0; i < listUrl.size() ; i++) {
+                        for (int i = 0; i < listTitle.size() ; i++) {
                             CodiDTO data = new CodiDTO();
+
                             data.setTitle(listTitle.get(i));
                             data.setImageUrl(listUrl.get(i));
                             data.setBrand(listBrand.get(i));
