@@ -16,6 +16,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ScanQR extends AppCompatActivity {
     private IntentIntegrator qrScan;
@@ -40,7 +41,7 @@ public class ScanQR extends AppCompatActivity {
                /* new IntentIntegrator(ScanQR.this).initiateScan();*/
                 qrScan = new IntentIntegrator(ScanQR.this);
                 qrScan.setOrientationLocked(false); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
-                qrScan.setPrompt("상표에 붙어있는 QR 인식하세용 ㄹㅇㅋㅋ ");
+                qrScan.setPrompt("QR을 인식하세요");
                 qrScan.initiateScan();
             }
         });
@@ -66,19 +67,31 @@ public class ScanQR extends AppCompatActivity {
                 String key = result.getContents();
                 if(key.startsWith("https://store.musinsa.com/app/goods/")) {
                     key = key.replace("https://store.musinsa.com/app/goods/", "");
-                }
-                else
-                {
-                    key = null;
-                }
-                intent.putExtra("key", key);
-                startActivity(intent);
 
+                    if(isNumeric(key))
+                    {
+                        intent.putExtra("key", key);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Wrong QR code", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Wrong QR code", Toast.LENGTH_SHORT).show();
+                }
 
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+
+    public boolean isNumeric(String str) {
+        return Pattern.matches("^[0-9]*$", str);
     }
 
     PermissionListener permissionListener = new PermissionListener() {
