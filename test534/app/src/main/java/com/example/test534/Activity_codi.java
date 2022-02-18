@@ -1,5 +1,6 @@
 package com.example.test534;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,12 +33,29 @@ public class Activity_codi extends AppCompatActivity {
     String melon_chart_url = "https://store.musinsa.com/app/goods/1609490";
     ImageView imageView ;
     TextView txt_ProductTitle, txt_ProductName,txt_ProductPrice,txt_ProductTag;
+    String TAG="DONG";
+    String DEFAULT_URL="https://store.musinsa.com/app/goods/";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codi);
 
+        Intent intent = getIntent();
+        String action =intent.getAction();
+        String data = intent.getDataString();
+        final String DEFAULT_PATH = "deeplink://fashion/";
+        if (action!=null && data != null) {
+            if (data.startsWith(DEFAULT_PATH)) {
+                String param = data.replace(DEFAULT_PATH, "");
+                melon_chart_url= DEFAULT_URL+param;
+                Log.w(TAG,param);
+            }
+            else
+            {
+                Log.w(TAG,"nonononono");
+            }
+        }
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
         txt_ProductName=findViewById(R.id.txt_ProductName);
         txt_ProductPrice=findViewById(R.id.txt_ProductPrice);

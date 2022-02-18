@@ -44,19 +44,16 @@ public class Activity_codi extends AppCompatActivity {
         Intent intent = getIntent();
         String action =intent.getAction();
         String data = intent.getDataString();
-        final String DEFAULT_PATH = "deeplink://fashion/";
-
-        if (action!=null && data != null) {
-            if (data.startsWith(DEFAULT_PATH)) {
-                String param = data.replace(DEFAULT_PATH, "");
-                Codi_Url= DEFAULT_URL+param;
-                Log.w(TAG,param);
-            }
-            else
+        final String DEFAULT_PATH = "deeplink://fashion";
+        if(intent!=null){
+            Uri uri = getIntent().getData();
+            if(uri!=null)
             {
-                Log.w(TAG,"nonononono");
+                String param = uri.getQueryParameter("key");
+                Codi_Url= DEFAULT_URL+param;
             }
         }
+
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
