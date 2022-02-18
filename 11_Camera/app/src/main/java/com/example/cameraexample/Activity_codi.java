@@ -1,5 +1,6 @@
 package com.example.cameraexample;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -192,8 +194,8 @@ public class Activity_codi extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.w(TAG,"ERROR");
-                Intent intent = new Intent(getApplicationContext(),QR_Defensive.class);
                 finish();
+
                 //defensive code
             }
 
