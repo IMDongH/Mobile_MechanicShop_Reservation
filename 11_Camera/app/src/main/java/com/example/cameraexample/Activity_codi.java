@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ public class Activity_codi extends AppCompatActivity {
     RecyclerView recyclerView_Codi, recyclerView_Similar;
     com.example.cameraexample.CodiAdapter Cadapter;
     SimilarAdapter Sadapter;
-    String Codi_Url ="https://store.musinsa.com/app/goods/1551840";
+    String Codi_Url ="https://store.musinsa.com/app/goods/";
     ImageView txt_ProductImg ;
     TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
     String TAG="DONG";
@@ -40,20 +41,11 @@ public class Activity_codi extends AppCompatActivity {
         setContentView(R.layout.activity_codi);
 
         Intent intent = getIntent();
-
-       /* final String DEFAULT_PATH = "https://limdeeptest.page.link";
-        if(intent!=null){
-            Uri uri = getIntent().getData();
-            if(uri!=null)
-            {
-                String param = uri.getQueryParameter("key");
-
-                Codi_Url= DEFAULT_URL+param;
-            }
-        }
-*/
         String key = intent.getStringExtra("key");
+        //QR 화면으로부터 key 값을 받음
+        //key값이 NULL 일 수도 있고 제대로된 값이 아닐 수도 있음
         Codi_Url = DEFAULT_URL+key;
+
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
@@ -197,8 +189,12 @@ public class Activity_codi extends AppCompatActivity {
                 });
 
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                Log.w(TAG,"ERROR");
+                Intent intent = new Intent(getApplicationContext(),QR_Defensive.class);
+                finish();
+                //defensive code
             }
 
             return null;

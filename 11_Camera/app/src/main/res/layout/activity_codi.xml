@@ -39,7 +39,7 @@
                     android:id="@+id/txt_ProductBrand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="회사"/>
+                    android:text=""/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                     android:id="@+id/txt_ProductTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="제품"/>
+                    android:text=""/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="가격"/>
+                    android:text=""/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -76,12 +76,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="해시태그"/>
+                    android:text="해시태그 : "/>
                 <TextView
                     android:id="@+id/txt_ProductTag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="해시태그"/>
+                    android:text=""/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -64,7 +64,13 @@ public class ScanQR extends AppCompatActivity {
                 // todo
                 Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
                 String key = result.getContents();
-                key = key.replace("https://store.musinsa.com/app/goods/","");
+                if(key.startsWith("https://store.musinsa.com/app/goods/")) {
+                    key = key.replace("https://store.musinsa.com/app/goods/", "");
+                }
+                else
+                {
+                    key = null;
+                }
                 intent.putExtra("key", key);
                 startActivity(intent);
 

@@ -66,7 +66,7 @@ x
 
             </intent-filter>
         </activity>
-
+        <activity android:name=".QR_Defensive"/>
     </application>
 
 </manifest>
