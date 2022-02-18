@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         Log.w(TAG,"action : " + action);
         Log.w(TAG,"data : " + data);
         TextView text=findViewById(R.id.text);
-        final String DEFAULT_PATH = "deeplink://test/";
+        final String DEFAULT_PATH = "https://dongdeeptest.page.link";
 
         if (action!=null && data != null) {
             if (data.startsWith(DEFAULT_PATH)) {

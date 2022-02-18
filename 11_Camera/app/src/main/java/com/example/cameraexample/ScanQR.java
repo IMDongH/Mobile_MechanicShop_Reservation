@@ -2,6 +2,7 @@ package com.example.cameraexample;
 
 import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +54,7 @@ public class ScanQR extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
         if (result != null) {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
@@ -60,6 +62,13 @@ public class ScanQR extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 // todo
+                Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
+                String key = result.getContents();
+                key = key.replace("https://donghyeok.page.link/29hQ?key=","");
+                intent.putExtra("key", key);
+                startActivity(intent);
+
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -31,9 +31,11 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:host="fashion"
-                    android:scheme="deeplink"/>
-
+                    android:host="donghyeok.page.link"
+                    android:scheme="http"/>
+                <data
+                    android:host="donghyeok.page.link"
+                    android:scheme="https"/>
 
             </intent-filter>
         </activity>

@@ -1,4 +1,4 @@
-package com.example.android_parsing_project;
+package com.example.cameraexample;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,8 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +27,7 @@ import java.util.ArrayList;
 public class Activity_codi extends AppCompatActivity {
 
     RecyclerView recyclerView_Codi, recyclerView_Similar;
-    CodiAdapter Cadapter;
+    com.example.cameraexample.CodiAdapter Cadapter;
     SimilarAdapter Sadapter;
     String Codi_Url ="https://store.musinsa.com/app/goods/1551840";
     ImageView txt_ProductImg ;
@@ -43,7 +41,7 @@ public class Activity_codi extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        final String DEFAULT_PATH = "https://limdeeptest.page.link";
+       /* final String DEFAULT_PATH = "https://limdeeptest.page.link";
         if(intent!=null){
             Uri uri = getIntent().getData();
             if(uri!=null)
@@ -53,7 +51,9 @@ public class Activity_codi extends AppCompatActivity {
                 Codi_Url= DEFAULT_URL+param;
             }
         }
-
+*/
+        String key = intent.getStringExtra("key");
+        Codi_Url = DEFAULT_URL+key;
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
@@ -67,7 +67,7 @@ public class Activity_codi extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager_Similar = new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false);
         recyclerView_Codi.setLayoutManager(linearLayoutManager_Codi);
         recyclerView_Similar.setLayoutManager(linearLayoutManager_Similar);
-        Cadapter = new CodiAdapter();
+        Cadapter = new com.example.cameraexample.CodiAdapter();
         Sadapter = new SimilarAdapter();
         recyclerView_Codi.setAdapter(Cadapter);
         recyclerView_Similar.setAdapter(Sadapter);
@@ -153,7 +153,7 @@ public class Activity_codi extends AppCompatActivity {
                         }
 
                         for (int i = 0; i < listTitle.size() ; i++) {
-                            CodiDTO data = new CodiDTO();
+                            com.example.cameraexample.CodiDTO data = new com.example.cameraexample.CodiDTO();
 
                             data.setTitle(listTitle.get(i));
                             data.setImageUrl(listUrl.get(i));
@@ -182,7 +182,7 @@ public class Activity_codi extends AppCompatActivity {
 
                         for(int i=0; i<listSTitle.size(); i++)
                         {
-                            CodiDTO data = new CodiDTO();
+                            com.example.cameraexample.CodiDTO data = new com.example.cameraexample.CodiDTO();
                             data.setImageUrl(listSUrl.get(i));
                             data.setBrand(listSBrand.get(i));
                             data.setTitle(listSTitle.get(i));
