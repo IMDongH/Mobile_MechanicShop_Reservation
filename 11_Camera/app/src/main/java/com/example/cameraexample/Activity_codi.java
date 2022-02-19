@@ -117,7 +117,13 @@ public class Activity_codi extends AppCompatActivity {
                         txt_ProductImg=  findViewById(R.id.txt_ProductImg);
                         Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
                         txt_ProductTitle.setText(product_INFO.text());
-                        txt_ProductPrice.setText(price.text());
+
+                       try{ txt_ProductPrice.setText(price.text());}
+                       catch(NullPointerException e)
+                        {
+                            finish();
+                        }
+
                         //
                         int count=0;
                         for (Element element : product_Brand){
@@ -192,7 +198,7 @@ public class Activity_codi extends AppCompatActivity {
 
 
             } catch (Exception e) {
-                e.printStackTrace();
+
                 Log.w(TAG,"ERROR");
                 finish();
 
