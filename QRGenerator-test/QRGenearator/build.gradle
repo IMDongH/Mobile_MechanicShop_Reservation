@@ -1,0 +1,72 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'androidmads.library.qrgenearator' // Change this to match your package name
+version = '1.0.4' // Change this to match your version number
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.google.zxing:core:3.2.0'
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    pkg {
+        repo = 'maven'
+        name = 'androidmads.library.qrgenearator'
+
+        version {
+            name = '1.0.4'
+            desc = 'QR Generator Library'
+            released = new Date()
+            vcsTag = '1.0.4'
+        }
+
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/androidmads/QRGenerator.git'
+        websiteUrl = 'https://androidmads.blogspot.com'
+    }
+    configurations = ['archives']
+}
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+artifacts {
+    archives generateSourcesJar
+    archives generateJavadocsJar
+}
