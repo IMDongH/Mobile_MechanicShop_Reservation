@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
                             inputValue, null,
                             QRGContents.Type.TEXT,
                             smallerDimension);
-                    qrgEncoder.setColorBlack(Color.RED);
-                    qrgEncoder.setColorWhite(Color.BLUE);
+                    qrgEncoder.setColorBlack(Color.BLACK);
+                    qrgEncoder.setColorWhite(Color.WHITE);
                     try {
                         bitmap = qrgEncoder.getBitmap();
                         qrImage.setImageBitmap(bitmap);
