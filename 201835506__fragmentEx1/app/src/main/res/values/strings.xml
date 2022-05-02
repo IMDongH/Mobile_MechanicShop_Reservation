@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">201835506_임동혁_fragmentEx1</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main">Main Fragment</string>
+    <string name="menu">Menu Fragment</string>
+    <string name="Rmain">RETURN TO MAIN</string>
+    <string name="Rmenu">RETURN TO MENU</string>
+</resources>
