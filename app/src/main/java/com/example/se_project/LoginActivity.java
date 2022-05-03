@@ -127,9 +127,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (document != null)
                             if (document.exists()) {
                                 if (tempPath.equals("users")&&user.isChecked()) {
-                                    StartActivity(CenterMainActivity.class);
-                                } else if (tempPath.equals("enterprises")&&center.isChecked()) {
                                     StartActivity(UserMainActivity.class);
+                                } else if (tempPath.equals("enterprises")&&center.isChecked()) {
+                                    StartActivity(CenterMainActivity.class);
                                 }
                                 if(user.isChecked()==false&&center.isChecked()==false)
                                 {

@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.se_project">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SE_Project">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD-ujMXjQpkzZ9tW-693TbnJVcOglgHjCM"/>
+
+        <activity
+            android:name=".User.UserMapActivity"
+            android:exported="true" />
         <activity
             android:name=".init.AuthActivity"
             android:exported="true">
@@ -19,16 +30,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".LoginActivity" />
         <activity android:name=".init.Password_Init_Activity" />
         <activity android:name=".init.SignUpActivity" />
-
-        <activity android:name=".User.UserMainActivity"/>
-        <activity android:name=".UserSignupActivity"/>
-
-        <activity android:name=".Center.CenterMainActivity"/>
-        <activity android:name=".CenterSignupActivity"/>
+        <activity android:name=".User.UserMainActivity" />
+        <activity android:name=".UserSignupActivity" />
+        <activity android:name=".Center.CenterMainActivity" />
+        <activity android:name=".CenterSignupActivity" />
     </application>
 
 </manifest>
