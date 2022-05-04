@@ -2,22 +2,20 @@ package com.example.se_project.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.se_project.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,6 +78,33 @@ public class UserMapActivity extends AppCompatActivity implements OnMapReadyCall
                     double gachonLon = 127.1288;
                     LatLng gachon = new LatLng(gachonLat, gachonLon);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gachon, 15));
+                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(@NonNull Marker marker) {
+                            AlertDialog.Builder ad = new AlertDialog.Builder(UserMapActivity.this);
+                            ad.setIcon(R.mipmap.ic_launcher);
+                            ad.setTitle(marker.getTitle());
+                            ad.setMessage(marker.getSnippet());
+                            ad.setPositiveButton("Reserve", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Log.d("TAG","reserve pressed");
+                                    dialogInterface.dismiss();
+                                }
+                            });
+
+                            ad.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Log.d("TAG","Close button pressed");
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            ad.show();
+
+                            return false;
+                        }
+                    });
 
 //                    try{
 //                        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
