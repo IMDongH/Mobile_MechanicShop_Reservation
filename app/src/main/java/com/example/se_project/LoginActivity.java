@@ -115,6 +115,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void CheckUser(FirebaseUser firebaseUser, FirebaseFirestore db) {
         String[] temp = {"users", "enterprises"};
+        if(user.isChecked()==false&&center.isChecked()==false)
+        {
+            StartToast("로그인 유형을 선택해주세요.");
+            return ;
+        }
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
         for (String tempPath : temp) {
             // 문제1 : 멤버 정보가 없다면 로그인이 안된다.
@@ -131,10 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                                 } else if (tempPath.equals("enterprises")&&center.isChecked()) {
                                     StartActivity(CenterMainActivity.class);
                                 }
-                                if(user.isChecked()==false&&center.isChecked()==false)
-                                {
-                                    StartToast("로그인 유형을 선택해주세요.");
-                                }
+
                             }
                     }
                 }

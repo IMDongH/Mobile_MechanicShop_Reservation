@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class AuthActivity  extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+    String TAG = "AuthActivity Test";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +33,11 @@ public class AuthActivity  extends AppCompatActivity {
 //
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        startLoading();
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+
         if(user != null){
             // 로그인이 되어있다면 회원 정보가 등록됐는지 본다.
             String[] temp = {"users", "enterprises"};
@@ -51,13 +54,13 @@ public class AuthActivity  extends AppCompatActivity {
                                     if (tempPath.equals("users"))
                                         StartActivity(UserMainActivity.class);
                                     else if (tempPath.equals("enterprises")) {
-                                        Log.e("woong", "onComplete: " + user.getEmail());
+                                        Log.d(TAG, "onComplete: " + user.getEmail());
                                         StartActivity(CenterMainActivity.class);
                                     } else {
                                         // 유저는 있는데 db가 없는 상황이 있다.
                                         // 회원탈퇴 기능이 추가되면서 간간히 발생한다.
                                         // 그런 상황을 위한 디펜시브 코드이다.
-                                        Log.e("Unknown Error", "onComplete: login error");
+                                        Log.e(TAG+"Unknown Error", "onComplete: login error");
                                         FirebaseAuth.getInstance().signOut();
                                         StartActivity(LoginActivity.class);
                                     }
@@ -71,7 +74,7 @@ public class AuthActivity  extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("temp", "onFailure: null value");
+                        Log.e(TAG, "onFailure: null value");
                     }
                 });
             }
@@ -81,21 +84,9 @@ public class AuthActivity  extends AppCompatActivity {
     }
 
     private void StartActivity(Class c) {
+
         Intent intent = new Intent(this, c);
         startActivity(intent);
     }
-
-    private void startLoading() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, 5000);
-    }
-
-
-
 
 }
