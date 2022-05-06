@@ -15,6 +15,7 @@
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
+
         <TextView
             android:id="@+id/RegisterText"
             android:layout_width="match_parent"
@@ -33,6 +34,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="로그인 정보"
+                    android:textColor="#673AB7" />
 
                 <EditText
                     android:id="@+id/EmailEditText"
@@ -62,7 +72,6 @@
                     android:inputType="textPassword" />
 
                 <TextView
-                    android:id="@+id/Seperator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -93,6 +102,28 @@
                     android:ems="10"
                     android:hint="전화번호"
                     android:inputType="phone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="정비소 정보"
+                    android:textColor="#673AB7" />
+
+                <EditText
+                    android:id="@+id/center_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="지역 ex) 김포시/가평군"/>
+
+                <EditText
+                    android:id="@+id/center_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="정비소 이름"/>
 
                 <Button
                     android:id="@+id/RegisterButton"
