@@ -7,22 +7,27 @@ public class CenterInfoClass {
     private String phone;
     private String date;
 
-    private double longitude;
-    private double Latitude ;
+    private String startTime;
+    private String endTime;
     private String RoadName_Address;
     private String CenterName;
+    private double longitude;
+    private double Latitude ;
     private double type;
 
     public CenterInfoClass(String name, String phone, String date,
-                           String centerName,String roadName_Address,
+                           String startTime, String endTime,
+                           String roadName_Address, String centerName,
                            double longitude, double latitude, double type) {
         this.name = name;
         this.phone = phone;
         this.date = date;
-        this.longitude = longitude;
-        Latitude = latitude;
+        this.startTime = startTime;
+        this.endTime = endTime;
         RoadName_Address = roadName_Address;
         CenterName = centerName;
+        this.longitude = longitude;
+        Latitude = latitude;
         this.type = type;
     }
 
@@ -50,20 +55,20 @@ public class CenterInfoClass {
         this.date = date;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public double getLatitude() {
-        return Latitude;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setLatitude(double latitude) {
-        Latitude = latitude;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getRoadName_Address() {
@@ -80,6 +85,22 @@ public class CenterInfoClass {
 
     public void setCenterName(String centerName) {
         CenterName = centerName;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
     }
 
     public double getType() {

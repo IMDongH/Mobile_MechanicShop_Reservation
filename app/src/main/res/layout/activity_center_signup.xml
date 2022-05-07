@@ -111,6 +111,28 @@
                     android:text="정비소 정보"
                     android:textColor="#673AB7" />
 
+                <EditText
+                    android:id="@+id/centerStartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="영업 시작 시간"
+                    android:textSize="15sp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false" />
+
+                <EditText
+                    android:id="@+id/centerEndTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="영업 마감 시간"
+                    android:textSize="15sp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

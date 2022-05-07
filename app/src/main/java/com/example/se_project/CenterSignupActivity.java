@@ -1,5 +1,6 @@
 package com.example.se_project;
 
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Calendar;
 
 public class CenterSignupActivity extends AppCompatActivity {
 
@@ -55,14 +59,13 @@ public class CenterSignupActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        //지역 선택 버튼, 카센터 이름 검색 버튼
-        center_region = findViewById(R.id.center_region);
-        center_name =  findViewById(R.id.center_name);
-
-        //회원가입, 지역선택, 카센터이름검색 버튼 이벤트들
-        findViewById(R.id.RegisterButton).setOnClickListener(onClickListener);
+        //지역선택, 카센터이름검색, 영업시작시간, 영업마감시간, 회원가입 버튼 이벤트들
+        findViewById(R.id.centerStartTime).setOnClickListener(onClickListener);
+        findViewById(R.id.centerEndTime).setOnClickListener(onClickListener);
         findViewById(R.id.select_button).setOnClickListener(onClickListener);
         findViewById(R.id.search_button).setOnClickListener(onClickListener);
+        findViewById(R.id.RegisterButton).setOnClickListener(onClickListener);
+
     }
 
     private void SignUp() {
@@ -76,6 +79,9 @@ public class CenterSignupActivity extends AppCompatActivity {
         String date = ((EditText) findViewById(R.id.MemberInfoDate)).getText().toString();
         String phone = ((EditText) findViewById(R.id.MemberInfoPhone)).getText().toString();
 
+        String centerStart_time = ((EditText) findViewById(R.id.centerStartTime)).getText().toString();
+        String centerEnd_time = ((EditText) findViewById(R.id.centerEndTime)).getText().toString();
+
         //이메일, 비번 확인
         if (email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0) {
             if (password.equals(passwordCheck)) {
@@ -88,10 +94,18 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
                                     center_user = mAuth.getCurrentUser();
-                                    //이름, 생일, 폰번호, 카센터지역 올바른지 확인
-                                    if (name.length() > 0 && date.length() >= 6 && phone.length() >= 8 && center_region.getText().length()<=4) {
-                                        //이름, 생일, 폰번호, 시/군, 카센터 이름을 넘겨줌
-                                        SearchCenterName(name, date, phone, center_name.getText().toString(), center_region.getText().toString());
+                                    //이름, 생일, 폰번호, 영업시간, 마감시간, 지역 올바른지 확인
+                                    if (name.length() > 0 && date.length() >= 6 && phone.length() >= 8
+                                            && centerStart_time.contains("분")
+                                            && centerEnd_time.contains("분")
+                                            && center_region.getText().length() <=4) {
+                                        //이름, 생일, 폰번호, 영업시간, 마감시간, 시/군, 카센터 이름을 넘겨줌
+                                        //마지막 카센터 이름 검색을 위해 호출한다.
+                                        SearchCenterName(name, date, phone,
+                                                        centerStart_time,
+                                                        centerEnd_time,
+                                                        center_name.getText().toString(),
+                                                        center_region.getText().toString());
                                     } else {
                                         CheckSignUpMemberInfoCondition(name, date, phone);
                                     }
@@ -110,11 +124,12 @@ public class CenterSignupActivity extends AppCompatActivity {
         }
     }
 
-    private void SearchCenterName(String name, String date, String phone, String center_name, String center_region) {
+    private void SearchCenterName(String name, String date, String phone,
+                                  String StartTime, String EndTime,
+                                  String center_name, String center_region) {
 
-        // 시/군 컬렉션별로 나뉘면 실행
-        db.collection("CarCenter").document( /*아마 성남시*/ center_region).collection("아마 카센터")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        // 시/군 컬렉션별 쿼리
+        db.collection(center_region).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -131,7 +146,10 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 double Latitude = (double) document.getData().get("위도");
                                 double type = (double) document.getData().get("자동차정비업체종류");
 
-                                CenterInfoClass center_Info = new CenterInfoClass(name, date, phone, CenterName, RoadName_Address, Longitude, Latitude, type);
+                                CenterInfoClass center_Info = new CenterInfoClass(name, date, phone,
+                                                                                    StartTime, EndTime,
+                                                                                    CenterName, RoadName_Address,
+                                                                                    Longitude, Latitude, type);
                                 dbInsertion(center_Info);
                                 break;
                             }
@@ -163,16 +181,70 @@ public class CenterSignupActivity extends AppCompatActivity {
                 });
     }
 
+    //클릭이벤트들
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             // view에서 id를 받아오는데
             switch (view.getId()) {
-                // id가 RegisterButton에서 받아온 아이디라면 :
+                // 회원가입 버튼
                 case R.id.RegisterButton:
                     SignUp();
                     break;
 
+                //영업 시작 시간 버튼
+                case R.id.centerStartTime:
+
+                    EditText centerStart_time = (EditText) findViewById(R.id.centerStartTime);
+
+                    Calendar mcurrentTime = Calendar.getInstance();
+                    int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                    int minute = mcurrentTime.get(Calendar.MINUTE);
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(CenterSignupActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            String state = "AM";
+                            // 선택한 시간이 12를 넘을경우 "PM"으로 변경 및 -12시간하여 출력 (ex : PM 6시 30분)
+                            if (selectedHour > 12) {
+                                selectedHour -= 12;
+                                state = "PM";
+                            }
+                            // EditText에 출력할 형식 지정
+                            centerStart_time.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
+                        }
+                    }, hour, minute, false); // true의 경우 24시간 형식의 TimePicker 출현
+                    mTimePicker.setTitle("Select Time");
+                    mTimePicker.show();
+                    break;
+
+                //영업 마감 시간 버튼
+                case R.id.centerEndTime:
+
+                    EditText centerEnd_time = (EditText) findViewById(R.id.centerEndTime);
+
+                    Calendar mcurrentTime_endtime = Calendar.getInstance();
+                    int hour_End = mcurrentTime_endtime.get(Calendar.HOUR_OF_DAY);
+                    int minute_End = mcurrentTime_endtime.get(Calendar.MINUTE);
+                    TimePickerDialog mTimePicker_end;
+                    mTimePicker_end = new TimePickerDialog(CenterSignupActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            String state = "AM";
+                            // 선택한 시간이 12를 넘을경우 "PM"으로 변경 및 -12시간하여 출력 (ex : PM 6시 30분)
+                            if (selectedHour > 12) {
+                                selectedHour -= 12;
+                                state = "PM";
+                            }
+                            // EditText에 출력할 형식 지정
+                            centerEnd_time.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
+                        }
+                    }, hour_End, minute_End, false); // true의 경우 24시간 형식의 TimePicker 출현
+                    mTimePicker_end.setTitle("Select Time");
+                    mTimePicker_end.show();
+                    break;
+
+                //지역 선택 버튼
                 case R.id.select_button:
                     AlertDialog.Builder ad = new AlertDialog.Builder(CenterSignupActivity.this);
                     ad.setTitle("지역을 선택하세요")
@@ -180,17 +252,24 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int i) {
                                     String item = selectOption[i].toString();
+                                    //센터 지역이름 텍스트뷰
+                                    center_region = findViewById(R.id.center_region);
                                     center_region.setText(item);
                                 }
                             })
                             .setCancelable(true)
                             .show();
                     break;
+
+                //정비소 이름 선택 버튼
                 case R.id.search_button:
                     if(center_region.getText().toString().length()>=5){
-                        StartToast("지역을 선택해주세요");
+                        StartToast("지역을 먼저 선택해주세요");
                         break;
                     }
+                    //센터이름 텍스트뷰
+                    center_name =  findViewById(R.id.center_name);
+
 
                     break;
             }
@@ -203,6 +282,9 @@ public class CenterSignupActivity extends AppCompatActivity {
         Log.e("temp", "CheckSignUpMemberInfoCondition: " + center_user.getEmail());
         center_user.delete();
 
+        String centerStart_time = ((EditText) findViewById(R.id.centerStartTime)).getText().toString();
+        String centerEnd_time = ((EditText) findViewById(R.id.centerEndTime)).getText().toString();
+
         if (name.length() <= 0) {
             StartToast("회원 이름의 길이를 확인해주세요 : 1자 이상");
         } else if (date.length() < 6) {
@@ -211,6 +293,10 @@ public class CenterSignupActivity extends AppCompatActivity {
             StartToast("전화번호의 길이를 확인해주세요 : 8자 이상");
         } else if (center_region.getText().length() > 4) {
             StartToast("지역을 선택해 주세요");
+        }else if (centerStart_time.contains("시작")) {
+            StartToast("영업 시작 시간을 선택해주세요");
+        }else if (centerEnd_time.contains("마감")) {
+            StartToast("영업 마감 시간을 선택해주세요");
         }
     }
 
