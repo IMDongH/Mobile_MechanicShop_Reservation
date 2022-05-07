@@ -43,6 +43,7 @@ public class CenterSignupActivity extends AppCompatActivity {
                                         "오산", "용인", "의왕", "의정부", "이천",
                                         "파주", "평택", "포천", "하남", "화성"};
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,7 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
                                     center_user = mAuth.getCurrentUser();
-                                    //이름, 생일, 폰번호, 카센터 지역 확인
+                                    //이름, 생일, 폰번호, 카센터지역 올바른지 확인
                                     if (name.length() > 0 && date.length() >= 6 && phone.length() >= 8 && center_region.getText().length()<=4) {
                                         //이름, 생일, 폰번호, 시/군, 카센터 이름을 넘겨줌
                                         SearchCenterName(name, date, phone, center_name.getText().toString(), center_region.getText().toString());
@@ -186,6 +187,10 @@ public class CenterSignupActivity extends AppCompatActivity {
                             .show();
                     break;
                 case R.id.search_button:
+                    if(center_region.getText().toString().length()>=5){
+                        StartToast("지역을 선택해주세요");
+                        break;
+                    }
 
                     break;
             }
