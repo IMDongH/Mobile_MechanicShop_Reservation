@@ -1,5 +1,7 @@
 package com.example.se_project.User;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,9 +14,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.se_project.LoginActivity;
 import com.example.se_project.R;
 import com.example.se_project.User.Search.SearchListViewAdapter;
 import com.example.se_project.User.Search.SearchTitleClass;
+import com.example.se_project.User.Search.UserSearchActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -22,8 +27,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserMainActivity extends AppCompatActivity {
+    final String[] selectOption = {"가평", "고양", "구리", "김포", "남양주",
+            "부천", "성남", "수원", "시흥", "안산",
+            "안양", "양주", "양평", "여주", "연천",
+            "오산", "용인", "의왕", "의정부", "이천",
+            "파주", "평택", "포천", "하남", "화성"};
     private long backKeyPressedTime = 0;
+    private boolean flag = false;
     private Toast terminate_guide_msg;
+    private String region;
     SearchListViewAdapter adapter;
     ListView list;
     SearchView searchView;
@@ -36,25 +48,6 @@ public class UserMainActivity extends AppCompatActivity {
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.hide();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collectionGroup("brand").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                    HashMap = (HashMap<String, Object>) documentSnapshot.getData();
-                    String info = (String) HashMap.get("info");
-                    String title = (String) HashMap.get("title");
-                    SearchTitleClass stc = new SearchTitleClass(title, info);
-                    arraylist.add(stc);
-                    System.out.println("TEST STC : " + stc);
-                }
-                list = findViewById(R.id.listview);
-                adapter = new SearchListViewAdapter(this,arraylist);
-                list.setAdapter(adapter);
-
-                // Locate the EditText in listview_main.xml
-            }
-
-        });
 
         StartActivity(UserMapActivity.class);
 
@@ -98,22 +91,51 @@ public class UserMainActivity extends AppCompatActivity {
         searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("검색어를 입력하세요.");
 
-        searchView.setOnQueryTextListener(queryTextListener);
-
         return super.onCreateOptionsMenu(menu);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-    private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            // 텍스트 입력 후 검색 버튼이 눌렸을 때의 이벤트
-            return false;
+        switch (item.getItemId()){
+            case R.id.LogoutMenu:
+                FirebaseAuth.getInstance().signOut();
+                StartActivity(LoginActivity.class);
+                break;
+            case R.id.SearchMenu:
+                if(flag){
+                    Intent intent = new Intent(this,UserSearchActivity.class);
+                    intent.putExtra("region", region);
+                    startActivity(intent);
+                }
+                else {
+                    selectRegion(item);
+                }
+                break;
+            case R.id.SettingMenu:
+                Toast.makeText(getApplicationContext(), "설정 메뉴", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.Region:
+                selectRegion(item);
+                break;
+            default:
+                break;
         }
-
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            adapter.filter(newText);
-            return false;
-        }
-    };
+        return super.onOptionsItemSelected(item);
+    }
+    public void selectRegion(MenuItem item)
+    {
+        AlertDialog.Builder ad = new AlertDialog.Builder(this);
+        ad.setTitle("지역을 선택하세요")
+                .setItems(selectOption, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        String RG = selectOption[i].toString();
+                        item.setTitle(RG);
+                        flag=!flag;
+                        region =RG;
+                    }
+                })
+                .setCancelable(true)
+                .show();
+    }
 }
