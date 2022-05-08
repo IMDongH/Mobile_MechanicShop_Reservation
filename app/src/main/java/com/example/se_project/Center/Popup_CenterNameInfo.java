@@ -1,10 +1,10 @@
-package com.example.se_project;
+package com.example.se_project.Center;
 
-public class CenterNameInfo {
+public class Popup_CenterNameInfo {
 
     private String centerName;
 
-    public CenterNameInfo(String name) {
+    public Popup_CenterNameInfo(String name) {
         this.centerName = name;
     }
 

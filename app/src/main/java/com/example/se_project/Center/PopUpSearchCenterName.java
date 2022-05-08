@@ -1,4 +1,4 @@
-package com.example.se_project;
+package com.example.se_project.Center;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.example.se_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,9 +27,9 @@ public class PopUpSearchCenterName extends Activity {
     private FirebaseFirestore db;
 
     ListView listView;
-    ListViewAdapter adapter;
+    Popup_ListViewAdapter adapter;
     SearchView editsearch;
-    ArrayList<CenterNameInfo> arraylist = new ArrayList<CenterNameInfo>();
+    ArrayList<Popup_CenterNameInfo> arraylist = new ArrayList<Popup_CenterNameInfo>();
 
     String result_CenterName;
 
@@ -53,12 +54,12 @@ public class PopUpSearchCenterName extends Activity {
                         if (document.exists()) {
 
                             String CenterName = (String) document.getData().get("자동차정비업체명");
-                            CenterNameInfo data = new CenterNameInfo(CenterName);
+                            Popup_CenterNameInfo data = new Popup_CenterNameInfo(CenterName);
                             arraylist.add(data);
                         }
                     }
                     listView = findViewById(R.id.listview);
-                    adapter = new ListViewAdapter(getApplicationContext(),arraylist);
+                    adapter = new Popup_ListViewAdapter(getApplicationContext(),arraylist);
                     listView.setAdapter(adapter);
 
                     // 서치바 안에 텍스트가 바뀔 때
