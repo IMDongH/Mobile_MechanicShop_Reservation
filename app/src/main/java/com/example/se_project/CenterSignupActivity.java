@@ -12,11 +12,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se_project.Center.CenterInfoClass;
+import com.example.se_project.Center.CenterMainActivity;
 import com.example.se_project.User.UserMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,7 +34,7 @@ import java.util.Calendar;
 
 public class CenterSignupActivity extends AppCompatActivity {
 
-    private static final String TAG = "CenterSignupActivity";
+    private static final String TAG = "카센터 회원가입 Activity";
 
     private FirebaseAuth mAuth;
     private FirebaseUser center_user;
@@ -41,11 +43,11 @@ public class CenterSignupActivity extends AppCompatActivity {
     TextView center_region;
     TextView center_name;
 
-    final String[] selectOption = {"가평", "고양", "구리", "김포", "남양주",
-                                        "부천", "성남", "수원", "시흥", "안산",
-                                        "안양", "양주", "양평", "여주", "연천",
-                                        "오산", "용인", "의왕", "의정부", "이천",
-                                        "파주", "평택", "포천", "하남", "화성"};
+    final String[] selectOption = {"가평군", "고양시", "구리시", "김포시", "남양주시",
+                                        "부천시", "성남시", "수원시", "시흥시", "안산시",
+                                        "안양시", "양주시", "양평군", "여주시", "연천군",
+                                        "오산시", "용인시", "의왕시", "의정부시", "이천시",
+                                        "파주시", "평택시", "포천시", "하남시", "화성시"};
 
 
     @Override
@@ -59,7 +61,10 @@ public class CenterSignupActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        //지역선택, 카센터이름검색, 영업시작시간, 영업마감시간, 회원가입 버튼 이벤트들
+        center_region = findViewById(R.id.center_region);
+        center_name = findViewById(R.id.center_name);
+
+        //지역선택, 카센터이름검색, 영업시작시간, 영업마감시간, 회원가입 버튼 이벤트
         findViewById(R.id.centerStartTime).setOnClickListener(onClickListener);
         findViewById(R.id.centerEndTime).setOnClickListener(onClickListener);
         findViewById(R.id.select_button).setOnClickListener(onClickListener);
@@ -94,11 +99,12 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
                                     center_user = mAuth.getCurrentUser();
-                                    //이름, 생일, 폰번호, 영업시간, 마감시간, 지역 올바른지 확인
+                                    //이름, 생일, 폰번호, 영업시간, 마감시간, 지역, 카센터이름 올바른지 확인
                                     if (name.length() > 0 && date.length() >= 6 && phone.length() >= 8
                                             && centerStart_time.contains("분")
                                             && centerEnd_time.contains("분")
-                                            && center_region.getText().length() <=4) {
+                                            && center_region.getText().length() <=4
+                                            && !center_name.getText().toString().contains("이름")) {
                                         //이름, 생일, 폰번호, 영업시간, 마감시간, 시/군, 카센터 이름을 넘겨줌
                                         //마지막 카센터 이름 검색을 위해 호출한다.
                                         SearchCenterName(name, date, phone,
@@ -140,11 +146,12 @@ public class CenterSignupActivity extends AppCompatActivity {
                             String CenterName = (String) document.getData().get("자동차정비업체명");
                             // 일치하는 카센터 이름 검사
                             if (CenterName.equals(center_name)) {
+                                Log.e(TAG,center_name);
 
                                 String RoadName_Address = (String) document.getData().get("소재지도로명주소");
                                 double Longitude = (double) document.getData().get("경도");
                                 double Latitude = (double) document.getData().get("위도");
-                                double type = (double) document.getData().get("자동차정비업체종류");
+                                long type = (long) document.getData().get("자동차정비업체종류");
 
                                 CenterInfoClass center_Info = new CenterInfoClass(name, date, phone,
                                                                                     StartTime, EndTime,
@@ -168,7 +175,7 @@ public class CenterSignupActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         StartToast("회원가입에 성공하였습니다.");
-                        StartActivity(UserMainActivity.class);
+                        StartActivity(CenterMainActivity.class);
                         finish();
                     }
                 })
@@ -185,8 +192,8 @@ public class CenterSignupActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // view에서 id를 받아오는데
             switch (view.getId()) {
+
                 // 회원가입 버튼
                 case R.id.RegisterButton:
                     SignUp();
@@ -253,7 +260,6 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int i) {
                                     String item = selectOption[i].toString();
                                     //센터 지역이름 텍스트뷰
-                                    center_region = findViewById(R.id.center_region);
                                     center_region.setText(item);
                                 }
                             })
@@ -267,14 +273,27 @@ public class CenterSignupActivity extends AppCompatActivity {
                         StartToast("지역을 먼저 선택해주세요");
                         break;
                     }
-                    //센터이름 텍스트뷰
-                    center_name =  findViewById(R.id.center_name);
-
-
+                    // 카센터 이름을 가져오기 위해 팝업 activity 실행
+                    Intent intent = new Intent(getApplicationContext(), PopUpSearchCenterName.class);
+                    intent.putExtra("region", center_region.getText().toString());
+                    startActivityForResult(intent,100);
                     break;
             }
         }
     };
+
+    //팝업 activity로 가져온 카센터 이름을 처리한다
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 100){
+            if (data != null){
+                String center_title = data.getStringExtra("name");
+                center_name.setText(center_title);
+            }
+        }
+    }
 
     private void CheckSignUpMemberInfoCondition(String name, String date, String phone) {
         // 메서드가 호출되는 시점에는 회원가입이 이루어진 상태이다.
@@ -292,7 +311,9 @@ public class CenterSignupActivity extends AppCompatActivity {
         } else if (phone.length() < 8) {
             StartToast("전화번호의 길이를 확인해주세요 : 8자 이상");
         } else if (center_region.getText().length() > 4) {
-            StartToast("지역을 선택해 주세요");
+            StartToast("지역을 선택해주세요");
+        }else if (center_name.getText().toString().contains("이름")) {
+            StartToast("이름을 검색해주세요");
         }else if (centerStart_time.contains("시작")) {
             StartToast("영업 시작 시간을 선택해주세요");
         }else if (centerEnd_time.contains("마감")) {

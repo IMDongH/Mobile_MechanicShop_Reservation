@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_item"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/Brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정비소 이름 : " />
+
+    <TextView
+        android:id="@+id/centerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/Brand" />
+
+</RelativeLayout>

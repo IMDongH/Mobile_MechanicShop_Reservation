@@ -13,12 +13,12 @@ public class CenterInfoClass {
     private String CenterName;
     private double longitude;
     private double Latitude ;
-    private double type;
+    private long type;
 
-    public CenterInfoClass(String name, String phone, String date,
+    public CenterInfoClass(String name, String date, String phone,
                            String startTime, String endTime,
-                           String roadName_Address, String centerName,
-                           double longitude, double latitude, double type) {
+                           String centerName, String roadName_Address,
+                           double longitude, double latitude, long type) {
         this.name = name;
         this.phone = phone;
         this.date = date;
@@ -103,11 +103,11 @@ public class CenterInfoClass {
         Latitude = latitude;
     }
 
-    public double getType() {
+    public long getType() {
         return type;
     }
 
-    public void setType(double type) {
+    public void setType(long type) {
         this.type = type;
     }
 
