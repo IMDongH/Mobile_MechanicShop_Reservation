@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se_project.LoginActivity;
@@ -21,8 +20,6 @@ import com.example.se_project.User.Search.SearchListViewAdapter;
 import com.example.se_project.User.Search.SearchTitleClass;
 import com.example.se_project.User.Search.UserSearchActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +42,7 @@ public class UserMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+        setContentView(R.layout.activity_user_main);
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.hide();
 
