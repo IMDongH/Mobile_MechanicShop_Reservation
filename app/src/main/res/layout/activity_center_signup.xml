@@ -15,12 +15,13 @@
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
+
         <TextView
             android:id="@+id/RegisterText"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:gravity="center"
-            android:text="회원가입"
+            android:text="사업자 회원가입"
             android:textColor="#000000"
             android:textSize="24sp" />
 
@@ -33,6 +34,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="로그인 정보"
+                    android:textColor="#673AB7" />
 
                 <EditText
                     android:id="@+id/EmailEditText"
@@ -62,7 +72,6 @@
                     android:inputType="textPassword" />
 
                 <TextView
-                    android:id="@+id/Seperator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -93,6 +102,77 @@
                     android:ems="10"
                     android:hint="전화번호"
                     android:inputType="phone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="정비소 정보"
+                    android:textColor="#673AB7" />
+
+                <EditText
+                    android:id="@+id/centerStartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="영업 시작 시간"
+                    android:textSize="15sp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false" />
+
+                <EditText
+                    android:id="@+id/centerEndTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="영업 마감 시간"
+                    android:textSize="15sp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/center_region"
+                        android:layout_width="210dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="지역 ex) 김포시/가평군"
+                        android:textStyle="bold"/>
+
+                    <Button
+                        android:id="@+id/select_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="지역선택"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/center_name"
+                        android:layout_width="210dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="정비소 이름"
+                        android:textStyle="bold"/>
+
+                    <Button
+                        android:id="@+id/search_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="검색하기" />
+                </LinearLayout>
+
 
                 <Button
                     android:id="@+id/RegisterButton"

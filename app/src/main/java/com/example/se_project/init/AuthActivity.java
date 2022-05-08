@@ -37,7 +37,10 @@ public class AuthActivity  extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+        //임시
+        StartActivity(LoginActivity.class);
 
+/*
         if(user != null){
             // 로그인이 되어있다면 회원 정보가 등록됐는지 본다.
             String[] temp = {"users", "enterprises"};
@@ -81,6 +84,8 @@ public class AuthActivity  extends AppCompatActivity {
         }
         else
             StartActivity(LoginActivity.class);
+
+ */
     }
 
     private void StartActivity(Class c) {
