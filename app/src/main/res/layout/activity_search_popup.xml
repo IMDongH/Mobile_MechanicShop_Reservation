@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="400dp"
-    android:background="#ffffff"
+    android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".PopUpSearchCenterName">
 
@@ -18,7 +18,8 @@
             android:id="@+id/search"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false">
+            android:iconifiedByDefault="false"
+            android:searchIcon="@drawable/ic_noun_search_4810262">
 
             <requestFocus />
         </SearchView>

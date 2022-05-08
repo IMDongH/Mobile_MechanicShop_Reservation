@@ -36,7 +36,7 @@ public class PopUpSearchCenterName extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature( Window.FEATURE_NO_TITLE ); // 액션바 제거
-        setContentView(R.layout.activity_search_center_name);
+        setContentView(R.layout.activity_search_popup);
 
         db = FirebaseFirestore.getInstance();
 
