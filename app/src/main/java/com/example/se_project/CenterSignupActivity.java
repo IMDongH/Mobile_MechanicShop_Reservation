@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se_project.Center.CenterInfoClass;
 import com.example.se_project.Center.CenterMainActivity;
-import com.example.se_project.User.UserMainActivity;
+import com.example.se_project.Center.PopUpSearchCenterName;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
