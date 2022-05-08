@@ -34,6 +34,8 @@
         <activity android:name=".init.Password_Init_Activity" />
         <activity android:name=".init.SignUpActivity" />
         <activity android:name=".User.UserMainActivity" />
+        <activity android:name=".User.Search.UserSearchActivity"
+            android:parentActivityName=".User.UserMainActivity"/>
         <activity android:name=".UserSignupActivity" />
         <activity android:name=".Center.CenterMainActivity" />
         <activity android:name=".CenterSignupActivity" />

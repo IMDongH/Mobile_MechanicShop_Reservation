@@ -9,7 +9,6 @@
 
     <item android:id="@+id/SearchMenu"
         android:icon="@drawable/ic_search"
-        app:actionViewClass="android.widget.SearchView"
         android:title="검색"
         app:showAsAction="always"
         />

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,13 +28,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserMainActivity extends AppCompatActivity {
-    final String[] selectOption = {"가평", "고양", "구리", "김포", "남양주",
-            "부천", "성남", "수원", "시흥", "안산",
-            "안양", "양주", "양평", "여주", "연천",
-            "오산", "용인", "의왕", "의정부", "이천",
-            "파주", "평택", "포천", "하남", "화성"};
+    final String[] selectOption = {"가평군", "고양시", "구리시", "김포시", "남양주시",
+            "부천시", "성남시", "수원시", "시흥시", "안산시",
+            "안양시", "양주시", "양평군", "여주시", "연천군시",
+            "오산시", "용인시", "의왕시", "의정부시", "이천시",
+            "파주시", "평택시", "포천시", "하남시", "화성시"};
     private long backKeyPressedTime = 0;
-    private boolean flag = false;
+    private int flag = 0;
     private Toast terminate_guide_msg;
     private String region;
     SearchListViewAdapter adapter;
@@ -89,7 +90,6 @@ public class UserMainActivity extends AppCompatActivity {
 
         MenuItem menuItem = menu.findItem(R.id.SearchMenu);
         searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("검색어를 입력하세요.");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -102,13 +102,15 @@ public class UserMainActivity extends AppCompatActivity {
                 StartActivity(LoginActivity.class);
                 break;
             case R.id.SearchMenu:
-                if(flag){
+                if(flag==1){
+                    Log.d("TEST","test"+flag);
                     Intent intent = new Intent(this,UserSearchActivity.class);
                     intent.putExtra("region", region);
                     startActivity(intent);
                 }
                 else {
-                    selectRegion(item);
+                    Log.d("TEST","test"+flag);
+                    StartToast("지역을 선택해주세요.");
                 }
                 break;
             case R.id.SettingMenu:
@@ -131,11 +133,14 @@ public class UserMainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int i) {
                         String RG = selectOption[i].toString();
                         item.setTitle(RG);
-                        flag=!flag;
+                        flag=1;
                         region =RG;
                     }
                 })
                 .setCancelable(true)
                 .show();
+    }
+    private void StartToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
