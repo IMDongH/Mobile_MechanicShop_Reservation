@@ -6,8 +6,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.se_project.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -47,7 +49,7 @@ public class UserMapActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(final GoogleMap googleMap){
         mMap = googleMap;
-        db.collection("CarCenter").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("성남시").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
@@ -56,7 +58,7 @@ public class UserMapActivity extends AppCompatActivity implements OnMapReadyCall
                     for (QueryDocumentSnapshot document:task.getResult()){
                         if (document.exists()){
                             String address = (String) document.getData().get("소재지도로명주소");
-                            if (address != null &&address.contains("성남시")&&address.contains("수정구")){
+                            if (address != null &&address.contains("수정구")){
                                 double latitude = (double)document.getData().get("위도");
                                 double longitude = (double)document.getData().get("경도");
 
@@ -89,6 +91,11 @@ public class UserMapActivity extends AppCompatActivity implements OnMapReadyCall
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Log.d("TAG","reserve pressed");
+                                    Bundle dataBundle = new Bundle();
+                                    dataBundle.putString("centerName",marker.getTitle());
+                                    dataBundle.putString("centerAddress",marker.getSnippet());
+                                    Intent intent = new Intent(getApplicationContext(),UserCarCenterReservationActivity.class);
+                                    startActivity(intent);
                                     dialogInterface.dismiss();
                                 }
                             });
@@ -129,5 +136,18 @@ public class UserMapActivity extends AppCompatActivity implements OnMapReadyCall
         });
 
 
+    }
+
+    private void StartActivity(Class c) {
+        Intent intent = new Intent(this, c);
+        // 동일한 창이 여러번 뜨게 만드는 것이 아니라 기존에 켜져있던 창을 앞으로 끌어와주는 기능.
+        // 이 플래그를 추가하지 않을 경우 창들이 중복돼서 계속 팝업되게 된다.
+        // 메인화면을 띄우는 모든 코드에서 이 플래그를 추가해줘야 하는 것 같다.
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void StartToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

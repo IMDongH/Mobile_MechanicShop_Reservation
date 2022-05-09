@@ -1,4 +1,4 @@
-package com.example.se_project;
+package com.example.se_project.Center;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,26 +9,28 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.se_project.R;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ListViewAdapter extends BaseAdapter  {
+public class Popup_ListViewAdapter extends BaseAdapter  {
 
     private static final String TAG = "팝업 어뎁터";
 
     // Declare Variables
     Context mContext;
     LayoutInflater inflater;
-    private ArrayList<CenterNameInfo> SearchedList;
-    private ArrayList<CenterNameInfo> DataList;
+    private ArrayList<Popup_CenterNameInfo> SearchedList;
+    private ArrayList<Popup_CenterNameInfo> DataList;
     RelativeLayout itemList;
 
-    public ListViewAdapter(Context context, ArrayList<CenterNameInfo> dataList) {
+    public Popup_ListViewAdapter(Context context, ArrayList<Popup_CenterNameInfo> dataList) {
         mContext = context;
         // 인플레이터 초기화인듯
         inflater = LayoutInflater.from(mContext);
-        this.SearchedList = new ArrayList<CenterNameInfo>();
-        this.DataList = new ArrayList<CenterNameInfo>();
+        this.SearchedList = new ArrayList<Popup_CenterNameInfo>();
+        this.DataList = new ArrayList<Popup_CenterNameInfo>();
         this.DataList.addAll(dataList);
         Log.e(TAG, "ListViewAdapter: " + DataList.size());
     }
@@ -43,7 +45,7 @@ public class ListViewAdapter extends BaseAdapter  {
         if (itemview == null) {
             holder = new ViewHolder();
             //inflater를 이용하여 리스트 뷰 안에 들어갈 아이템 뷰를 메모리 위에 할당
-            itemview = inflater.inflate(R.layout.popuplistitem, null);
+            itemview = inflater.inflate(R.layout.activity_search_popup_item, null);
             // 아이템뷰에서 TextView를 찾는다
             holder.itemTextView = (TextView) itemview.findViewById(R.id.centerName);
             itemview.setTag(holder);
@@ -72,7 +74,7 @@ public class ListViewAdapter extends BaseAdapter  {
             notifyDataSetChanged();
         } else {
             SearchedList.clear();
-            for (CenterNameInfo wp : DataList) {
+            for (Popup_CenterNameInfo wp : DataList) {
                 if (wp.getCenterName().toLowerCase(Locale.getDefault()).contains(SearchedText)) {
                     SearchedList.add(wp);
                     System.out.println("test : "+wp.getCenterName());
@@ -94,7 +96,7 @@ public class ListViewAdapter extends BaseAdapter  {
     }
 
     @Override
-    public CenterNameInfo getItem(int position) {
+    public Popup_CenterNameInfo getItem(int position) {
         return SearchedList.get(position);
     }
 
