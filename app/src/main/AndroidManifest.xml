@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SE_Project">
         <activity
+            android:name=".User.UserCarCenterReservationActivity"
+            android:exported="false" />
+        <activity
             android:name=".Center.PopUpSearchCenterName"
             android:exported="false"
             android:theme="@android:style/Theme.Dialog" />
@@ -40,8 +43,9 @@
         <activity android:name=".init.Password_Init_Activity" />
         <activity android:name=".init.SignUpActivity" />
         <activity android:name=".User.UserMainActivity" />
-        <activity android:name=".User.Search.UserSearchActivity"
-            android:parentActivityName=".User.UserMainActivity"/>
+        <activity
+            android:name=".User.Search.UserSearchActivity"
+            android:parentActivityName=".User.UserMainActivity" />
         <activity android:name=".UserSignupActivity" />
         <activity android:name=".Center.CenterMainActivity" />
         <activity android:name=".CenterSignupActivity" />
