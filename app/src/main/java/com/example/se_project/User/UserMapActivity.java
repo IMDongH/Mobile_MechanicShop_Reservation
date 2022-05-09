@@ -47,7 +47,7 @@ public class UserMapActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(final GoogleMap googleMap){
         mMap = googleMap;
-        db.collection("CarCenter").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("성남시").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
@@ -56,7 +56,7 @@ public class UserMapActivity extends AppCompatActivity implements OnMapReadyCall
                     for (QueryDocumentSnapshot document:task.getResult()){
                         if (document.exists()){
                             String address = (String) document.getData().get("소재지도로명주소");
-                            if (address != null &&address.contains("성남시")&&address.contains("수정구")){
+                            if (address != null &&address.contains("수정구")){
                                 double latitude = (double)document.getData().get("위도");
                                 double longitude = (double)document.getData().get("경도");
 
