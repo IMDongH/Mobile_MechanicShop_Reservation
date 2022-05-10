@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/font/advent_pro_semibold.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_calendertest.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_center_signup.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_loading.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_login.xml" value="0.20833333333333334" />
@@ -12,6 +13,8 @@
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_search_center_name.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_search_fragment.xml" value="0.25" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_signup.xml" value="0.2046875" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_user_car_center_reservation.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_user_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_user_map.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_user_signup.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/list_view_items.xml" value="0.36614583333333334" />
@@ -22,13 +25,11 @@
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/closet.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/post_menu.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/setting_menu.xml" value="0.36614583333333334" />
-        <entry key="app/src/main/res/layout/activity_center_signup.xml" value="0.282756153051404" />
+        <entry key="app/src/main/res/layout/activity_center_signup.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_loading.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_password_init.xml" value="0.182518115942029" />
-        <entry key="app/src/main/res/layout/activity_search_.xml" value="0.27447916666666666" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.182518115942029" />
-        <entry key="app/src/main/res/layout/activity_user_car_center_reservation.xml" value="0.27447916666666666" />
         <entry key="app/src/main/res/layout/activity_user_map.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_user_signup.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/test.xml" value="0.1" />

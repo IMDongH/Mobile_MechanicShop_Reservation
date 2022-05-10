@@ -28,9 +28,6 @@
             android:value="AIzaSyD-ujMXjQpkzZ9tW-693TbnJVcOglgHjCM" />
 
         <activity
-            android:name=".User.UserMapActivity"
-            android:exported="true" />
-        <activity
             android:name=".init.AuthActivity"
             android:exported="true">
             <intent-filter>
@@ -49,6 +46,7 @@
         <activity android:name=".UserSignupActivity" />
         <activity android:name=".Center.CenterMainActivity" />
         <activity android:name=".CenterSignupActivity" />
+        <activity android:name=".User.calenderTest" />
     </application>
 
 </manifest>

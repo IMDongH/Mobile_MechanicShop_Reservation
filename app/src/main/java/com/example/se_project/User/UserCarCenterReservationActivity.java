@@ -31,7 +31,7 @@ public class UserCarCenterReservationActivity extends AppCompatActivity {
         actionBar.hide();
 
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+
         centerName = intent.getStringExtra("centerName");
         centerAddress = intent.getStringExtra("centerAddress");
         TextView carcenterReservationTitle = findViewById(R.id.carcenterReservationTitle);
