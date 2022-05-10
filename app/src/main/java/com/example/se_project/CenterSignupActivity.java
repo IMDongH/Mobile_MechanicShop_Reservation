@@ -44,10 +44,10 @@ public class CenterSignupActivity extends AppCompatActivity {
     TextView center_name;
 
     final String[] selectOption = {"가평군", "고양시", "구리시", "김포시", "남양주시",
-                                        "부천시", "성남시", "수원시", "시흥시", "안산시",
-                                        "안양시", "양주시", "양평군", "여주시", "연천군",
-                                        "오산시", "용인시", "의왕시", "의정부시", "이천시",
-                                        "파주시", "평택시", "포천시", "하남시", "화성시"};
+            "부천시", "성남시", "수원시", "시흥시", "안산시",
+            "안양시", "양주시", "양평군", "여주시", "연천군",
+            "오산시", "용인시", "의왕시", "의정부시", "이천시",
+            "파주시", "평택시", "포천시", "하남시", "화성시"};
 
 
     @Override
@@ -108,10 +108,10 @@ public class CenterSignupActivity extends AppCompatActivity {
                                         //이름, 생일, 폰번호, 영업시간, 마감시간, 시/군, 카센터 이름을 넘겨줌
                                         //마지막 카센터 이름 검색을 위해 호출한다.
                                         SearchCenterName(name, date, phone,
-                                                        centerStart_time,
-                                                        centerEnd_time,
-                                                        center_name.getText().toString(),
-                                                        center_region.getText().toString());
+                                                centerStart_time,
+                                                centerEnd_time,
+                                                center_name.getText().toString(),
+                                                center_region.getText().toString());
                                     } else {
                                         CheckSignUpMemberInfoCondition(name, date, phone);
                                     }
@@ -154,9 +154,9 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 long type = (long) document.getData().get("자동차정비업체종류");
 
                                 CenterInfoClass center_Info = new CenterInfoClass(name, date, phone,
-                                                                                    StartTime, EndTime,
-                                                                                    CenterName, RoadName_Address,
-                                                                                    Longitude, Latitude, type);
+                                        StartTime, EndTime,
+                                        CenterName, RoadName_Address,
+                                        Longitude, Latitude, type);
                                 dbInsertion(center_Info);
                                 break;
                             }
