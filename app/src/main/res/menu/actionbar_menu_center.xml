@@ -10,4 +10,9 @@
         android:title="로그아웃"
         app:showAsAction="never" />
 
+    <item android:id="@+id/calendar"
+        android:icon="@drawable/ic_baseline_calendar_month_24"
+        android:title="검색"
+        app:showAsAction="always" />
+
 </menu>
