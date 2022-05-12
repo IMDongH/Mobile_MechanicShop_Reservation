@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SE_Project">
         <activity
+            android:name=".User.PopUpCenterInfo"
+            android:exported="false"
+            android:theme="@android:style/Theme.Dialog"/>
+        <activity
             android:name=".User.UserCarCenterReservationActivity"
             android:exported="false" />
         <activity
