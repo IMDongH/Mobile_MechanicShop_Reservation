@@ -93,18 +93,15 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 //    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
 //    private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
 //    private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
-
     // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
 //    private static final int PERMISSIONS_REQUEST_CODE = 100;
 //    boolean needRequest = false;
-
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
 //    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
 //
 //    Location mCurrentLocatiion;
 //    LatLng currentPosition;
 //    String curAddress;
-
 //    private FusedLocationProviderClient mFusedLocationClient;
 //    private LocationRequest locationRequest;
 //    private Location location;
@@ -319,49 +316,72 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                 markerOptions.title(centerName);
                                 markerOptions.snippet(address);
                                 mMap.addMarker(markerOptions);
-                                Log.d("TAG","DocumentSnapshot data: "+document.getData());
+                                Log.d(TAG,"DocumentSnapshot data: "+document.getData());
                             }
                         }else{
-                            Log.d("TAG","No document");
+                            Log.d(TAG,"No document");
                         }
 
                     }
                     double gachonLat = 37.4500;
                     double gachonLon = 127.1288;
                     LatLng gachon = new LatLng(gachonLat, gachonLon);
+                    MarkerOptions curPosition = new MarkerOptions();
+                    curPosition.position(gachon);
+                    curPosition.title("내 위치");
+                    mMap.addMarker(curPosition);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gachon, 15));
+                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                        @Override
+                        public void onInfoWindowClick(@NonNull Marker marker) {
+                            Log.d(TAG,"Info window click :"+marker.getTitle());
+                            if (!marker.getTitle().equals("내 위치")){
+                                Bundle data = new Bundle();
+                                data.putString("centername",marker.getTitle());
+                                data.putString("address",marker.getSnippet());
+                                data.putString("phone","01000001111");
+                                Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
+                                intent.putExtras(data);
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
                     mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(@NonNull Marker marker) {
-                            androidx.appcompat.app.AlertDialog.Builder ad = new androidx.appcompat.app.AlertDialog.Builder(UserMainActivity.this);
-                            ad.setIcon(R.mipmap.ic_launcher);
-                            ad.setTitle(marker.getTitle());
-                            ad.setMessage(marker.getSnippet());
-                            ad.setPositiveButton("Reserve", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Log.d("TAG","reserve pressed");
-
-                                    Intent intent = new Intent(getApplicationContext(),calenderTest.class);
-                                    intent.putExtra("centerName",marker.getTitle());
-                                    intent.putExtra("centerAddress",marker.getSnippet());
-                                    startActivity(intent);
-                                    dialogInterface.dismiss();
-                                }
-                            });
-
-                            ad.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Log.d("TAG","Close button pressed");
-                                    dialogInterface.dismiss();
-                                }
-                            });
-                            ad.show();
+                            Log.d(TAG,marker.getTitle()+" : "+marker.getSnippet());
+//                            androidx.appcompat.app.AlertDialog.Builder ad = new androidx.appcompat.app.AlertDialog.Builder(UserMainActivity.this);
+//                            ad.setIcon(R.mipmap.ic_launcher);
+//                            ad.setTitle(marker.getTitle());
+//                            ad.setMessage(marker.getSnippet());
+//                            ad.setPositiveButton("Reserve", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    Log.d("TAG","reserve pressed");
+//
+//                                    Intent intent = new Intent(getApplicationContext(),calenderTest.class);
+//                                    intent.putExtra("centerName",marker.getTitle());
+//                                    intent.putExtra("centerAddress",marker.getSnippet());
+//                                    startActivity(intent);
+//                                    dialogInterface.dismiss();
+//                                }
+//                            });
+//
+//                            ad.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    Log.d("TAG","Close button pressed");
+//                                    dialogInterface.dismiss();
+//                                }
+//                            });
+//                            ad.show();
 
                             return false;
                         }
                     });
+
+
 
 
                 }else{
