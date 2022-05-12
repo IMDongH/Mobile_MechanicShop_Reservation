@@ -104,7 +104,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 //    LatLng currentPosition;
 //    String curAddress;
 
-//    private FusedLocationProviderClient mFusedLocationClient;
+    //    private FusedLocationProviderClient mFusedLocationClient;
 //    private LocationRequest locationRequest;
 //    private Location location;
 //
