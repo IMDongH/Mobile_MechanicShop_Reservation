@@ -1,56 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.se_project">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.SE_Project">
-        <activity
-            android:name=".User.PopUpCenterInfo"
-            android:exported="false"
-            android:theme="@android:style/Theme.Dialog"/>
-        <activity
-            android:name=".User.UserCarCenterReservationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Center.PopUpSearchCenterName"
-            android:exported="false"
-            android:theme="@android:style/Theme.Dialog" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD-ujMXjQpkzZ9tW-693TbnJVcOglgHjCM" />
-
-        <activity
-            android:name=".init.AuthActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".init.Password_Init_Activity" />
-        <activity android:name=".init.SignUpActivity" />
-        <activity android:name=".User.UserMainActivity" />
-        <activity
-            android:name=".User.Search.UserSearchActivity"
-            android:parentActivityName=".User.UserMainActivity" />
-        <activity android:name=".UserSignupActivity" />
-        <activity android:name=".Center.CenterMainActivity" />
-        <activity android:name=".CenterSignupActivity" />
-        <activity android:name=".User.calenderTest" />
-    </application>
-
-</manifest>
+    <?xml version="1.0" encoding="utf-8"?>
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.example.se_project">
+    
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    
+        <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.SE_Project">
+            <activity
+                android:name=".User.UserCarCenterReservationActivity"
+                android:exported="false" />
+            <activity
+                android:name=".Center.PopUpSearchCenterName"
+                android:exported="false"
+                android:theme="@android:style/Theme.Dialog" />
+    
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyD-ujMXjQpkzZ9tW-693TbnJVcOglgHjCM" />
+    
+            <activity
+                android:name=".init.AuthActivity"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+    
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+            <activity android:name=".LoginActivity" />
+            <activity android:name=".init.Password_Init_Activity" />
+            <activity android:name=".init.SignUpActivity" />
+            <activity android:name=".User.UserMainActivity" />
+            <activity
+                android:name=".User.Search.UserSearchActivity"
+                android:parentActivityName=".User.UserMainActivity" />
+            <activity android:name=".UserSignupActivity" />
+            <activity android:name=".Center.CenterMainActivity" />
+            <activity android:name=".CenterSignupActivity" />
+            <activity android:name=".User.calenderTest" />
+        </application>
+    
+    </manifest>
