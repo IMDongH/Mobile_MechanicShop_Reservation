@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.se_project.R;
 
@@ -28,10 +30,19 @@ public class PopUpCenterInfo extends Activity {
         address = data.getString("centerAddress");
         phone = data.getString("phone");
 
+        TextView centerNameTextView = findViewById(R.id.centerNameTextView);
+        TextView centerAddressTextView = findViewById(R.id.centerAddressTextView);
+
+        centerNameTextView.setText(centerName);
+        centerAddressTextView.setText(address);
+
         Button reserveButton = findViewById(R.id.reserveButton);
         Button cancelButton = findViewById(R.id.exitButton);
+        Button phoneButton = findViewById(R.id.phoneCallButton);
+
         reserveButton.setOnClickListener(onClickListener);
         cancelButton.setOnClickListener(onClickListener);
+        phoneButton.setOnClickListener(onClickListener);
 
 
     }
@@ -49,6 +60,9 @@ public class PopUpCenterInfo extends Activity {
                 case R.id.exitButton:
                     finish();
                     break;
+                case R.id.phoneCallButton:
+                    Intent callIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(phone));
+                    startActivity(callIntent);
             }
         }
     };
