@@ -63,7 +63,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 //import com.google.android.gms.location.LocationServices;
 //import com.google.android.gms.location.LocationSettingsRequest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 //import java.util.List;
@@ -342,7 +341,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Log.d("TAG","reserve pressed");
 
-                                    Intent intent = new Intent(getApplicationContext(),calenderTest.class);
+                                    Intent intent = new Intent(getApplicationContext(), UserReservationActivityInit.class);
                                     intent.putExtra("centerName",marker.getTitle());
                                     intent.putExtra("centerAddress",marker.getSnippet());
                                     startActivity(intent);

@@ -15,9 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SE_Project">
-        <activity
-            android:name=".User.UserCarCenterReservationActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Center.PopUpSearchCenterName"
             android:exported="false"
@@ -46,7 +44,9 @@
         <activity android:name=".UserSignupActivity" />
         <activity android:name=".Center.CenterMainActivity" />
         <activity android:name=".CenterSignupActivity" />
-        <activity android:name=".User.calenderTest" />
+        <activity android:name=".User.UserReservationActivityInit"/>
+        <activity
+            android:name=".User.UserReservationActivity"/>
     </application>
 
 </manifest>

@@ -51,7 +51,7 @@
             android:text="로그인" />
 
             <RadioGroup android:id="@+id/radioGroup" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent">
-            <RadioButton android:text="손님" android:id="@+id/user" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:text="손님" android:id="@+id/user" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"/>
             <RadioButton  android:text="정비소" android:id="@+id/center" android:layout_width="wrap_content" android:layout_height="wrap_content" />
         </RadioGroup>
 
