@@ -3,29 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="250dp"
-    android:layout_height="130dp"
+    android:layout_height="150dp"
     android:background="@color/white"
     android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
     tools:context=".User.PopUpCenterInfo">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginBottom="10dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/car_center_icon"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/centerNameTextView"
             android:text="CarcenterName"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:gravity="center"
             android:textStyle="bold"/>
     </LinearLayout>
 
@@ -33,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="address"
+        android:gravity="center"
         android:id="@+id/centerAddressTextView"/>
 
     <LinearLayout
