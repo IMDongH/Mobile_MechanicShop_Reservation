@@ -241,6 +241,9 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
             case R.id.SettingMenu:
                 Toast.makeText(getApplicationContext(), "설정 메뉴", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.reservationCheck:
+                StartActivity(UserReservationList.class);
+                break;
             case R.id.Region:
                 selectRegion(item);
                 break;

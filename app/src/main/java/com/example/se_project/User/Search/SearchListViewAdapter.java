@@ -81,7 +81,7 @@ public class SearchListViewAdapter extends BaseAdapter {
         itemList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //띄워주는 부분
+
             }
         });
         return view;

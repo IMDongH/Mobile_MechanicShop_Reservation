@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SE_Project">
         <activity
-            android:name=".User.UserReservationActivityInit"
+            android:name=".User.UserReservationActivity"
             android:exported="false" />
         <activity
             android:name=".Center.PopUpSearchCenterName"
@@ -48,6 +48,7 @@
             android:name=".User.Search.UserSearchActivity"
             android:parentActivityName=".User.UserMainActivity" />
         <activity android:name=".UserSignupActivity" />
+        <activity android:name=".User.UserReservationList" />
         <activity android:name=".Center.CenterMainActivity" />
         <activity android:name=".CenterSignupActivity" />
 

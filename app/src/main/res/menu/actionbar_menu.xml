@@ -21,5 +21,8 @@
     <item android:id="@+id/LogoutMenu"
         android:title="로그아웃"
         app:showAsAction="never" />
+    <item android:id="@+id/reservationCheck"
+        android:title="예약관리"
+        app:showAsAction="never" />
 
 </menu>
