@@ -41,7 +41,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class UserReservationActivityInit extends AppCompatActivity
 {
@@ -60,7 +62,9 @@ public class UserReservationActivityInit extends AppCompatActivity
     Button complete_Btn;
     String centerName, centerAddress;
     String Date;
-    String[] time = {"예약 시간 선택","테스트 할랭"};
+
+    ArrayList<String> time = new ArrayList<>();
+
     String[] content = {"예약 목적 선택","자동차 수리","부품 교체", "자동차 검사"};
     UserReservationInfo info = new UserReservationInfo();
     @Override
@@ -69,7 +73,7 @@ public class UserReservationActivityInit extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reservation_init);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+        time.add("예약 시간 선택");
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         //Date 객체 사용
@@ -109,8 +113,109 @@ public class UserReservationActivityInit extends AppCompatActivity
 
                                 String start = (String) document.getData().get("startTime");
                                 String end = (String) document.getData().get("endTime");
-                                System.out.println("결과 : " + start);
-                                System.out.println("결과 : " + end);
+                                int startH;
+                                int startM;
+                                int endH;
+                                int endM;
+                                int openH;
+                                int openM;
+
+                                String[] startT = start.split(" ");
+
+                                if(startT[0].equals("AM")){
+                                    String intStr = startT[1].replaceAll("[^0-9]", "");
+                                    startH=Integer.parseInt(intStr);
+                                    String intStr2 = startT[2].replaceAll("[^0-9]", "");
+                                    startM=Integer.parseInt(intStr2);
+                                    if(startM>=30)
+                                    {
+                                        startM=30;
+                                    }
+                                    else
+                                    {
+                                        startM=0;
+                                    }
+                                }
+                                else
+                                {
+
+                                    String intStr = startT[1].replaceAll("[^0-9]", "");
+                                    startH=Integer.parseInt(intStr)+12;
+                                    String intStr2 = startT[2].replaceAll("[^0-9]", "");
+                                    startM=Integer.parseInt(intStr2);
+                                    if(startM>=30)
+                                    {
+                                        startM=30;
+                                    }
+                                    else
+                                    {
+                                        startM=0;
+                                    }
+                                }
+
+                                String[] endT = end.split(" ");
+                                if(endT[0].equals("AM")){
+                                    String intStr = endT[1].replaceAll("[^0-9]", "");
+                                    endH=Integer.parseInt(intStr);
+                                    String intStr2 = endT[2].replaceAll("[^0-9]", "");
+                                    endM=Integer.parseInt(intStr2);
+                                    if(endM>=30)
+                                    {
+                                        endM=30;
+                                    }
+                                    else
+                                    {
+                                        endM=0;
+                                    }
+                                }
+                                else
+                                {
+
+                                    String intStr = endT[1].replaceAll("[^0-9]", "");
+                                    endH=Integer.parseInt(intStr)+12;
+                                    String intStr2 = endT[2].replaceAll("[^0-9]", "");
+                                    endM=Integer.parseInt(intStr2);
+                                    if(endM>=30)
+                                    {
+                                        endM=30;
+                                    }
+                                    else
+                                    {
+                                        endM=0;
+                                    }
+                                }
+
+                                openH=(endH-startH)*2;
+                                openM=endM-startM;
+                                if(openM==30)
+                                {
+                                    openH++;
+                                }
+                                ArrayList<Integer>[] test = new ArrayList[openH];
+                                for(int i=0; i<openH; i++)
+                                {
+                                    test[i]=new ArrayList<Integer>();
+                                }
+
+                                for(int i=0; i<openH; i++)
+                                {
+                                    if(startM==30)
+                                    {
+                                        startH++;
+                                        startM=0;
+                                    }
+                                    else
+                                    {
+                                        startM=30;
+                                    }
+                                    test[i].add(startH);
+                                    test[i].add(startM);
+                                }
+                                for(int i=0; i<openH; i++)
+                                {
+
+                                    time.add(test[i].get(0)+ " : "+test[i].get(1));
+                                }
                             }
                         }else{
                             Log.d("Wrong","No document");
@@ -150,8 +255,8 @@ public class UserReservationActivityInit extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Log.d("TESTTEST", time[i]);
-                info.setTime(time[i]);
+                Log.d("TESTTEST", time.get(i));
+                info.setTime(time.get(i));
             }
 
             @Override
@@ -194,7 +299,9 @@ public class UserReservationActivityInit extends AppCompatActivity
                         info.setCarType(((EditText) findViewById(R.id.carModelReservation)).getText().toString());
                     if(CheckReservationInfoCondition(info)==true)
                     {
+                        dbInsertion(info);
                         finish();
+                        StartToast("예약이 완료되었습니다.");
                     }
                     break;
             }
