@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -134,6 +135,8 @@ public class CenterSignupActivity extends AppCompatActivity {
                                   String StartTime, String EndTime,
                                   String center_name, String center_region) {
 
+
+
         // 시/군 컬렉션별 쿼리
         db.collection(center_region).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -147,6 +150,10 @@ public class CenterSignupActivity extends AppCompatActivity {
                             // 일치하는 카센터 이름 검사
                             if (CenterName.equals(center_name)) {
                                 Log.e(TAG,center_name);
+
+                                // 미리 넣어놨던 데이터에 전화번호 추가 (동혁 요청사항)
+                                DocumentReference r = db.collection(center_region).document(document.getId());
+                                r.update("phone",phone);
 
                                 String RoadName_Address = (String) document.getData().get("소재지도로명주소");
                                 double Longitude = (double) document.getData().get("경도");
