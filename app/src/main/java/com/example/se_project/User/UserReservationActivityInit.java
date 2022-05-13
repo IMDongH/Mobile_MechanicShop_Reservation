@@ -48,7 +48,7 @@ import java.util.List;
 public class UserReservationActivityInit extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
-    private FirebaseUser center_user;
+    private FirebaseUser user;
     private FirebaseFirestore db;
     final String[] selectOption = {"가평군", "고양시", "구리시", "김포시", "남양주시",
             "부천시", "성남시", "수원시", "시흥시", "안산시",
@@ -76,6 +76,7 @@ public class UserReservationActivityInit extends AppCompatActivity
         time.add("예약 시간 선택");
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        user = mAuth.getCurrentUser();
         //Date 객체 사용
         java.util.Date day = new Date();
         Date = simpleDateFormat.format(day);
@@ -301,7 +302,6 @@ public class UserReservationActivityInit extends AppCompatActivity
                     {
                         dbInsertion(info);
                         finish();
-                        StartToast("예약이 완료되었습니다.");
                     }
                     break;
             }
@@ -367,7 +367,7 @@ public class UserReservationActivityInit extends AppCompatActivity
             .addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    StartToast("회원가입에 성공하였습니다.");
+                    StartToast("예약에 성공 했습니다.");
 
                     finish();
                 }
@@ -375,10 +375,42 @@ public class UserReservationActivityInit extends AppCompatActivity
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    StartToast("모든 조건이 만족되었지만 회원가입에 실패하였습니다.");
-                    center_user.delete();
+                    StartToast("예약에 실패했습니다");
                 }
             });
+
+        db.collection("users").document(user.getUid()).collection("reservation").document(info.getDate()).set(info)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        StartToast("예약에 성공 했습니다.");
+
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        StartToast("예약에 실패했습니다");
+                    }
+                });
+
+        db.collection("enterprises").document(info.getCenterName() + info.getAddress()).collection("reservation").document(info.getDate()).set(info)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        StartToast("예약에 성공 했습니다.");
+
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        StartToast("예약에 실패했습니다");
+                    }
+                });
+
 }
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

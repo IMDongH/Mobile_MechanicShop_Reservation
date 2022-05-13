@@ -19,9 +19,6 @@
             android:name=".User.UserReservationActivityInit"
             android:exported="false" />
         <activity
-            android:name=".User.UserReservationActivity"
-            android:exported="false" />
-        <activity
             android:name=".Center.PopUpSearchCenterName"
             android:exported="false"
             android:theme="@android:style/Theme.Dialog" />

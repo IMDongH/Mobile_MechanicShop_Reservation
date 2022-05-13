@@ -336,8 +336,8 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                             Log.d(TAG,"Info window click :"+marker.getTitle());
                             if (!marker.getTitle().equals("내 위치")){
                                 Bundle data = new Bundle();
-                                data.putString("centername",marker.getTitle());
-                                data.putString("address",marker.getSnippet());
+                                data.putString("centerName",marker.getTitle());
+                                data.putString("centerAddress",marker.getSnippet());
                                 data.putString("phone","01000001111");
                                 Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
                                 intent.putExtras(data);
@@ -346,40 +346,40 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 
                         }
                     });
-                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(@NonNull Marker marker) {
-
-                            androidx.appcompat.app.AlertDialog.Builder ad = new androidx.appcompat.app.AlertDialog.Builder(UserMainActivity.this);
-                            ad.setIcon(R.mipmap.ic_launcher);
-                            ad.setTitle(marker.getTitle());
-                            ad.setMessage(marker.getSnippet());
-                            ad.setPositiveButton("Reserve", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Log.d("TAG","reserve pressed");
-
-                                    Intent intent = new Intent(getApplicationContext(), UserReservationActivityInit.class);
-                                    intent.putExtra("centerName",marker.getTitle());
-                                    intent.putExtra("centerAddress",marker.getSnippet());
-                                    startActivity(intent);
-                                    dialogInterface.dismiss();
-                                }
-                            });
-
-                            ad.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Log.d("TAG","Close button pressed");
-                                    dialogInterface.dismiss();
-                                }
-                            });
-                            ad.show();
-
-
-                            return false;
-                        }
-                    });
+//                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                        @Override
+//                        public boolean onMarkerClick(@NonNull Marker marker) {
+//
+//                            androidx.appcompat.app.AlertDialog.Builder ad = new androidx.appcompat.app.AlertDialog.Builder(UserMainActivity.this);
+//                            ad.setIcon(R.mipmap.ic_launcher);
+//                            ad.setTitle(marker.getTitle());
+//                            ad.setMessage(marker.getSnippet());
+//                            ad.setPositiveButton("Reserve", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    Log.d("TAG","reserve pressed");
+//
+//                                    Intent intent = new Intent(getApplicationContext(), UserReservationActivityInit.class);
+//                                    intent.putExtra("centerName",marker.getTitle());
+//                                    intent.putExtra("centerAddress",marker.getSnippet());
+//                                    startActivity(intent);
+//                                    dialogInterface.dismiss();
+//                                }
+//                            });
+//
+//                            ad.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    Log.d("TAG","Close button pressed");
+//                                    dialogInterface.dismiss();
+//                                }
+//                            });
+//                            ad.show();
+//
+//
+//                            return false;
+//                        }
+//                    });
 
 
 
