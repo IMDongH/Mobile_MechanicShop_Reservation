@@ -1,7 +1,5 @@
 package com.example.se_project.User;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -52,7 +50,7 @@ public class PopUpCenterInfo extends Activity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.reserveButton:
-                    Intent intent = new Intent(getApplicationContext(), UserReservationActivityInit.class);
+                    Intent intent = new Intent(getApplicationContext(), UserReservationActivity.class);
                     intent.putExtra("centerName",centerName);
                     intent.putExtra("centerAddress",address);
                     startActivity(intent);

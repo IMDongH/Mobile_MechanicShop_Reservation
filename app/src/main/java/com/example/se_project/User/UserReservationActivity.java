@@ -1,11 +1,8 @@
 package com.example.se_project.User;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,14 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.se_project.Center.CenterInfoClass;
-import com.example.se_project.Center.CenterMainActivity;
 import com.example.se_project.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -39,13 +28,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class UserReservationActivityInit extends AppCompatActivity
+public class UserReservationActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -71,7 +58,7 @@ public class UserReservationActivityInit extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_reservation_init);
+        setContentView(R.layout.activity_user_reservation);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         time.add("예약 시간 선택");
         mAuth = FirebaseAuth.getInstance();
@@ -379,7 +366,7 @@ public class UserReservationActivityInit extends AppCompatActivity
                 }
             });
 
-        db.collection("users").document(user.getUid()).collection("reservation").document(info.getDate()).set(info)
+        db.collection("users").document(user.getUid()).collection("reservation").document(info.getDate()).collection(info.getDate()).document(info.getTime()).set(info)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -395,7 +382,7 @@ public class UserReservationActivityInit extends AppCompatActivity
                     }
                 });
 
-        db.collection("enterprises").document(info.getCenterName() + info.getAddress()).collection("reservation").document(info.getDate()).set(info)
+        db.collection("enterprises").document(info.getCenterName() + info.getAddress()).collection("reservation").document(info.getDate()).collection(info.getDate()).document(info.getTime()).set(info)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
