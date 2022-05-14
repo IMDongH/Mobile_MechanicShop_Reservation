@@ -17,7 +17,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.se_project.Center.CenterInfoClass;
+import com.example.se_project.Center.Signup_CenterInfo;
 import com.example.se_project.Center.CenterMainActivity;
 import com.example.se_project.Center.PopUpSearchCenterName;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -160,7 +160,7 @@ public class CenterSignupActivity extends AppCompatActivity {
                                 double Latitude = (double) document.getData().get("위도");
                                 long type = (long) document.getData().get("자동차정비업체종류");
 
-                                CenterInfoClass center_Info = new CenterInfoClass(name, date, phone,
+                                Signup_CenterInfo center_Info = new Signup_CenterInfo(name, date, phone,
                                         StartTime, EndTime,
                                         CenterName, RoadName_Address,
                                         Longitude, Latitude, type);
@@ -175,7 +175,7 @@ public class CenterSignupActivity extends AppCompatActivity {
         });
     }
 
-    private void dbInsertion(CenterInfoClass center_Info) {
+    private void dbInsertion(Signup_CenterInfo center_Info) {
 
         db.collection("enterprises").document(center_user.getUid()).set(center_Info)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

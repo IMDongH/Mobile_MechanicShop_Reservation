@@ -2,7 +2,7 @@ package com.example.se_project.Center;
 
 import java.util.HashMap;
 
-public class CenterInfoClass {
+public class Signup_CenterInfo {
     private String name;
     private String phone;
     private String date;
@@ -15,10 +15,10 @@ public class CenterInfoClass {
     private double Latitude ;
     private long type;
 
-    public CenterInfoClass(String name, String date, String phone,
-                           String startTime, String endTime,
-                           String centerName, String roadName_Address,
-                           double longitude, double latitude, long type) {
+    public Signup_CenterInfo(String name, String date, String phone,
+                             String startTime, String endTime,
+                             String centerName, String roadName_Address,
+                             double longitude, double latitude, long type) {
         this.name = name;
         this.phone = phone;
         this.date = date;
