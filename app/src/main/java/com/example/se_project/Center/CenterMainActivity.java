@@ -103,7 +103,7 @@ public class CenterMainActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //Log.e(Tag, selected_Date);
+                        Log.e(Tag, selected_Date);
 
                         if (task.isSuccessful()) {
                             // 리스트 비워주기
