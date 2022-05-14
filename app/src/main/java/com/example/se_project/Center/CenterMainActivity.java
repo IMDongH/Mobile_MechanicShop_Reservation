@@ -56,6 +56,8 @@ public class CenterMainActivity extends AppCompatActivity {
     ArrayList<Reservation_Info> Datalist;
     String center_name;
 
+    String temp = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,54 +76,69 @@ public class CenterMainActivity extends AppCompatActivity {
         // 처음 로그인 했을 때
         db.collection("enterprises").document(user.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    // 로그인시 카센터 이름 가져옴
-                    center_name = (String)document.getData().get("centerName");
-                    Log.e(Tag,center_name);
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            // 로그인시 카센터 이름 가져옴
+                            center_name = (String) document.getData().get("centerName");
+                            //Log.e(Tag, center_name);
 
-                    // 로그인시 오늘 날짜 보여주기
-                    selected_Date = myCalendar.get(Calendar.YEAR) + "-" + (myCalendar.get(Calendar.MONTH)+1) + "-" + myCalendar.get(Calendar.DAY_OF_MONTH);
-                    Log.e(Tag,selected_Date);
-                }
+                            // 로그인시 오늘 날짜 보여주기
+                            selected_Date = myCalendar.get(Calendar.YEAR) + "-" + (myCalendar.get(Calendar.MONTH) + 1) + "-" + myCalendar.get(Calendar.DAY_OF_MONTH);
+                            //Log.e(Tag, selected_Date);
+                        }
 
-                //화면에 리스트 뷰 뿌리기
-                scatter();
-            }
-        });
+                        //화면에 리스트 뷰 뿌리기
+                        scatter();
+                    }
+                });
 
     }
 
-    public void scatter(){
+    public void scatter() {
         // 리스트뷰에 넘길 data 가져와서 adapter 에 넘기기
         db.collection("reservation").document(center_name).collection(selected_Date).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Log.e(Tag,selected_Date);
+                        //Log.e(Tag, selected_Date);
 
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             // 리스트 비워주기
                             Datalist.clear();
 
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                if (document.exists()){
-                                    String name = (String)document.getData().get("name");
-                                    String phone = (String)document.getData().get("phone");
-                                    String time = (String)document.getData().get("time");
-                                    String type = (String)document.getData().get("carType");
-                                    String why = (String)document.getData().get("content");
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.exists()) {
+                                    String name = (String) document.getData().get("name");
+                                    String phone = (String) document.getData().get("phone");
+                                    String time = (String) document.getData().get("time");
+                                    String type = (String) document.getData().get("carType");
+                                    String why = (String) document.getData().get("content");
 
-                                    Reservation_Info data = new Reservation_Info(name,phone,time,type,why,selected_Date);
-                                    Datalist.add(data);
+                                    int start = 0;
+                                    String subtime = time.substring(0, 2).trim();
+
+                                    // 시간 순서대로 나열하기 위함
+                                    if (Integer.parseInt(subtime)<Integer.parseInt(temp)) {
+                                        Reservation_Info data = new Reservation_Info(name, phone, time, type, why, selected_Date);
+                                        Datalist.add(0, data);
+                                        Log.e(Tag+" +1", temp);
+                                        temp = subtime;
+                                    } else {
+                                        if (start == 0) {
+                                            temp = subtime;
+                                            start++;
+                                        }
+                                        Reservation_Info data = new Reservation_Info(name, phone, time, type, why, selected_Date);
+                                        Datalist.add(data);
+                                    }
                                 }
                             }
 
-                            ListView listView = (ListView)findViewById(R.id.listview);
-                            final ReservationAdapter myAdapter = new ReservationAdapter(CenterMainActivity.this,Datalist);
+                            ListView listView = (ListView) findViewById(R.id.listview);
+                            final ReservationAdapter myAdapter = new ReservationAdapter(CenterMainActivity.this, Datalist);
                             listView.setAdapter(myAdapter);
                         }
                     }
@@ -146,7 +163,6 @@ public class CenterMainActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
 
             selected_Date = sdf.format(myCalendar.getTime());
-            Log.e(Tag,selected_Date);
         }
         //날짜 바뀔 때 리스트 뷰 갱신하기
         scatter();
@@ -157,7 +173,7 @@ public class CenterMainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.LogoutMenu:
                 FirebaseAuth.getInstance().signOut();
                 StartActivity(LoginActivity.class);
@@ -170,10 +186,10 @@ public class CenterMainActivity extends AppCompatActivity {
             case R.id.calendar:
                 // 오늘 날짜로 Dialog 를 활성화한다
                 new DatePickerDialog(CenterMainActivity.this, myDatePicker,
-                                                    myCalendar.get(Calendar.YEAR),
-                                                    myCalendar.get(Calendar.MONTH),
-                                                    myCalendar.get(Calendar.DAY_OF_MONTH))
-                                                    .show();
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH))
+                        .show();
                 break;
 
             default:
@@ -217,4 +233,5 @@ public class CenterMainActivity extends AppCompatActivity {
             System.exit(1);
         }
 
-    }}
+    }
+}
