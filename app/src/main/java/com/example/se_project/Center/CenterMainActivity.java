@@ -8,21 +8,33 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se_project.LoginActivity;
 import com.example.se_project.R;
 import com.example.se_project.User.Search.UserSearchActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -32,8 +44,17 @@ public class CenterMainActivity extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
 
+    final String Tag = "카센터 메인";
+
     Calendar myCalendar = Calendar.getInstance();
     String selected_Date;
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
+
+    ArrayList<Reservation_Info> Datalist;
+    String center_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +64,68 @@ public class CenterMainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("예약관리");
 
-        // selected_Date 정보를 이용하여 예약 정보를 DB 에서 가져오고 리스트뷰 어뎁터에 넘겨준다
-        // db.collection(아마 reservation).document(카센터 이름).collection(날짜).get. 해서 문서 다가오고 -> 어뎁터에 정보 넘기고 -> 화면에 리스트뷰 뿌리면 될듯
-        // 센터 이름은 db.collection(enterprises).document(users.getUid()).get().addOnCompleteListener 해서 document.get("centerName")로 가져오면 될듯
-        // test
+        // 파베
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        user = mAuth.getCurrentUser();
+
+        Datalist = new ArrayList<Reservation_Info>();
+
+        // 처음 로그인 했을 때
+        db.collection("enterprises").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    // 로그인시 카센터 이름 가져옴
+                    center_name = (String)document.getData().get("centerName");
+                    Log.e(Tag,center_name);
+
+                    // 로그인시 오늘 날짜 보여주기
+                    selected_Date = myCalendar.get(Calendar.YEAR) + "-" + (myCalendar.get(Calendar.MONTH)+1) + "-" + myCalendar.get(Calendar.DAY_OF_MONTH);
+                    Log.e(Tag,selected_Date);
+                }
+
+                //화면에 리스트 뷰 뿌리기
+                scatter();
+            }
+        });
+
+    }
+
+    public void scatter(){
+        // 리스트뷰에 넘길 data 가져와서 adapter 에 넘기기
+        db.collection("reservation").document(center_name).collection(selected_Date).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        Log.e(Tag,selected_Date);
+
+                        if(task.isSuccessful()){
+                            // 리스트 비워주기
+                            Datalist.clear();
+
+                            for (QueryDocumentSnapshot document : task.getResult()){
+                                if (document.exists()){
+                                    String name = (String)document.getData().get("name");
+                                    String phone = (String)document.getData().get("phone");
+                                    String time = (String)document.getData().get("time");
+                                    String type = (String)document.getData().get("carType");
+                                    String why = (String)document.getData().get("content");
+
+                                    Reservation_Info data = new Reservation_Info(name,phone,time,type,why,selected_Date);
+                                    Datalist.add(data);
+                                }
+                            }
+
+                            ListView listView = (ListView)findViewById(R.id.listview);
+                            final ReservationAdapter myAdapter = new ReservationAdapter(CenterMainActivity.this,Datalist);
+                            listView.setAdapter(myAdapter);
+                        }
+                    }
+                });
     }
 
     // 선택한 날짜를 myCalendar 에 설정해준다
@@ -56,18 +135,21 @@ public class CenterMainActivity extends AppCompatActivity {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, month);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
             updateLabel();
         }
     };
 
     private void updateLabel() {
-        String myFormat = "yyyy-MM-dd";    // 출력형식   2022/05/12
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
+        if (true) {
+            String myFormat = "yyyy-M-dd";    // 출력형식   2022/05/12
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
 
-        selected_Date = sdf.format(myCalendar.getTime());
+            selected_Date = sdf.format(myCalendar.getTime());
 
-        TextView et_date = (TextView) findViewById(R.id.textview);
-        et_date.setText(sdf.format(myCalendar.getTime())); // 선택한 날짜 정보를 가져올 때 쓰면 된다
+        }
+        //날짜 바뀔 때 리스트 뷰 갱신하기
+        scatter();
     }
 
 
