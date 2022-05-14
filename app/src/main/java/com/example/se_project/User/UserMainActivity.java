@@ -264,6 +264,59 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                         item.setTitle(RG);
                         flag=1;
                         region =RG;
+
+                        mMap.clear();
+                        db.collection(RG).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    double cameraLat = 0.0;
+                                    double camreaLon = 0.0;
+                                    for (QueryDocumentSnapshot document : task.getResult()){
+                                        if (document.exists()){
+                                            String address = (String) document.getData().get("소재지도로명주소");
+                                            double latitude = (double)document.getData().get("위도");
+                                            double longitude = (double)document.getData().get("경도");
+                                            if (cameraLat == 0)
+                                                cameraLat = latitude;
+                                            if (camreaLon == 0)
+                                                camreaLon = longitude;
+
+                                            LatLng location = new LatLng(latitude, longitude);
+                                            MarkerOptions markerOptions = new MarkerOptions();
+                                            markerOptions.position(location);
+                                            String centerName = (String) document.getData().get("자동차정비업체명");
+                                            markerOptions.title(centerName);
+                                            markerOptions.snippet(address);
+                                            mMap.addMarker(markerOptions);
+                                            Log.d(TAG,"DocumentSnapshot data: "+document.getData());
+
+                                        }
+                                    }
+                                    LatLng cameraLoc = new LatLng(cameraLat, camreaLon);
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraLoc, 12));
+                                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                        @Override
+                                        public void onInfoWindowClick(@NonNull Marker marker) {
+                                            Log.d(TAG,"Info window click :"+marker.getTitle());
+                                            if (!marker.getTitle().equals("내 위치")){
+                                                Bundle data = new Bundle();
+                                                data.putString("centerName",marker.getTitle());
+                                                data.putString("centerAddress",marker.getSnippet());
+                                                data.putString("phone","01000001111");
+                                                Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
+                                                intent.putExtras(data);
+                                                startActivity(intent);
+                                            }
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+
+
                     }
                 })
                 .setCancelable(true)
