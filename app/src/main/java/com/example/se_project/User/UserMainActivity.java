@@ -241,6 +241,9 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
             case R.id.SettingMenu:
                 Toast.makeText(getApplicationContext(), "설정 메뉴", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.reservationCheck:
+                StartActivity(UserReservationList.class);
+                break;
             case R.id.Region:
                 selectRegion(item);
                 break;
@@ -338,7 +341,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                 Bundle data = new Bundle();
                                 data.putString("centerName",marker.getTitle());
                                 data.putString("centerAddress",marker.getSnippet());
-                                data.putString("phone","tel:01000001111"); // 디폴트로 이 전화번호를 넘겨주면 카센터에 번호 필드 추가되면 변경예정
+                                data.putString("phone","01000001111");
                                 Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
                                 intent.putExtras(data);
                                 startActivity(intent);

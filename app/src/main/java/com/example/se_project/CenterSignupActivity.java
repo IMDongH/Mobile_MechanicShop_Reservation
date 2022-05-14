@@ -177,7 +177,7 @@ public class CenterSignupActivity extends AppCompatActivity {
 
     private void dbInsertion(CenterInfoClass center_Info) {
 
-        db.collection("enterprises").document(center_user.getUid()).set(center_Info)
+        db.collection("enterprises").document(center_Info.getCenterName() + center_Info.getRoadName_Address()).set(center_Info)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

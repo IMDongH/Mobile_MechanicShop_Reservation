@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".User.UserReservationActivity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,80 +19,113 @@
         android:paddingRight="20dp">
 
         <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/carcenterReservationTitle"
+        android:gravity="center"
+        android:text="reservation name"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
+
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            />
+
+        <EditText
+            android:id="@+id/centerReservationTime"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:id="@+id/carcenterReservationTitle"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:text="reservation name"
-            android:textSize="24dp"
-            android:textStyle="bold"/>
+            android:text="예약 시간 선택하기"
+            android:textSize="15sp"
+            android:focusable="false" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/reservation"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="예약자 정보"
-                    android:textColor="#673AB7" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="예약자 정보"
+            android:textColor="#673AB7" />
 
-                <EditText
-                    android:id="@+id/userNameReservation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:ems="10"
-                    android:hint="예약자명" />
+        <EditText
+            android:id="@+id/userNameReservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="예약자명" />
 
-                <EditText
-                    android:id="@+id/phoneReservation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:ems="10"
-                    android:hint="예약자 핸드폰 번호" />
+        <EditText
+            android:id="@+id/phoneReservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="예약자 핸드폰 번호" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="차량 정보"
-                    android:textColor="#673AB7" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="차량 정보"
+            android:textColor="#673AB7" />
 
-                <EditText
-                    android:id="@+id/carNumberReservation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:ems="10"
-                    android:hint="차량 번호" />
+        <EditText
+            android:id="@+id/carNumberReservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="차량 번호" />
 
-                <EditText
-                    android:id="@+id/carModelReservation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:ems="10"
-                    android:hint="차량 기종" />
+        <EditText
+            android:id="@+id/carModelReservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:hint="차량 기종" />
 
-                <EditText
-                    android:id="@+id/purposeReservation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:ems="10"
-                    android:hint="예약 목적" />
-                <Button
-                    android:id="@+id/complete_Btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="예악하기"
-                    android:layout_gravity="right"
-                    />
+        <EditText
+            android:id="@+id/reservationContent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="방문 목적 선택하기"
+            android:textSize="15sp"
+            android:focusable="false" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/content"/>
 
-            </LinearLayout>
+        <Button
+            android:id="@+id/complete_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="예악하기"
+            android:layout_gravity="right"
+            android:layout_marginBottom="20dp"
+            />
 
+    </LinearLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
