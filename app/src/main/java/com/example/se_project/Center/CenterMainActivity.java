@@ -56,8 +56,6 @@ public class CenterMainActivity extends AppCompatActivity {
     ArrayList<Reservation_Info> Datalist;
     String center_name;
 
-    String temp = "0";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,23 +115,8 @@ public class CenterMainActivity extends AppCompatActivity {
                                     String type = (String) document.getData().get("carType");
                                     String why = (String) document.getData().get("content");
 
-                                    int start = 0;
-                                    String subtime = time.substring(0, 2).trim();
-
-                                    // 시간 순서대로 나열하기 위함
-                                    if (Integer.parseInt(subtime)<Integer.parseInt(temp)) {
-                                        Reservation_Info data = new Reservation_Info(name, phone, time, type, why, selected_Date);
-                                        Datalist.add(0, data);
-                                        Log.e(Tag+" +1", temp);
-                                        temp = subtime;
-                                    } else {
-                                        if (start == 0) {
-                                            temp = subtime;
-                                            start++;
-                                        }
-                                        Reservation_Info data = new Reservation_Info(name, phone, time, type, why, selected_Date);
-                                        Datalist.add(data);
-                                    }
+                                    Reservation_Info data = new Reservation_Info(name, phone, time, type, why, selected_Date);
+                                    Datalist.add(data);
                                 }
                             }
 
