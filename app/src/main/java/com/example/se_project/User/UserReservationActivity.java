@@ -382,21 +382,21 @@ public class UserReservationActivity extends AppCompatActivity
                     }
                 });
 
-        db.collection("enterprises").document(info.getCenterName() + info.getAddress()).collection("reservation").document(info.getDate()).collection(info.getDate()).document(info.getTime()).set(info)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        StartToast("예약에 성공 했습니다.");
-
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        StartToast("예약에 실패했습니다");
-                    }
-                });
+//        db.collection("enterprises").document(info.getCenterName() + info.getAddress()).collection("reservation").document(info.getDate()).collection(info.getDate()).document(info.getTime()).set(info)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        StartToast("예약에 성공 했습니다.");
+//
+//                        finish();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        StartToast("예약에 실패했습니다");
+//                    }
+//                });
 
 }
     private void StartToast(String msg) {
