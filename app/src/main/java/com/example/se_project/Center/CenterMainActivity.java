@@ -53,6 +53,7 @@ public class CenterMainActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseFirestore db;
 
+    TextView title;
     ArrayList<Reservation_Info> Datalist;
     String center_name;
 
@@ -69,6 +70,7 @@ public class CenterMainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         user = mAuth.getCurrentUser();
 
+        title = findViewById(R.id.title);
         Datalist = new ArrayList<Reservation_Info>();
 
         // 처음 로그인 했을 때
@@ -82,7 +84,7 @@ public class CenterMainActivity extends AppCompatActivity {
                             // 로그인시 카센터 이름 가져옴
                             center_name = (String) document.getData().get("centerName");
                             //Log.e(Tag, center_name);
-
+                            title.setText(center_name);
                             // 로그인시 오늘 날짜 보여주기
                             selected_Date = myCalendar.get(Calendar.YEAR) + "-" + (myCalendar.get(Calendar.MONTH) + 1) + "-" + myCalendar.get(Calendar.DAY_OF_MONTH);
                             //Log.e(Tag, selected_Date);
