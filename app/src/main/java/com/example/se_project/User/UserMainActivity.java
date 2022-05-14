@@ -86,6 +86,9 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
     SearchView searchView;
     ArrayList<SearchTitleClass> arraylist = new ArrayList<SearchTitleClass>();
     java.util.HashMap<String,Object> HashMap = new HashMap<String,Object>();
+    ArrayList<String> regList = new ArrayList<>();
+    HashMap<String, String> regTable = new HashMap<>();
+//    HashMap <String, String> regMap = new HashMap<>();
     // 실제 GPS를 따오는데 사용되는 코드
 //    private Marker currentMarker = null;
 //    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -262,8 +265,9 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                         item.setTitle(RG);
                         flag=1;
                         region =RG;
-                        HashMap <String, String> regMap = new HashMap<>();
-
+//                        regMap = new HashMap<>();
+                        regList = new ArrayList<>();
+                        regTable = new HashMap<>();
                         mMap.clear();
                         db.collection(RG).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -290,13 +294,19 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                             phone = (String) document.getData().get("phone");
                                             if (phone==null){
                                                 phone = "미등록업체";
+                                            }else{
+                                                cameraLat = latitude;
+                                                camreaLon = longitude;
+                                                regList.add(centerName);
+                                                regTable.put(centerName, phone);
                                             }
-                                            regMap.put(centerName, phone);
+
+//                                            regMap.put(centerName, phone);
                                             markerOptions.title(centerName);
                                             markerOptions.snippet(address);
 
                                             mMap.addMarker(markerOptions);
-                                            Log.d(TAG,"DocumentSnapshot data: "+document.getData());
+                                            Log.e(TAG,"DocumentSnapshot data: "+document.getData()+"phone : "+phone);
 
                                         }
                                     }
@@ -305,16 +315,16 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                     mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                         @Override
                                         public void onInfoWindowClick(@NonNull Marker marker) {
-                                            Log.d(TAG,"Info window click :"+marker.getTitle());
-                                            if (!marker.getTitle().equals("내 위치") && !regMap.get(marker.getTitle()).equals("미등록업체")){
+                                            Log.e(TAG,"Info window click :"+marker.getTitle());
+                                            if (regList.contains(marker.getTitle())){
                                                 Bundle data = new Bundle();
                                                 data.putString("centerName",marker.getTitle());
                                                 data.putString("centerAddress",marker.getSnippet());
-                                                data.putString("phone",regMap.get(marker.getTitle()));
+                                                data.putString("phone",regTable.get(marker.getTitle()));
                                                 Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
                                                 intent.putExtras(data);
                                                 startActivity(intent);
-                                            }else if (!marker.getTitle().equals("내 위치") && !regMap.get(marker.getTitle()).equals("미등록업체")){
+                                            }else {
                                                 StartToast("미등록업체입니다. ");
                                             }
 
@@ -359,7 +369,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 //                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);
 //            }
 //        }
-        HashMap <String, String> regMap = new HashMap<>();
+//        HashMap <String, String> regMap = new HashMap<>();
 
         db.collection("성남시").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -367,55 +377,64 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                 if (task.isSuccessful()){
                     // latitude - 위도
                     // longitude - 경도
+                    double cameraLat = 0.0;
+                    double camreaLon = 0.0;
                     for (QueryDocumentSnapshot document:task.getResult()){
                         if (document.exists()){
                             String address = (String) document.getData().get("소재지도로명주소");
-                            if (address != null &&address.contains("수정구")){
-                                double latitude = (double)document.getData().get("위도");
-                                double longitude = (double)document.getData().get("경도");
+                            double latitude = (double)document.getData().get("위도");
+                            double longitude = (double)document.getData().get("경도");
+                            if (cameraLat == 0)
+                                cameraLat = latitude;
+                            if (camreaLon == 0)
+                                camreaLon = longitude;
 
-                                LatLng location = new LatLng(latitude, longitude);
-                                MarkerOptions markerOptions = new MarkerOptions();
-                                markerOptions.position(location);
-                                String centerName = (String) document.getData().get("자동차정비업체명");
-                                String phone = "";
-                                phone = (String) document.getData().get("phone");
-                                if (phone==null){
-                                    phone = "미등록업체";
-                                }
-                                regMap.put(centerName, phone);
-                                markerOptions.title(centerName);
-                                markerOptions.snippet(address);
-                                mMap.addMarker(markerOptions);
-                                Log.d(TAG,"DocumentSnapshot data: "+document.getData());
+                            LatLng location = new LatLng(latitude, longitude);
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(location);
+                            String centerName = (String) document.getData().get("자동차정비업체명");
+                            String phone = "";
+                            phone = (String) document.getData().get("phone");
+                            if (phone==null){
+                                phone = "미등록업체";
+                            }else{
+                                cameraLat = latitude;
+                                camreaLon = longitude;
+                                regList.add(centerName);
+                                regTable.put(centerName, phone);
                             }
+//                            regMap.put(centerName, phone);
+
+                            markerOptions.title(centerName);
+                            markerOptions.snippet(address);
+                            mMap.addMarker(markerOptions);
+                            Log.e(TAG,"DocumentSnapshot data: "+document.getData()+"phone :"+phone);
+
                         }else{
                             Log.d(TAG,"No document");
                         }
 
                     }
-                    double gachonLat = 37.4500;
-                    double gachonLon = 127.1288;
-                    LatLng gachon = new LatLng(gachonLat, gachonLon);
-                    MarkerOptions curPosition = new MarkerOptions();
-                    curPosition.position(gachon);
-                    curPosition.title("내 위치");
-                    mMap.addMarker(curPosition);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gachon, 15));
+
+                    LatLng curPo = new LatLng(cameraLat, camreaLon);
+//                    MarkerOptions curPosition = new MarkerOptions();
+//                    curPosition.position(curPo);
+//                    curPosition.title("내 위치");
+//                    mMap.addMarker(curPosition);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curPo, 15));
                     mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                         @Override
                         public void onInfoWindowClick(@NonNull Marker marker) {
-                            Log.d(TAG,"Info window click :"+marker.getTitle());
-                            if (!marker.getTitle().equals("내 위치") && !regMap.get(marker.getTitle()).equals("미등록업체")){
+                            Log.e(TAG,"Info window click :"+marker.getTitle());
+//                            Log.e(TAG,regList.get(marker.getTitle()));
+                            if (regList.contains(marker.getTitle())){
                                 Bundle data = new Bundle();
                                 data.putString("centerName",marker.getTitle());
                                 data.putString("centerAddress",marker.getSnippet());
-                                data.putString("phone",regMap.get(marker.getTitle()));
+                                data.putString("phone",regTable.get(marker.getTitle()));
                                 Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
                                 intent.putExtras(data);
                                 startActivity(intent);
-                            }else if (!marker.getTitle().equals("내 위치") && !regMap.get(marker.getTitle()).equals("미등록업체")){
-                                StartToast("미등록업체입니다. ");
                             }
 
                         }
