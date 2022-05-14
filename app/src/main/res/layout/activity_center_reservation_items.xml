@@ -8,7 +8,6 @@
     app:cardMaxElevation="1dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
-    android:clickable="true"
     app:strokeColor="#000000"
     app:strokeWidth="20dp">
 
@@ -28,8 +27,8 @@
                 android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:text="name"
-                android:textColor="@color/black"
-                android:textSize="28dp"
+                android:textColor="#323232"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <TextView
