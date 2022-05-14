@@ -44,7 +44,7 @@ public class CenterMainActivity extends AppCompatActivity {
         actionBar.setTitle("예약관리");
 
         // selected_Date 정보를 이용하여 예약 정보를 DB 에서 가져오고 리스트뷰 어뎁터에 넘겨준다
-        // db.collection(아마 reservation).get. 해서 문서 다가오고 -> 센터이름 && 날짜 일치하면 -> 어뎁터에 정보 넘기고 -> 화면에 리스트뷰 뿌리면 될듯
+        // db.collection(아마 reservation).document(카센터 이름).collection(날짜).get. 해서 문서 다가오고 -> 어뎁터에 정보 넘기고 -> 화면에 리스트뷰 뿌리면 될듯
         // 센터 이름은 db.collection(enterprises).document(users.getUid()).get().addOnCompleteListener 해서 document.get("centerName")로 가져오면 될듯
         // test
     }
