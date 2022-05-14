@@ -146,7 +146,7 @@ public class CenterMainActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
 
             selected_Date = sdf.format(myCalendar.getTime());
-
+            Log.e(Tag,selected_Date);
         }
         //날짜 바뀔 때 리스트 뷰 갱신하기
         scatter();
