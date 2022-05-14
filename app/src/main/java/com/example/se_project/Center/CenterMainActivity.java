@@ -61,7 +61,7 @@ public class CenterMainActivity extends AppCompatActivity {
     };
 
     private void updateLabel() {
-        String myFormat = "yyyy/MM/dd";    // 출력형식   2022/05/12
+        String myFormat = "yyyy-MM-dd";    // 출력형식   2022/05/12
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
 
         selected_Date = sdf.format(myCalendar.getTime());
