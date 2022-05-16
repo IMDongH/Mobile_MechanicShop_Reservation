@@ -309,7 +309,24 @@ public class UserReservationActivity extends AppCompatActivity
     public String checkDay(int cYear, int cMonth, int cDay)
     {
         readDay = "" + cYear + "-" + (cMonth + 1) + "" + "-" + cDay + ".txt";
-        String date = cYear + "-" + (cMonth + 1) + "" + "-" + cDay;
+        String date = null;
+        if(cMonth+1<10)
+        {
+            date = cYear + "-" + "0"+(cMonth + 1) + "" + "-" + cDay;
+        }
+        else if(cDay<10)
+        {
+            date = cYear + "-" + (cMonth + 1) + "" + "-" + "0"+cDay;
+        }
+        else if(cMonth+1<10&&cDay<10)
+        {
+            date = cYear + "-" + "0"+(cMonth + 1) + "" + "-" + "0"+cDay;
+        }
+        else
+        {
+             date = cYear + "-" + (cMonth + 1) + "" + "-" + cDay;
+        }
+
         try
         {
             complete_Btn.setVisibility(View.VISIBLE);
