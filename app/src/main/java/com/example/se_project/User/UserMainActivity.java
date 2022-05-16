@@ -435,6 +435,8 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                 Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
                                 intent.putExtras(data);
                                 startActivity(intent);
+                            }else {
+                                StartToast("미등록업체입니다. ");
                             }
 
                         }
