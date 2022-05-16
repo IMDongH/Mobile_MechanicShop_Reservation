@@ -312,15 +312,15 @@ public class UserReservationActivity extends AppCompatActivity
         String date = null;
         if(cMonth+1<10)
         {
-            date = cYear + "-" + (cMonth + 11) + "" + "-" + cDay;
+            date = cYear + "-" + "0"+(cMonth + 1) + "" + "-" + cDay;
         }
         else if(cDay<10)
         {
-            date = cYear + "-" + (cMonth + 1) + "" + "-" + cDay+10;
+            date = cYear + "-" + (cMonth + 1) + "" + "-" + "0"+cDay;
         }
         else if(cMonth+1<10&&cDay<10)
         {
-            date = cYear + "-" + (cMonth + 11) + "" + "-" + cDay+10;
+            date = cYear + "-" + "0"+(cMonth + 1) + "" + "-" + "0"+cDay;
         }
         else
         {
