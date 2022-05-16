@@ -86,8 +86,8 @@ public class CenterMainActivity extends AppCompatActivity {
                             //Log.e(Tag, center_name);
                             title.setText(center_name);
                             // 로그인시 오늘 날짜 보여주기
-                            selected_Date = myCalendar.get(Calendar.YEAR) + "-" + (myCalendar.get(Calendar.MONTH) + 1) + "-" + myCalendar.get(Calendar.DAY_OF_MONTH);
-                            //Log.e(Tag, selected_Date);
+                            selected_Date = myCalendar.get(Calendar.YEAR) + "-" + "0" +(myCalendar.get(Calendar.MONTH) + 1) + "-" + myCalendar.get(Calendar.DAY_OF_MONTH);
+                            Log.e(Tag, selected_Date);
                         }
 
                         //화면에 리스트 뷰 뿌리기
@@ -144,7 +144,7 @@ public class CenterMainActivity extends AppCompatActivity {
 
     private void updateLabel() {
         if (true) {
-            String myFormat = "yyyy-M-dd";    // 출력형식   2022/05/12
+            String myFormat = "yyyy-MM-dd";    // 출력형식   2022/05/12
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
 
             selected_Date = sdf.format(myCalendar.getTime());
