@@ -83,6 +83,7 @@
             android:text="차량 정보"
             android:textColor="#673AB7" />
 
+
         <EditText
             android:id="@+id/carNumberReservation"
             android:layout_width="match_parent"
