@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 //import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.core.app.ActivityCompat;
 //import androidx.core.content.ContextCompat;
@@ -100,7 +101,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
     Geocoder geocoder;
     String address;
     String target;
-
+    MenuItem regionMenu;
     LatLng curPo;
 
 //    HashMap <String, String> regMap = new HashMap<>();
@@ -234,6 +235,8 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 
         MenuItem menuItem = menu.findItem(R.id.SearchMenu);
         searchView = (SearchView) menuItem.getActionView();
+        regionMenu = menu.findItem(R.id.Region);
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -250,7 +253,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                     Log.d("TEST","test"+flag);
                     Intent intent = new Intent(this,UserSearchActivity.class);
                     intent.putExtra("region", region);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
                 else {
                     Log.d("TEST","test"+flag);
@@ -264,6 +267,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                 StartActivity(UserReservationList.class);
                 break;
             case R.id.Region:
+
                 selectRegion(item);
                 break;
             default:
@@ -272,6 +276,20 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String moveAddress = data.getStringExtra("address");
+        List<Address> movelist = null;
+        try {
+            movelist = geocoder.getFromLocationName(moveAddress, 10);
+        }catch (Exception e){
+            Log.d(TAG, e.toString());
+        }
+
+        LatLng newPo = new LatLng(movelist.get(0).getLatitude(), movelist.get(0).getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newPo, 15));
+    }
 
     public void selectRegion(MenuItem item) {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
@@ -404,6 +422,12 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                     target = temp;
                                     break;
                                 }
+                            }
+                        }
+                        for (int i = 0; i < selectOption.length; i++){
+                            if (target.equals(selectOption[i])) {
+                                regionMenu.setTitle(selectOption[i]);
+                                break;
                             }
                         }
 
