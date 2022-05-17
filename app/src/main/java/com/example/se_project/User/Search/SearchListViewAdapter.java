@@ -1,6 +1,8 @@
 package com.example.se_project.User.Search;
 
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -20,7 +22,7 @@ import java.util.Locale;
 public class SearchListViewAdapter extends BaseAdapter {
 
     // Declare Variables
-
+    String TAG = "SearchListViewAdapter";
     Context mContext;
     LayoutInflater inflater;
     private ArrayList<SearchTitleClass> titlesList;
@@ -73,17 +75,20 @@ public class SearchListViewAdapter extends BaseAdapter {
         System.out.println("HOLDER : "+titlesList.get(position).getName()+titlesList.get(position).getLocation());
         if(!titlesList.isEmpty())
         {
-
             holder.Name.setText(titlesList.get(position).getName());
             holder.Location.setText(titlesList.get(position).getLocation());
         }
-        itemList = (RelativeLayout) view.findViewById(R.id.search_item);
-        itemList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        itemList = (RelativeLayout) view.findViewById(R.id.search_item);
+//        itemList.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, holder.Location.getText().toString());
+//                Intent resultIntent = new Intent();
+//                resultIntent.putExtra("address",holder.Location.getText().toString());
+//                setResult(RESULT_OK, resultIntent);
+//                finish();
+//            }
+//        });
         return view;
     }
 
