@@ -1,6 +1,8 @@
 package com.example.se_project;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
+
 public class UserSignupActivity  extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -29,6 +33,10 @@ public class UserSignupActivity  extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
     private static final String TAG = "SignUpActivity";
+    private Geocoder geocoder;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,33 +63,49 @@ public class UserSignupActivity  extends AppCompatActivity {
         String name = ((EditText)findViewById(R.id.MemberInfoName)).getText().toString();
         String date = ((EditText)findViewById(R.id.MemberInfoDate)).getText().toString();
         String phone = ((EditText)findViewById(R.id.MemberInfoPhone)).getText().toString();
+        String address = ((EditText)findViewById(R.id.MemberInfoAddress)).getText().toString();
 
-        if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0) {
-            if (password.equals(passwordCheck)) {
-                Log.d(TAG,"PASSWORD CK");
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
-                        new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    //Log.d(TAG, "createUserWithEmail:success");
-                                    user = mAuth.getCurrentUser();
-                                    dbInsertion(name,  date, phone);
+        geocoder = new Geocoder(this);
+        List<Address> list = null;
+        try{
+            list = geocoder.getFromLocationName(address, 10);
+        }catch (Exception e){
+            Log.e(TAG,e.toString());
+        }
+        if (list != null){
+            if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0 && list.size() > 0) {
+                if (password.equals(passwordCheck)) {
+                    Log.d(TAG,"PASSWORD CK");
+                    Log.e(TAG,list.get(0).getAddressLine(0));
+                    Log.e(TAG,list.get(0).getAdminArea());
+//                    Log.e(TAG,list.get(0).getSubAdminArea());
+                    final String curAddress = list.get(0).getAddressLine(0);
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
+                            new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        //Log.d(TAG, "createUserWithEmail:success");
+                                        user = mAuth.getCurrentUser();
+                                        dbInsertion(name,  date, phone, curAddress);
 
-                                } else {
+                                    } else {
 
-                                    StartToast("회원가입에 실패하였습니다.");
+                                        StartToast("회원가입에 실패하였습니다.");
+                                    }
                                 }
-                            }
-                        });
-            } else {
-                // Toast 창 띄워주기
-                StartToast("비밀번호가 일치하지 않습니다.");
+                            });
+                } else {
+                    // Toast 창 띄워주기
+                    StartToast("비밀번호가 일치하지 않습니다.");
+                }
+            }
+            else {
+                CheckSignUpCondition(email, password, passwordCheck, address);
             }
         }
-        else {
-            CheckSignUpCondition(email, password, passwordCheck);
-        }
+
+
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -100,11 +124,11 @@ public class UserSignupActivity  extends AppCompatActivity {
     }
 
 
-    private void dbInsertion(String name, String date, String phone) {
+    private void dbInsertion(String name, String date, String phone, String address) {
 
 
         if(name.length() > 0 && date.length() >= 6 && phone.length() >= 8) {
-            UserInfoClass userInfo = new UserInfoClass(name, date, phone);
+            UserInfoClass userInfo = new UserInfoClass(name, phone, date, address);
             db = FirebaseFirestore.getInstance();
             db.collection("users").document(user.getUid()).set(userInfo)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -144,7 +168,7 @@ public class UserSignupActivity  extends AppCompatActivity {
             }
     }
 
-    private void CheckSignUpCondition(String email, String password, String passwordCheck) {
+    private void CheckSignUpCondition(String email, String password, String passwordCheck, String address) {
         if(email.length() <= 0) {
             StartToast("이메일 길이를 확인해주세요 : 1자 이상");
         }
@@ -153,6 +177,8 @@ public class UserSignupActivity  extends AppCompatActivity {
         }
         else if(passwordCheck.length() <= 0) {
             StartToast("비밀번호 확인 문자를 확인해주세요 : 1자 이상");
+        }else{
+            StartToast("주소를 확인해주세요");
         }
     }
     private void StartActivity(Class c) {

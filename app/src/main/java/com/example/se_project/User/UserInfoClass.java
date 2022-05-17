@@ -6,6 +6,21 @@ public class UserInfoClass {
     private String date;
     private String address;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public UserInfoClass(String name, String phone, String date, String address) {
+        this.name = name;
+        this.phone = phone;
+        this.date = date;
+        this.address = address;
+    }
+
     public UserInfoClass() { }
 
     public UserInfoClass(String name, String date, String phone) {
