@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 //import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.core.app.ActivityCompat;
 //import androidx.core.content.ContextCompat;
@@ -86,7 +87,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
             "오산시", "용인시", "의왕시", "의정부시", "이천시",
             "파주시", "평택시", "포천시", "하남시", "화성시"};
     private long backKeyPressedTime = 0;
-    private int flag = 0;
+//    private int flag = 0;
     private Toast terminate_guide_msg;
     private String region;
     private String TAG = "UserMainActivity : ";
@@ -100,7 +101,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
     Geocoder geocoder;
     String address;
     String target;
-
+    MenuItem regionMenu;
     LatLng curPo;
 
 //    HashMap <String, String> regMap = new HashMap<>();
@@ -234,6 +235,8 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 
         MenuItem menuItem = menu.findItem(R.id.SearchMenu);
         searchView = (SearchView) menuItem.getActionView();
+        regionMenu = menu.findItem(R.id.Region);
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -246,16 +249,16 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                 StartActivity(LoginActivity.class);
                 break;
             case R.id.SearchMenu:
-                if(flag==1){
-                    Log.d("TEST","test"+flag);
+//                if(flag==1){
+                    Log.d("TEST","test");
                     Intent intent = new Intent(this,UserSearchActivity.class);
                     intent.putExtra("region", region);
-                    startActivity(intent);
-                }
-                else {
-                    Log.d("TEST","test"+flag);
-                    StartToast("지역을 선택해주세요.");
-                }
+                    startActivityForResult(intent, 1);
+//                }
+//                else {
+//                    Log.d("TEST","test"+flag);
+//                    StartToast("지역을 선택해주세요.");
+//                }
                 break;
             case R.id.SettingMenu:
                 Toast.makeText(getApplicationContext(), "설정 메뉴", Toast.LENGTH_SHORT).show();
@@ -264,6 +267,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                 StartActivity(UserReservationList.class);
                 break;
             case R.id.Region:
+
                 selectRegion(item);
                 break;
             default:
@@ -272,6 +276,20 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String moveAddress = data.getStringExtra("address");
+        List<Address> movelist = null;
+        try {
+            movelist = geocoder.getFromLocationName(moveAddress, 10);
+        }catch (Exception e){
+            Log.d(TAG, e.toString());
+        }
+
+        LatLng newPo = new LatLng(movelist.get(0).getLatitude(), movelist.get(0).getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newPo, 15));
+    }
 
     public void selectRegion(MenuItem item) {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
@@ -281,7 +299,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                     public void onClick(DialogInterface dialog, int i) {
                         String RG = selectOption[i].toString();
                         item.setTitle(RG);
-                        flag=1;
+//                        flag=1;
                         region =RG;
 //                        regMap = new HashMap<>();
                         regList = new ArrayList<>();
@@ -406,6 +424,12 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                 }
                             }
                         }
+                        for (int i = 0; i < selectOption.length; i++){
+                            if (target.equals(selectOption[i])) {
+                                regionMenu.setTitle(selectOption[i]);
+                                break;
+                            }
+                        }
 
                         db.collection(target).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -456,7 +480,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                     }else{
                                         List<Address> list = null;
                                         try {
-                                            list = geocoder.getFromLocationName(address, 10);
+                                            list = geocoder.getFromLocationName(address, 3);
                                         }catch (Exception e){
                                             Log.d(TAG, e.toString());
                                         }

@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
     app:cardMaxElevation="1dp"
+    android:id="@+id/reservation_item"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     app:strokeColor="#000000"

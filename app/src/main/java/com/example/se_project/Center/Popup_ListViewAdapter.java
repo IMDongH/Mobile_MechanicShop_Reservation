@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.se_project.R;
 
 import java.util.ArrayList;
@@ -23,7 +25,6 @@ public class Popup_ListViewAdapter extends BaseAdapter  {
     LayoutInflater inflater;
     private ArrayList<Popup_CenterNameInfo> SearchedList;
     private ArrayList<Popup_CenterNameInfo> DataList;
-    RelativeLayout itemList;
 
     public Popup_ListViewAdapter(Context context, ArrayList<Popup_CenterNameInfo> dataList) {
         mContext = context;
