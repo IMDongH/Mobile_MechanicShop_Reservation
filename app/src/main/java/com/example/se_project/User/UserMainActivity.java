@@ -87,7 +87,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
             "오산시", "용인시", "의왕시", "의정부시", "이천시",
             "파주시", "평택시", "포천시", "하남시", "화성시"};
     private long backKeyPressedTime = 0;
-    private int flag = 0;
+//    private int flag = 0;
     private Toast terminate_guide_msg;
     private String region;
     private String TAG = "UserMainActivity : ";
@@ -249,16 +249,16 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                 StartActivity(LoginActivity.class);
                 break;
             case R.id.SearchMenu:
-                if(flag==1){
-                    Log.d("TEST","test"+flag);
+//                if(flag==1){
+                    Log.d("TEST","test");
                     Intent intent = new Intent(this,UserSearchActivity.class);
                     intent.putExtra("region", region);
                     startActivityForResult(intent, 1);
-                }
-                else {
-                    Log.d("TEST","test"+flag);
-                    StartToast("지역을 선택해주세요.");
-                }
+//                }
+//                else {
+//                    Log.d("TEST","test"+flag);
+//                    StartToast("지역을 선택해주세요.");
+//                }
                 break;
             case R.id.SettingMenu:
                 Toast.makeText(getApplicationContext(), "설정 메뉴", Toast.LENGTH_SHORT).show();
@@ -299,7 +299,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                     public void onClick(DialogInterface dialog, int i) {
                         String RG = selectOption[i].toString();
                         item.setTitle(RG);
-                        flag=1;
+//                        flag=1;
                         region =RG;
 //                        regMap = new HashMap<>();
                         regList = new ArrayList<>();
@@ -480,7 +480,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                     }else{
                                         List<Address> list = null;
                                         try {
-                                            list = geocoder.getFromLocationName(address, 10);
+                                            list = geocoder.getFromLocationName(address, 3);
                                         }catch (Exception e){
                                             Log.d(TAG, e.toString());
                                         }
