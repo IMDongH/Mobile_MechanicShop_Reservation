@@ -1,6 +1,7 @@
 package com.example.se_project.User;
 
 //import android.Manifest;
+import android.Manifest;
 import android.app.AlertDialog;
 //import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,8 @@ import android.content.Intent;
 //import android.location.Geocoder;
 //import android.location.Location;
 //import android.location.LocationManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 //import android.os.Looper;
 import android.util.Log;
@@ -40,6 +43,7 @@ import com.example.se_project.User.Search.UserSearchActivity;
 //import com.google.android.gms.location.LocationSettingsResponse;
 //import com.google.android.gms.location.SettingsClient;
 //import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -54,6 +58,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 //import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -65,11 +71,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 //import java.util.List;
 //import java.util.Locale;
 
 public class UserMainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private FirebaseFirestore db;
     final String[] selectOption = {"가평군", "고양시", "구리시", "김포시", "남양주시",
             "부천시", "성남시", "수원시", "시흥시", "안산시",
@@ -88,16 +97,22 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
     java.util.HashMap<String,Object> HashMap = new HashMap<String,Object>();
     ArrayList<String> regList = new ArrayList<>();
     HashMap<String, String> regTable = new HashMap<>();
+    Geocoder geocoder;
+    String address;
+    String target;
+
+    LatLng curPo;
+
 //    HashMap <String, String> regMap = new HashMap<>();
-    // 실제 GPS를 따오는데 사용되는 코드
+//     실제 GPS를 따오는데 사용되는 코드
 //    private Marker currentMarker = null;
 //    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
 //    private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
 //    private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
-    // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
+//     onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
 //    private static final int PERMISSIONS_REQUEST_CODE = 100;
 //    boolean needRequest = false;
-    // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
+//     앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
 //    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
 //
 //    Location mCurrentLocatiion;
@@ -147,7 +162,10 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 //        builder.addLocationRequest(locationRequest);
 //
 //        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        geocoder = new Geocoder(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -306,7 +324,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                             markerOptions.snippet(address);
 
                                             mMap.addMarker(markerOptions);
-                                            Log.e(TAG,"DocumentSnapshot data: "+document.getData()+"phone : "+phone);
+                                            Log.d(TAG,"DocumentSnapshot data: "+document.getData()+"phone : "+phone);
 
                                         }
                                     }
@@ -315,7 +333,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                                     mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                         @Override
                                         public void onInfoWindowClick(@NonNull Marker marker) {
-                                            Log.e(TAG,"Info window click :"+marker.getTitle());
+                                            Log.d(TAG,"Info window click :"+marker.getTitle());
                                             if (regList.contains(marker.getTitle())){
                                                 Bundle data = new Bundle();
                                                 data.putString("centerName",marker.getTitle());
@@ -371,119 +389,120 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 //        }
 //        HashMap <String, String> regMap = new HashMap<>();
 
-        db.collection("성남시").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    // latitude - 위도
-                    // longitude - 경도
-                    double cameraLat = 0.0;
-                    double camreaLon = 0.0;
-                    for (QueryDocumentSnapshot document:task.getResult()){
-                        if (document.exists()){
-                            String address = (String) document.getData().get("소재지도로명주소");
-                            double latitude = (double)document.getData().get("위도");
-                            double longitude = (double)document.getData().get("경도");
-                            if (cameraLat == 0)
-                                cameraLat = latitude;
-                            if (camreaLon == 0)
-                                camreaLon = longitude;
-
-                            LatLng location = new LatLng(latitude, longitude);
-                            MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.position(location);
-                            String centerName = (String) document.getData().get("자동차정비업체명");
-                            String phone = "";
-                            phone = (String) document.getData().get("phone");
-                            if (phone==null){
-                                phone = "미등록업체";
-                            }else{
-                                cameraLat = latitude;
-                                camreaLon = longitude;
-                                regList.add(centerName);
-                                regTable.put(centerName, phone);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        address = (String) document.getData().get("address");
+                        if (address == null){
+                            target = "성남시";
+                        }else{
+                            for (String temp : selectOption){
+                                if (address.contains(temp)) {
+                                    target = temp;
+                                    break;
+                                }
                             }
+                        }
+
+                        db.collection(target).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    // latitude - 위도
+                                    // longitude - 경도
+                                    double cameraLat = 0.0;
+                                    double camreaLon = 0.0;
+                                    for (QueryDocumentSnapshot document:task.getResult()){
+                                        if (document.exists()){
+                                            String address = (String) document.getData().get("소재지도로명주소");
+                                            double latitude = (double)document.getData().get("위도");
+                                            double longitude = (double)document.getData().get("경도");
+                                            if (cameraLat == 0)
+                                                cameraLat = latitude;
+                                            if (camreaLon == 0)
+                                                camreaLon = longitude;
+
+                                            LatLng location = new LatLng(latitude, longitude);
+                                            MarkerOptions markerOptions = new MarkerOptions();
+                                            markerOptions.position(location);
+                                            String centerName = (String) document.getData().get("자동차정비업체명");
+                                            String phone = "";
+                                            phone = (String) document.getData().get("phone");
+                                            if (phone==null){
+                                                phone = "미등록업체";
+                                            }else{
+                                                cameraLat = latitude;
+                                                camreaLon = longitude;
+                                                regList.add(centerName);
+                                                regTable.put(centerName, phone);
+                                            }
 //                            regMap.put(centerName, phone);
 
-                            markerOptions.title(centerName);
-                            markerOptions.snippet(address);
-                            mMap.addMarker(markerOptions);
-                            Log.e(TAG,"DocumentSnapshot data: "+document.getData()+"phone :"+phone);
+                                            markerOptions.title(centerName);
+                                            markerOptions.snippet(address);
+                                            mMap.addMarker(markerOptions);
+                                            Log.d(TAG,"DocumentSnapshot data: "+document.getData()+"phone :"+phone);
 
-                        }else{
-                            Log.d(TAG,"No document");
-                        }
+                                        }else{
+                                            Log.d(TAG,"No document");
+                                        }
+
+                                    }
+                                    if (address == null) {
+                                        curPo = new LatLng(cameraLat, camreaLon);
+                                    }else{
+                                        List<Address> list = null;
+                                        try {
+                                            list = geocoder.getFromLocationName(address, 10);
+                                        }catch (Exception e){
+                                            Log.d(TAG, e.toString());
+                                        }
+
+                                        curPo = new LatLng(list.get(0).getLatitude(), list.get(0).getLongitude());
+
+                                    }
+
+
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curPo, 15));
+                                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                        @Override
+                                        public void onInfoWindowClick(@NonNull Marker marker) {
+                                            Log.d(TAG,"Info window click :"+marker.getTitle());
+//                            Log.e(TAG,regList.get(marker.getTitle()));
+                                            if (regList.contains(marker.getTitle())){
+                                                Bundle data = new Bundle();
+                                                data.putString("centerName",marker.getTitle());
+                                                data.putString("centerAddress",marker.getSnippet());
+                                                data.putString("phone",regTable.get(marker.getTitle()));
+                                                Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
+                                                intent.putExtras(data);
+                                                startActivity(intent);
+                                            }else {
+                                                StartToast("미등록업체입니다. ");
+                                            }
+
+                                        }
+                                    });
+
+
+
+
+                                }else{
+                                    Log.d("TAG", "failed with", task.getException());
+                                }
+                            }
+                        });
 
                     }
-
-                    LatLng curPo = new LatLng(cameraLat, camreaLon);
-//                    MarkerOptions curPosition = new MarkerOptions();
-//                    curPosition.position(curPo);
-//                    curPosition.title("내 위치");
-//                    mMap.addMarker(curPosition);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curPo, 15));
-                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                        @Override
-                        public void onInfoWindowClick(@NonNull Marker marker) {
-                            Log.e(TAG,"Info window click :"+marker.getTitle());
-//                            Log.e(TAG,regList.get(marker.getTitle()));
-                            if (regList.contains(marker.getTitle())){
-                                Bundle data = new Bundle();
-                                data.putString("centerName",marker.getTitle());
-                                data.putString("centerAddress",marker.getSnippet());
-                                data.putString("phone",regTable.get(marker.getTitle()));
-                                Intent intent = new Intent(UserMainActivity.this, PopUpCenterInfo.class);
-                                intent.putExtras(data);
-                                startActivity(intent);
-                            }else {
-                                StartToast("미등록업체입니다. ");
-                            }
-
-                        }
-                    });
-//                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                        @Override
-//                        public boolean onMarkerClick(@NonNull Marker marker) {
-//
-//                            androidx.appcompat.app.AlertDialog.Builder ad = new androidx.appcompat.app.AlertDialog.Builder(UserMainActivity.this);
-//                            ad.setIcon(R.mipmap.ic_launcher);
-//                            ad.setTitle(marker.getTitle());
-//                            ad.setMessage(marker.getSnippet());
-//                            ad.setPositiveButton("Reserve", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    Log.d("TAG","reserve pressed");
-//
-//                                    Intent intent = new Intent(getApplicationContext(), UserReservationActivityInit.class);
-//                                    intent.putExtra("centerName",marker.getTitle());
-//                                    intent.putExtra("centerAddress",marker.getSnippet());
-//                                    startActivity(intent);
-//                                    dialogInterface.dismiss();
-//                                }
-//                            });
-//
-//                            ad.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    Log.d("TAG","Close button pressed");
-//                                    dialogInterface.dismiss();
-//                                }
-//                            });
-//                            ad.show();
-//
-//
-//                            return false;
-//                        }
-//                    });
-
-
-
-
-                }else{
-                    Log.d("TAG", "failed with", task.getException());
                 }
             }
         });
+
+
+
 
 
     }
