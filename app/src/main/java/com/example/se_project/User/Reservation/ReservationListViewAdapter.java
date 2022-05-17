@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.se_project.R;
 import com.example.se_project.User.Search.SearchTitleClass;
 
@@ -25,7 +27,7 @@ public class ReservationListViewAdapter extends BaseAdapter {
     LayoutInflater inflater;
     public ArrayList<ReservationListClass> titlesList;
     public ArrayList<ReservationListClass> arraylist;
-    RelativeLayout itemList;
+    CardView itemList;
 
     public ReservationListViewAdapter(Context context, ArrayList<ReservationListClass> titlesList) {
         mContext = context;
@@ -79,7 +81,7 @@ public class ReservationListViewAdapter extends BaseAdapter {
             holder.Name.setText(titlesList.get(position).getName());
             holder.Location.setText(titlesList.get(position).getLocation());
         }
-        itemList = (RelativeLayout) view.findViewById(R.id.reservation_item);
+        itemList = (CardView) view.findViewById(R.id.reservation_item);
         itemList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

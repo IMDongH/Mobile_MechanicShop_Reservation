@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
 
 import com.example.se_project.R;
 
@@ -23,7 +26,7 @@ public class ReservationAdapter extends BaseAdapter  {
     Context mContext;
     LayoutInflater inflater;
     private ArrayList<Reservation_Info> DataList;
-    RelativeLayout itemList;
+    CardView itemList;
 
     public ReservationAdapter(Context context, ArrayList<Reservation_Info> dataList) {
         mContext = context;
@@ -51,6 +54,15 @@ public class ReservationAdapter extends BaseAdapter  {
         why.setText(DataList.get(position).getWhy());
         date.setText(DataList.get(position).getDate());
 
+        itemList = (CardView) view.findViewById(R.id.reservation_item);
+        itemList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                System.out.println("CLICK : "+ DataList.get(position).getName());
+                Toast.makeText(mContext, DataList.get(position).getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
@@ -69,5 +81,6 @@ public class ReservationAdapter extends BaseAdapter  {
     public Reservation_Info getItem(int position) {
         return DataList.get(position);
     }
+
 
 }
