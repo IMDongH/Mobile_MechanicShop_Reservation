@@ -77,6 +77,8 @@ public class UserSignupActivity  extends AppCompatActivity {
                 if (password.equals(passwordCheck)) {
                     Log.d(TAG,"PASSWORD CK");
                     Log.e(TAG,list.get(0).getAddressLine(0));
+                    Log.e(TAG,list.get(0).getAdminArea());
+//                    Log.e(TAG,list.get(0).getSubAdminArea());
                     final String curAddress = list.get(0).getAddressLine(0);
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
                             new OnCompleteListener<AuthResult>() {
