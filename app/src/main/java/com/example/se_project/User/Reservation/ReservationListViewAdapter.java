@@ -1,7 +1,9 @@
 package com.example.se_project.User.Reservation;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,6 @@ public class ReservationListViewAdapter extends BaseAdapter {
     LayoutInflater inflater;
     public ArrayList<ReservationListClass> titlesList;
     public ArrayList<ReservationListClass> arraylist;
-    CardView itemList;
 
     public ReservationListViewAdapter(Context context, ArrayList<ReservationListClass> titlesList) {
         mContext = context;
@@ -81,14 +82,7 @@ public class ReservationListViewAdapter extends BaseAdapter {
             holder.Name.setText(titlesList.get(position).getName());
             holder.Location.setText(titlesList.get(position).getLocation());
         }
-        itemList = (CardView) view.findViewById(R.id.reservation_item);
-        itemList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                System.out.println("CLICK : "+ titlesList.get(position).getName());
-            }
-        });
         return view;
     }
 
@@ -103,6 +97,15 @@ public class ReservationListViewAdapter extends BaseAdapter {
         }
         notifyDataSetChanged();
     }
+    public void deleteItem(int position)
+    {
+        titlesList.remove(position);
+        arraylist.remove(position);
+        notifyDataSetChanged();
+    }
 
+    private void StartToast(String msg) {
+        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+    }
    }
 

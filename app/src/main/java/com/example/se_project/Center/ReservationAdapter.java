@@ -54,15 +54,7 @@ public class ReservationAdapter extends BaseAdapter  {
         why.setText(DataList.get(position).getWhy());
         date.setText(DataList.get(position).getDate());
 
-        itemList = (CardView) view.findViewById(R.id.reservation_item);
-        itemList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                System.out.println("CLICK : "+ DataList.get(position).getName());
-                Toast.makeText(mContext, DataList.get(position).getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         return view;
     }
@@ -77,6 +69,11 @@ public class ReservationAdapter extends BaseAdapter  {
         return position;
     }
 
+    public void deleteItem(int position)
+    {
+        DataList.remove(position);
+        notifyDataSetChanged();
+    }
     @Override
     public Reservation_Info getItem(int position) {
         return DataList.get(position);
