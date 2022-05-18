@@ -139,8 +139,10 @@ public class UserReservationList extends AppCompatActivity {
                                 String date = (String) HashMap.get("time");
                                 String name = (String) HashMap.get("centerName");
                                 String Location = (String) HashMap.get("address");
+
                                 String day = (String) HashMap.get("date");
                                 ReservationListClass stc = new ReservationListClass(date,name, Location,day);
+
                                 arraylist.add(stc);
                                 Log.d(TAG, name + Location);
 
