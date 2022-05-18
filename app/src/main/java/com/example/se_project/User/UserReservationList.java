@@ -1,13 +1,17 @@
 package com.example.se_project.User;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -19,6 +23,8 @@ import com.example.se_project.User.Reservation.ReservationListViewAdapter;
 import com.example.se_project.User.Search.SearchListViewAdapter;
 import com.example.se_project.User.Search.SearchTitleClass;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,6 +64,12 @@ public class UserReservationList extends AppCompatActivity {
 
         Date = simpleDateFormat.format(day);
         list = findViewById(R.id.reservationList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                deleteDialog(position);
+            }
+        });
         System.out.println("DATE"+Date);
         reservationListCheck(Date);
         reservationDay.setText(Date);
@@ -128,7 +140,9 @@ public class UserReservationList extends AppCompatActivity {
                                 String name = (String) HashMap.get("centerName");
                                 String Location = (String) HashMap.get("address");
 
-                                ReservationListClass stc = new ReservationListClass(date,name, Location);
+                                String day = (String) HashMap.get("date");
+                                ReservationListClass stc = new ReservationListClass(date,name, Location,day);
+
                                 arraylist.add(stc);
                                 Log.d(TAG, name + Location);
 
@@ -144,5 +158,60 @@ public class UserReservationList extends AppCompatActivity {
                     }
                 });
     }
+    private void deleteDialog(int position)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserReservationList.this);
+        builder.setTitle("예약 취소"); builder.setMessage(arraylist.get(position).getName()+"의 예약을 취소하시겠습니까?");
+        builder.setNegativeButton("예", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                db.collection("users").document(user.getUid()).collection("reservation")
+                        .document(arraylist.get(position).getTime()).collection(arraylist.get(position).getTime()).document(arraylist.get(position).getDate()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
 
+                        db.collection("reservation").document(arraylist.get(position).getName()).collection(arraylist.get(position).getTime())
+                                .document(arraylist.get(position).getDate()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                StartToast(position + "예");
+                                arraylist.remove(position);
+                                adapter.deleteItem(position);
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting document", e);
+                                    }
+                                });
+                    }
+                    })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting document", e);
+                            }
+                        });
+
+            }
+        });
+
+        builder.setPositiveButton("아니오", new DialogInterface.OnClickListener()
+        {
+            @Override public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+        builder.show();
+    }
+    private void StartToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
 }
+

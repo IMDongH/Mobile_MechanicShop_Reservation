@@ -69,6 +69,7 @@ public class UserReservationActivity extends AppCompatActivity
         Date = simpleDateFormat.format(day);
         today = Date;
         info.setDate(Date);
+        info.setUserId(user.getUid());
         ActionBar ac = getSupportActionBar();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -287,6 +288,7 @@ public class UserReservationActivity extends AppCompatActivity
                         info.setCarType(((EditText) findViewById(R.id.carModelReservation)).getText().toString());
                     if(CheckReservationInfoCondition(info)==true)
                     {
+                        info.setUserId(user.getUid());
                         dbInsertion(info);
                         finish();
                     }

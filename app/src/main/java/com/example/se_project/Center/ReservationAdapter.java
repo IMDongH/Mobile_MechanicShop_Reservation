@@ -64,6 +64,7 @@ public class ReservationAdapter extends BaseAdapter  {
             }
         });
 
+
         return view;
     }
 
@@ -77,6 +78,11 @@ public class ReservationAdapter extends BaseAdapter  {
         return position;
     }
 
+    public void deleteItem(int position)
+    {
+        DataList.remove(position);
+        notifyDataSetChanged();
+    }
     @Override
     public Reservation_Info getItem(int position) {
         return DataList.get(position);
