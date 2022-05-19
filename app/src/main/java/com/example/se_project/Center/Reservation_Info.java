@@ -8,14 +8,15 @@ public class Reservation_Info {
     private String type;
     private String why;
     private String date;
-
-    public Reservation_Info(String name, String phone, String time, String type, String why, String date) {
+    private String UID;
+    public Reservation_Info(String name, String phone, String time, String type, String why, String date, String UID) {
         this.name = name;
         this.phone = phone;
         this.time = time;
         this.type = type;
         this.why = why;
         this.date = date;
+        this.UID = UID;
     }
 
     public String getName() {
@@ -64,5 +65,13 @@ public class Reservation_Info {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 }

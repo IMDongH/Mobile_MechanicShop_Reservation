@@ -1,9 +1,12 @@
 package com.example.se_project.Center;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +27,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.se_project.LoginActivity;
 import com.example.se_project.R;
 import com.example.se_project.User.Search.UserSearchActivity;
+import com.example.se_project.User.UserReservationList;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,15 +54,14 @@ public class CenterMainActivity extends AppCompatActivity {
 
     Calendar myCalendar = Calendar.getInstance();
     String selected_Date;
-
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseFirestore db;
-
+    ListView listView;
     TextView title;
     ArrayList<Reservation_Info> Datalist;
     String center_name;
-
+    ReservationAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +76,14 @@ public class CenterMainActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         title = findViewById(R.id.title);
+        listView = (ListView) findViewById(R.id.listview);
         Datalist = new ArrayList<Reservation_Info>();
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                deleteDialog(position);
+            }
+        });
         // 처음 로그인 했을 때
         db.collection("enterprises").document(user.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -112,18 +123,19 @@ public class CenterMainActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.exists()) {
                                     String name = (String) document.getData().get("name");
+                                    String centerName = (String) document.getData().get("centerName");
                                     String phone = (String) document.getData().get("phone");
                                     String time = (String) document.getData().get("time");
                                     String type = (String) document.getData().get("carType");
                                     String why = (String) document.getData().get("content");
-
-                                    Reservation_Info data = new Reservation_Info(name, phone, time, type, why, selected_Date);
+                                    String UID = (String) document.getData().get("userId");
+                                    Reservation_Info data = new Reservation_Info(name, phone, time, type, why, selected_Date,UID);
                                     Datalist.add(data);
                                 }
                             }
 
-                            ListView listView = (ListView) findViewById(R.id.listview);
-                            final ReservationAdapter myAdapter = new ReservationAdapter(CenterMainActivity.this, Datalist);
+
+                            myAdapter = new ReservationAdapter(CenterMainActivity.this, Datalist);
                             listView.setAdapter(myAdapter);
                         }
                     }
@@ -218,5 +230,62 @@ public class CenterMainActivity extends AppCompatActivity {
             System.exit(1);
         }
 
+    }
+    private void deleteDialog(int position)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CenterMainActivity.this);
+        builder.setTitle("예약 취소"); builder.setMessage(Datalist.get(position).getName()+"의 예약을 취소하시겠습니까?");
+        builder.setNegativeButton("예", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                db.collection("users").document(Datalist.get(position).getUID()).collection("reservation")
+                        .document(Datalist.get(position).getDate()).collection(Datalist.get(position).getDate()).document(Datalist.get(position).getTime()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("TET"+center_name);
+                        System.out.println("TT"+ Datalist.get(position).getTime());
+                        System.out.println("DT"+ Datalist.get(position).getDate());
+                        db.collection("reservation").document(center_name).collection(Datalist.get(position).getDate())
+                                .document(Datalist.get(position).getTime()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                StartToast(position + "예");
+                                Datalist.remove(position);
+                                myAdapter.deleteItem(position);
+                                myAdapter.notifyDataSetChanged();
+                            }
+                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("TEST", "Error deleting document", e);
+                                    }
+                                });
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("TEST", "Error deleting document", e);
+                            }
+                        });
+
+            }
+        });
+
+        builder.setPositiveButton("아니오", new DialogInterface.OnClickListener()
+        {
+            @Override public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+        builder.show();
+    }
+    private void StartToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

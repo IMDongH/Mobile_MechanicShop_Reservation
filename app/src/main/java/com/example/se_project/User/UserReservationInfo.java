@@ -12,7 +12,7 @@ public class UserReservationInfo {
     private String carType;
     private String content;
     private String address;
-
+    private String userId;
 
     public UserReservationInfo() { }
 
@@ -36,6 +36,14 @@ public class UserReservationInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPhone() {
