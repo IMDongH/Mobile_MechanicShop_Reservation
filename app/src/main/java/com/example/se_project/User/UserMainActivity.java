@@ -29,6 +29,7 @@ import android.widget.Toast;
 //import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.core.app.ActivityCompat;
 //import androidx.core.content.ContextCompat;
@@ -129,6 +130,8 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_user_main);
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("");
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.hide();
 
