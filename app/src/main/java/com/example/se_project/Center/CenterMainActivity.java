@@ -176,9 +176,7 @@ public class CenterMainActivity extends AppCompatActivity {
                 StartActivity(LoginActivity.class);
                 break;
 
-            case R.id.SettingMenu:
-                Toast.makeText(getApplicationContext(), "설정 메뉴", Toast.LENGTH_SHORT).show();
-                break;
+
 
             case R.id.calendar:
                 // 오늘 날짜로 Dialog 를 활성화한다

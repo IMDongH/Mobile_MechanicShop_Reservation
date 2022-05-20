@@ -263,9 +263,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 //                    StartToast("지역을 선택해주세요.");
 //                }
                 break;
-            case R.id.SettingMenu:
-                Toast.makeText(getApplicationContext(), "설정 메뉴", Toast.LENGTH_SHORT).show();
-                break;
+
             case R.id.reservationCheck:
                 StartActivity(UserReservationList.class);
                 break;
