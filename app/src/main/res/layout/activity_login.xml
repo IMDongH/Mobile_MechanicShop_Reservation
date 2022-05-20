@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
+            android:hint="ex) password"
             android:textColor="#393E46"
             android:textCursorDrawable="@null"
             android:inputType="textPassword" />

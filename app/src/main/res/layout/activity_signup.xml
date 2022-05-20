@@ -16,13 +16,14 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/user"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:backgroundTint="#A0BCC2"
             android:text="손님">
 
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
 
         <View
             android:layout_width="0dp"
@@ -30,12 +31,13 @@
             android:layout_weight="1"
             />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/center"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:backgroundTint="#A0BCC2"
             android:text="정비소">
 
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 </LinearLayout>

@@ -3,14 +3,18 @@ package com.example.se_project.init;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se_project.CenterSignupActivity;
 import com.example.se_project.R;
 import com.example.se_project.UserSignupActivity;
 
-public class SignUpActivity extends Activity {
+public class SignUpActivity extends AppCompatActivity {
     Button user ,center;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,9 @@ public class SignUpActivity extends Activity {
         center=findViewById(R.id.center);
         findViewById(R.id.user).setOnClickListener(onClickListener);
         findViewById(R.id.center).setOnClickListener(onClickListener);
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("회원가입");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -43,5 +50,16 @@ public class SignUpActivity extends Activity {
         // 메인화면을 띄우는 모든 코드에서 이 플래그를 추가해줘야 하는 것 같다.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                // 액티비티 이동
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
