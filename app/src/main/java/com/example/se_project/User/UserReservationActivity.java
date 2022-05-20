@@ -59,6 +59,7 @@ public class UserReservationActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reservation);
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         time.add("예약 시간 선택");
         mAuth = FirebaseAuth.getInstance();

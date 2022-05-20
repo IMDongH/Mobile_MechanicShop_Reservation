@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,9 +42,9 @@ public class UserSignupActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_signup);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("사용자 회원가입");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.RegisterButton).setOnClickListener(onClickListener);
     }
@@ -188,5 +189,16 @@ public class UserSignupActivity  extends AppCompatActivity {
         // 메인화면을 띄우는 모든 코드에서 이 플래그를 추가해줘야 하는 것 같다.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                // 액티비티 이동
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
