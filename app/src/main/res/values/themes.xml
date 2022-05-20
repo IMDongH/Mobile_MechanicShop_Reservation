@@ -21,6 +21,7 @@
         <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
         <item name="android:actionBarStyle">@style/actionBarStyle</item>
         <item name="android:actionMenuTextAppearance">@style/menuStyle</item>

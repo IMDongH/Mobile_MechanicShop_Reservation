@@ -9,14 +9,13 @@
     android:padding="10dp" >
 
     <LinearLayout
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
-
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -151,6 +150,8 @@
                         android:id="@+id/select_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/round"
+                        android:layout_marginBottom="10dp"
                         android:text="지역선택"
                         android:fontFamily="@font/hssaemaul_regular"/>
                 </LinearLayout>
@@ -172,7 +173,10 @@
                         android:id="@+id/search_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="검색하기" android:fontFamily="@font/hssaemaul_regular"/>
+                        android:background="@drawable/round"
+                        android:layout_marginBottom="10dp"
+                        android:text="검색하기"
+                        android:fontFamily="@font/hssaemaul_regular"/>
                 </LinearLayout>
 
 
@@ -180,6 +184,7 @@
                     android:id="@+id/RegisterButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/round"
                     android:text="회원가입"
                     android:fontFamily="@font/hssaemaul_regular"/>
 
