@@ -14,13 +14,16 @@
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        >
 
         <Button
             android:id="@+id/user"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:text="손님">
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:backgroundTint="#A0BCC2"
+            android:text="손님"
+            >
 
         </Button>
 
@@ -32,8 +35,9 @@
 
         <Button
             android:id="@+id/center"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:backgroundTint="#A0BCC2"
             android:text="정비소">
 
         </Button>
