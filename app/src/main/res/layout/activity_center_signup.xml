@@ -135,7 +135,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -151,14 +150,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="지역선택"
-                        android:background="@drawable/round"
                         android:fontFamily="@font/hssaemaul_regular"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -173,7 +170,6 @@
                         android:id="@+id/search_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round"
                         android:text="검색하기" android:fontFamily="@font/hssaemaul_regular"/>
                 </LinearLayout>
 
@@ -182,7 +178,6 @@
                     android:id="@+id/RegisterButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round"
                     android:text="회원가입"
                     android:fontFamily="@font/hssaemaul_regular"/>
 

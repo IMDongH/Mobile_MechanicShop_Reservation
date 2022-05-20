@@ -31,7 +31,7 @@
             android:inputType="textEmailAddress"
             android:textCursorDrawable="@null"
             android:textColor="#393E46"
-            android:fontFamily="@font/hssaemaul_regular"/>
+            android:fontFamily="@font/test"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_marginBottom="5dp"
             android:ems="10"
             android:hint="ex) password"
-            android:fontFamily="@font/hssaemaul_regular"
+            android:fontFamily="@font/test"
             android:textColor="#393E46"
             android:textCursorDrawable="@null"
             android:inputType="textPassword" />
