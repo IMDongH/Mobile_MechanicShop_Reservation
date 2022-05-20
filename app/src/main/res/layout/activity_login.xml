@@ -30,7 +30,8 @@
             android:hint="ex) 우리동네카센터@~~.co.kr"
             android:inputType="textEmailAddress"
             android:textCursorDrawable="@null"
-            android:textColor="#393E46"/>
+            android:textColor="#393E46"
+            android:fontFamily="@font/hssaemaul_regular"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
             android:layout_marginBottom="5dp"
             android:ems="10"
             android:hint="ex) password"
+            android:fontFamily="@font/hssaemaul_regular"
             android:textColor="#393E46"
             android:textCursorDrawable="@null"
             android:inputType="textPassword" />
@@ -52,12 +54,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round"
-            android:fontFamily="@font/hssaemaul_regular"
-            android:text="로그인" />
+            android:text="로그인"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
         <RadioGroup android:id="@+id/radioGroup" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent">
-            <RadioButton android:text="손님" android:textColor="#393E46" android:id="@+id/user" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"/>
-            <RadioButton  android:text="정비소" android:textColor="#393E46" android:id="@+id/center" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:text="손님" android:textColor="#393E46" android:id="@+id/user" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:fontFamily="@font/hssaemaul_regular"/>
+            <RadioButton  android:text="정비소" android:textColor="#393E46" android:id="@+id/center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="@font/hssaemaul_regular" />
         </RadioGroup>
 
         <LinearLayout
