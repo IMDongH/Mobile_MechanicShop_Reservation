@@ -177,7 +177,7 @@ public class UserReservationList extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
 
-                                StartToast(position + "예");
+
                                 arraylist.remove(position);
                                 adapter.deleteItem(position);
                                 adapter.notifyDataSetChanged();

@@ -23,9 +23,17 @@
         <item name="android:fontFamily">@font/test_font</item>
     </style>
 
-    <style name="customActionBarFontStyle" parent="ThemeOverlay.AppCompat.Light">
+    <style name="MyAlertDialogTheme" parent="@style/Theme.Material3.Light.Dialog.Alert">
         <item name="android:fontFamily">@font/test_font</item>
     </style>
 
+    <style name="actionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:fontFamily">@font/test_font</item>
+
+    </style>
+
+    <style name="menuStyle" parent="@style/TextAppearance.AppCompat.Menu">
+        <item name="android:fontFamily">@font/hssaemaul_regular</item>
+    </style>
 
 </resources>
