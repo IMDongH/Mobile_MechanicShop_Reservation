@@ -30,8 +30,6 @@
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/closet.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/post_menu.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/setting_menu.xml" value="0.36614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.2537037037037037" />
-        <entry key="app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.2537037037037037" />
         <entry key="app/src/main/res/layout/activity_center_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_center_reservation_items.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_center_signup.xml" value="0.182518115942029" />
@@ -40,13 +38,14 @@
         <entry key="app/src/main/res/layout/activity_password_init.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_pop_up_center_info.xml" value="0.4252556842306386" />
         <entry key="app/src/main/res/layout/activity_search_.xml" value="0.18614130434782608" />
+        <entry key="app/src/main/res/layout/activity_search_list_view_items.xml" value="0.18614130434782608" />
         <entry key="app/src/main/res/layout/activity_search_popup.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_search_popup_item.xml" value="0.2671875" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_user_map.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_user_reservation.xml" value="0.2671875" />
-        <entry key="app/src/main/res/layout/activity_user_reservation_list.xml" value="0.2671875" />
-        <entry key="app/src/main/res/layout/activity_user_reservation_list_item.xml" value="0.251314091411951" />
+        <entry key="app/src/main/res/layout/activity_user_reservation_list.xml" value="0.18614130434782608" />
+        <entry key="app/src/main/res/layout/activity_user_reservation_list_item.xml" value="0.33201685366423234" />
         <entry key="app/src/main/res/layout/activity_user_signup.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/test.xml" value="0.1" />
         <entry key="app/src/main/res/menu/actionbar_menu.xml" value="0.27447916666666666" />
