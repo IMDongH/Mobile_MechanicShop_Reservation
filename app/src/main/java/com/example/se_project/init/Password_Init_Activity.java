@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ public class Password_Init_Activity extends AppCompatActivity {
         if(user == null) {
             // 다이얼로그로 이메일 받기
             final EditText input = new EditText(this);
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogTheme));
             alert.setMessage("가입하신 이메일을 입력해주세요.");
             alert.setView(input);
 
