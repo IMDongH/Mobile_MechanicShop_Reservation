@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable/ic_baseline_directions_car_24.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable/ic_baseline_done_outline_24.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/drawable/ic_noun_search_4810262.xml" value="0.1" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/font/advent_pro_semibold.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_calendertest.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/layout/activity_center_main.xml" value="0.1" />
