@@ -30,6 +30,7 @@ public class ReservationListViewAdapter extends BaseAdapter {
     public ArrayList<ReservationListClass> titlesList;
     public ArrayList<ReservationListClass> arraylist;
 
+
     public ReservationListViewAdapter(Context context, ArrayList<ReservationListClass> titlesList) {
         mContext = context;
         this.titlesList = new ArrayList<ReservationListClass>();
