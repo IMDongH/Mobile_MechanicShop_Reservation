@@ -28,7 +28,8 @@
             android:id="@+id/listview"
             android:layout_width="fill_parent"
             android:layout_height="400dp"
-            android:layout_below="@+id/search" />
+            android:layout_below="@+id/search"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
 
     </LinearLayout>

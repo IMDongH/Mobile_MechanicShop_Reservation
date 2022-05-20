@@ -42,6 +42,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:text="예약 시간 선택하기"
+            android:fontFamily="@font/hssaemaul_regular"
             android:textSize="15sp"
             android:focusable="false" />
         <Spinner
@@ -49,7 +50,8 @@
             android:layout_height="wrap_content"
             android:spinnerMode="dialog"
             android:layout_marginBottom="10dp"
-            android:id="@+id/reservation"/>
+            android:id="@+id/reservation"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -65,7 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="예약자명" />
+            android:hint="예약자명"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
         <EditText
             android:id="@+id/phoneReservation"
@@ -73,7 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="예약자 핸드폰 번호" />
+            android:hint="예약자 핸드폰 번호"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -89,7 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="차량 번호" />
+            android:hint="차량 번호"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
         <EditText
             android:id="@+id/carModelReservation"
@@ -97,7 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="차량 기종" />
+            android:hint="차량 기종"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
         <EditText
             android:id="@+id/reservationContent"
@@ -106,13 +112,15 @@
             android:gravity="center"
             android:text="방문 목적 선택하기"
             android:textSize="15sp"
-            android:focusable="false" />
+            android:focusable="false"
+            android:fontFamily="@font/hssaemaul_regular"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:spinnerMode="dialog"
             android:layout_marginBottom="20dp"
-            android:id="@+id/content"/>
+            android:id="@+id/content"
+            android:fontFamily="@font/hssaemaul_regular"/>
 
         <Button
             android:id="@+id/complete_Btn"
@@ -123,7 +131,7 @@
             android:text="예악하기"
             android:layout_gravity="right"
             android:layout_marginBottom="20dp"
-            />
+            android:fontFamily="@font/hssaemaul_regular"/>
 
     </LinearLayout>
     </LinearLayout>
