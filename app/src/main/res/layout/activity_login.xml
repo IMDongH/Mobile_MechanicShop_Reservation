@@ -27,8 +27,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="예) onoff@onoff.co.kr"
-            android:inputType="textEmailAddress" />
+            android:hint="ex) 우리동네카센터@~~.co.kr"
+            android:inputType="textEmailAddress"
+            android:textCursorDrawable="@null"
+            android:textColor="#393E46"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-
+            android:hint="ex) password"
+            android:textColor="#393E46"
+            android:textCursorDrawable="@null"
             android:inputType="textPassword" />
 
         <Button
@@ -51,8 +55,8 @@
             android:text="로그인" />
 
             <RadioGroup android:id="@+id/radioGroup" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent">
-            <RadioButton android:text="손님" android:id="@+id/user" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"/>
-            <RadioButton  android:text="정비소" android:id="@+id/center" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <RadioButton android:text="손님" android:textColor="#393E46" android:id="@+id/user" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"/>
+            <RadioButton  android:text="정비소" android:textColor="#393E46" android:id="@+id/center" android:layout_width="wrap_content" android:layout_height="wrap_content" />
         </RadioGroup>
 
         <LinearLayout
@@ -68,7 +72,7 @@
                 android:backgroundTint="#F9EBC8"
                 android:background="@drawable/round"
                 android:text="회원가입"
-                android:textColor="@color/black"
+                android:textColor="#393E46"
                 />
             <View
                 android:layout_width="0dp"
@@ -84,7 +88,7 @@
                 android:backgroundTint="#F9EBC8"
                 android:background="@drawable/round"
                 android:text="비밀번호 찾기"
-                android:textColor="@color/black"
+                android:textColor="#393E46"
                 />
 
         </LinearLayout>
