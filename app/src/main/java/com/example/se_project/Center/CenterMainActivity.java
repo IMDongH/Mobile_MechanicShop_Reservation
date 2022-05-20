@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -231,7 +232,7 @@ public class CenterMainActivity extends AppCompatActivity {
     }
     private void deleteDialog(int position)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(CenterMainActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogTheme));
         builder.setTitle("예약 취소"); builder.setMessage(Datalist.get(position).getName()+"의 예약을 취소하시겠습니까?");
         builder.setNegativeButton("예", new DialogInterface.OnClickListener()
         {
