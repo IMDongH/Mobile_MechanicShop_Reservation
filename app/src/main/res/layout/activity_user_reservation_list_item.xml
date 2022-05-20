@@ -6,12 +6,11 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
     app:cardMaxElevation="1dp"
-
     android:backgroundTint="#F9EBC8"
+    android:id="@+id/reservation_item"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     app:strokeColor="#000000"
-    android:id="@+id/reservation_item"
     app:strokeWidth="20dp">
 
     <LinearLayout
