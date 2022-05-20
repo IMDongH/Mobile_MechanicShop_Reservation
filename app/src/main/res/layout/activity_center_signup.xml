@@ -16,14 +16,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
-        <TextView
-            android:id="@+id/RegisterText"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:gravity="center"
-            android:text="사업자 회원가입"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+
 
         <ScrollView
             android:layout_width="match_parent"
