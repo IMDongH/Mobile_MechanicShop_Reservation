@@ -23,4 +23,6 @@
     <style name="customActionBarFontStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/test_font</item>
     </style>
+
+
 </resources>
