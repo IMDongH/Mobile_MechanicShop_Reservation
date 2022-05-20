@@ -294,7 +294,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 
     public void selectRegion(MenuItem item) {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
-        ad.setTitle("지역을 선택하세요")
+        ad.setTitle("지역을 선택하세요").setIcon(R.drawable.location)
                 .setItems(selectOption, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
