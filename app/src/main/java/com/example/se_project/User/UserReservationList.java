@@ -63,7 +63,7 @@ public class UserReservationList extends AppCompatActivity {
         reservationDay = findViewById(R.id.reservationDay);
 
         Date = simpleDateFormat.format(day);
-        list = findViewById(R.id.reservationList);
+        list = (ListView) findViewById(R.id.reservationList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -177,7 +177,7 @@ public class UserReservationList extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
 
-                                StartToast(position + "예");
+
                                 arraylist.remove(position);
                                 adapter.deleteItem(position);
                                 adapter.notifyDataSetChanged();

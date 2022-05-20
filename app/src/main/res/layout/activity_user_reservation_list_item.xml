@@ -6,12 +6,11 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
     app:cardMaxElevation="1dp"
-
     android:backgroundTint="#F9EBC8"
+    android:id="@+id/reservation_item"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     app:strokeColor="#000000"
-    android:id="@+id/reservation_item"
     app:strokeWidth="20dp">
 
     <LinearLayout
@@ -48,7 +47,8 @@
                         android:id="@+id/time_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00 : 00" />
+                        android:text="00 : 00"
+                        android:fontFamily="@font/hssaemaul_regular"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -64,13 +64,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" : " />
+                        android:text=" : "
+                        android:fontFamily="@font/hssaemaul_regular"/>
 
                     <TextView
                         android:id="@+id/Location_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="repair" />
+                        android:text="repair"
+                        android:fontFamily="@font/hssaemaul_regular"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -94,13 +96,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" : " />
+                        android:text=" : " android:fontFamily="@font/hssaemaul_regular"/>
 
                     <TextView
                         android:id="@+id/name_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="K7" />
+                        android:text="K7" android:fontFamily="@font/hssaemaul_regular"/>
 
                 </LinearLayout>
 
