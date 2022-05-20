@@ -27,14 +27,17 @@ public class PopUpCenterInfo extends Activity {
         centerName = data.getString("centerName");
         address = data.getString("centerAddress");
         phone = data.getString("phone");
-        phone = "tel:"+phone.substring(0,3)+"-"+phone.substring(3,7)+"-"+phone.substring(7);
+
 
         TextView centerNameTextView = findViewById(R.id.centerNameTextView);
         TextView centerAddressTextView = findViewById(R.id.centerAddressTextView);
+        TextView phoneNumberTextView = findViewById(R.id.phoneNumberTextView);
 
         centerNameTextView.setText(centerName);
         centerAddressTextView.setText(address);
+        phoneNumberTextView.setText(phone);
 
+        phone = "tel:"+phone.substring(0,3)+"-"+phone.substring(3,7)+"-"+phone.substring(7);
         Button reserveButton = findViewById(R.id.reserveButton);
         Button cancelButton = findViewById(R.id.exitButton);
         Button phoneButton = findViewById(R.id.phoneCallButton);

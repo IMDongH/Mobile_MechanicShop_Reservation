@@ -41,6 +41,12 @@
         android:text="address"
         android:gravity="center"
         android:id="@+id/centerAddressTextView"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="phone number"
+        android:gravity="center"
+        android:id="@+id/phoneNumberTextView"/>
 
     <LinearLayout
         android:layout_width="match_parent"
