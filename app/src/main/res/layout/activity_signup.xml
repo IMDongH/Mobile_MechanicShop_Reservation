@@ -23,7 +23,7 @@
             android:layout_height="130dp"
             android:backgroundTint="#A0BCC2"
             android:text="손님"
-            >
+            android:fontFamily="@font/hssaemaul_regular">
 
         </Button>
 
@@ -38,7 +38,8 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:backgroundTint="#A0BCC2"
-            android:text="정비소">
+            android:text="정비소"
+            android:fontFamily="@font/hssaemaul_regular">
 
         </Button>
     </LinearLayout>

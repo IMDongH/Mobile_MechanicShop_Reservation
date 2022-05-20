@@ -51,6 +51,7 @@
                     android:layout_marginBottom="5dp"
                     android:ems="10"
                     android:hint="이메일"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:inputType="textEmailAddress" />
 
                 <EditText
@@ -60,6 +61,7 @@
                     android:layout_marginBottom="5dp"
                     android:ems="10"
                     android:hint="비밀번호"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:inputType="textPassword" />
 
                 <EditText
@@ -69,6 +71,7 @@
                     android:layout_marginBottom="5dp"
                     android:ems="10"
                     android:hint="비밀번호 확인"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:inputType="textPassword" />
 
                 <TextView
@@ -85,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="이름"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:inputType="textPersonName" />
 
                 <EditText
@@ -93,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="생년월일"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:inputType="date"/>
 
                 <EditText
@@ -101,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="전화번호"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:inputType="phone" />
 
                 <TextView
@@ -117,6 +123,7 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:text="영업 시작 시간"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:textSize="15sp"
                     android:clickable="true"
                     android:editable="false"
@@ -128,6 +135,7 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:text="영업 마감 시간"
+                    android:fontFamily="@font/hssaemaul_regular"
                     android:textSize="15sp"
                     android:clickable="true"
                     android:editable="false"
@@ -150,7 +158,8 @@
                         android:id="@+id/select_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="지역선택"/>
+                        android:text="지역선택"
+                        android:fontFamily="@font/hssaemaul_regular"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -170,7 +179,7 @@
                         android:id="@+id/search_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="검색하기" />
+                        android:text="검색하기" android:fontFamily="@font/hssaemaul_regular"/>
                 </LinearLayout>
 
 
@@ -178,7 +187,8 @@
                     android:id="@+id/RegisterButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="회원가입" />
+                    android:text="회원가입"
+                    android:fontFamily="@font/hssaemaul_regular"/>
 
 
             </LinearLayout>
