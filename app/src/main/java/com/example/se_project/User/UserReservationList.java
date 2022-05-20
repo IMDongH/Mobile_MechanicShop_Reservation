@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -160,8 +161,9 @@ public class UserReservationList extends AppCompatActivity {
     }
     private void deleteDialog(int position)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(UserReservationList.this);
-        builder.setTitle("예약 취소"); builder.setMessage(arraylist.get(position).getName()+"의 예약을 취소하시겠습니까?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogTheme));
+        builder.setTitle("예약 취소");
+        builder.setMessage(arraylist.get(position).getName()+"의 예약을 취소하시겠습니까?");
         builder.setNegativeButton("예", new DialogInterface.OnClickListener()
         {
             @Override

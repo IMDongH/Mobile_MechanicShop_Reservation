@@ -16,7 +16,7 @@ public class Reservation_Info {
         this.type = type;
         this.why = why;
         this.date = date;
-        this.UID = UID;
+        this.UID = UID ;
     }
 
     public String getName() {
