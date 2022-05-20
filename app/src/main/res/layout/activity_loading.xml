@@ -4,6 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="18dp"
-    android:paddingRight="18dp"
-    android:background="@drawable/ic_launcher_background">
+    android:paddingRight="18dp">
 </LinearLayout>

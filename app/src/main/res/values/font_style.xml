@@ -7,6 +7,9 @@
     <style name="customButtonFontStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
         <item name="android:fontFamily">@font/test_font</item>
     </style>
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/test_font</item>
+    </style>
 
     <style name="customEditTextFontStyle" parent="@android:style/Widget.DeviceDefault.EditText">
         <item name="android:fontFamily">@font/test_font</item>
