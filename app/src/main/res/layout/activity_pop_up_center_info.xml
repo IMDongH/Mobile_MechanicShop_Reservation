@@ -21,7 +21,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/car_center_icon"
+            android:background="@drawable/carcenter_icon"
             android:layout_gravity="center"
             android:gravity="center"/>
 

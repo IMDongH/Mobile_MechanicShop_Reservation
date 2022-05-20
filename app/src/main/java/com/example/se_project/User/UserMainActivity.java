@@ -427,6 +427,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
                         for (int i = 0; i < selectOption.length; i++){
                             if (target.equals(selectOption[i])) {
                                 regionMenu.setTitle(selectOption[i]);
+                                region = selectOption[i];
                                 break;
                             }
                         }
