@@ -30,9 +30,9 @@
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/closet.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/post_menu.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/SE_Project/app/src/main/res/menu/setting_menu.xml" value="0.36614583333333334" />
-        <entry key="app/src/main/res/drawable/round.xml" value="0.2833333333333333" />
-        <entry key="app/src/main/res/drawable/round2.xml" value="0.2833333333333333" />
-        <entry key="app/src/main/res/drawable/round_2.xml" value="0.2833333333333333" />
+
+        <entry key="app/src/main/res/font/test_font.xml" value="0.29739583333333336" />
+
         <entry key="app/src/main/res/layout/activity_center_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_center_reservation_items.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_center_signup.xml" value="0.182518115942029" />
