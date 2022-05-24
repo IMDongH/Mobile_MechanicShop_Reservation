@@ -155,11 +155,11 @@ public class UserSignupActivity  extends AppCompatActivity {
             CheckSignUpMemberInfoCondition(name, date, phone);
         }
     }
-    private String CheckSignUpMemberInfoCondition(String name, String date, String phone) {
+    public String CheckSignUpMemberInfoCondition(String name, String date, String phone) {
         // 메서드가 호출되는 시점에는 회원가입이 이루어진 상태이다.
         // 따라서 중간에 문제가 생겼다면 해당 계정을 삭제해주어야 한다.
-        Log.e("temp", "CheckSignUpMemberInfoCondition: " + user.getEmail());
-        user.delete();
+//        Log.e("temp", "CheckSignUpMemberInfoCondition: " + user.getEmail());
+//            user.delete();
 
             if(name.length() <= 0) {
                 StartToast("회원 이름의 길이를 확인해주세요 : 1자 이상");
