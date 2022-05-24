@@ -1,5 +1,6 @@
 package com.example.se_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -36,6 +37,8 @@ public class UserSignupActivity  extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
     private Geocoder geocoder;
 
+    public UserSignupActivity(Context context) {
+    }
 
 
     @Override
@@ -121,7 +124,7 @@ public class UserSignupActivity  extends AppCompatActivity {
         }
     };
     private void StartToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -152,7 +155,7 @@ public class UserSignupActivity  extends AppCompatActivity {
             CheckSignUpMemberInfoCondition(name, date, phone);
         }
     }
-    private void CheckSignUpMemberInfoCondition(String name, String date, String phone) {
+    private String CheckSignUpMemberInfoCondition(String name, String date, String phone) {
         // 메서드가 호출되는 시점에는 회원가입이 이루어진 상태이다.
         // 따라서 중간에 문제가 생겼다면 해당 계정을 삭제해주어야 한다.
         Log.e("temp", "CheckSignUpMemberInfoCondition: " + user.getEmail());
@@ -160,26 +163,41 @@ public class UserSignupActivity  extends AppCompatActivity {
 
             if(name.length() <= 0) {
                 StartToast("회원 이름의 길이를 확인해주세요 : 1자 이상");
+                return "회원 이름 오류";
             }
             else if(date.length() < 6) {
                 StartToast("생년월일의 길이를 확인해주세요 : 6자 이상");
+                return "생년월일 오류";
             }
             else if(phone.length() < 8) {
                 StartToast("전화번호의 길이를 확인해주세요 : 8자 이상");
+                return "전화번호 오류";
+            }
+            else{
+                return "조건 만족";
             }
     }
 
-    private void CheckSignUpCondition(String email, String password, String passwordCheck, String address) {
+    public String CheckSignUpCondition(String email, String password, String passwordCheck, String address) {
         if(email.length() <= 0) {
             StartToast("이메일 길이를 확인해주세요 : 1자 이상");
+            return "이메일 오류";
         }
         else if(password.length() <= 0) {
             StartToast("비밀번호 길이를 확인해주세요 : 1자 이상");
+            return "비밀번호 오류";
         }
         else if(passwordCheck.length() <= 0) {
             StartToast("비밀번호 확인 문자를 확인해주세요 : 1자 이상");
-        }else{
+            return "비밀번호 확인 오류";
+        }else if(address.length() <=0)
+            {
             StartToast("주소를 확인해주세요");
+            return "주소 오류";
+        }
+        else
+        {
+            return "조건 만족";
         }
     }
     private void StartActivity(Class c) {

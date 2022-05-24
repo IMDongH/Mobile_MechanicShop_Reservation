@@ -1,5 +1,6 @@
 package com.example.se_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +40,10 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
+
+    public LoginActivity(Context context) {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
