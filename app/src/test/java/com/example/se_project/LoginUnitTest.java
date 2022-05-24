@@ -22,7 +22,6 @@ public class LoginUnitTest {
     private static final String FAKE_STRING = "조건 만족";
 
     UserSignupActivity signup;
-    LoginActivity login;
     Context context;
     @Before
     public void setUp(){
@@ -35,24 +34,6 @@ public class LoginUnitTest {
 
         signup = new UserSignupActivity(context);
         String result = signup.CheckSignUpCondition("t", "t", "t", "t");
-        assertEquals(result,FAKE_STRING);
-
-    }
-
-    @Test
-    public void check(){
-
-        signup = new UserSignupActivity(context);
-        String result = signup.CheckSignUpMemberInfoCondition("t", "t", "t");
-        assertEquals(result,FAKE_STRING);
-
-    }
-
-    @Test
-    public void login(){
-
-        login = new LoginActivity(context);
-        String result = login.SignIn("t","");
         assertEquals(result,FAKE_STRING);
 
     }

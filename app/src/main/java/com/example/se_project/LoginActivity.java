@@ -71,12 +71,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     private void StartToast(String msg) {
-//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public String SignIn(String email, String password) {
-//        String email = ((EditText) findViewById(R.id.EmailEditText)).getText().toString();
-//        String password = ((EditText) findViewById(R.id.PasswordEditText)).getText().toString();
+    public void SignIn() {
+        String email = ((EditText) findViewById(R.id.EmailEditText)).getText().toString();
+        String password = ((EditText) findViewById(R.id.PasswordEditText)).getText().toString();
         if (email.length() > 0 && password.length() > 0) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this,
                     new OnCompleteListener<AuthResult>() {
@@ -89,14 +89,11 @@ public class LoginActivity extends AppCompatActivity {
                                 CheckUser(firebaseUser, db);
                             } else {
                                 StartToast("로그인 실패 : 로그인 정보가 일치하지 않습니다.");
-
                             }
                         }
                     });
-            return "성공";
         } else {
             StartToast("빈칸을 확인해주세요.");
-            return "오류";
         }
     }
 
@@ -106,9 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             // view에서 id를 받아오는데
             switch (view.getId()) {
                 case R.id.SignInButton:
-                    String email = ((EditText) findViewById(R.id.EmailEditText)).getText().toString();
-                    String password = ((EditText) findViewById(R.id.PasswordEditText)).getText().toString();
-                    SignIn(email,password);
+                    SignIn();
                     break;
 //                case R.id.ToPasswordInitButton:
 //                    StartActivity(Password_Init_Activity.class);
