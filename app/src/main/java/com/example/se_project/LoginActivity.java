@@ -1,5 +1,6 @@
 package com.example.se_project;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             // view에서 id를 받아오는데

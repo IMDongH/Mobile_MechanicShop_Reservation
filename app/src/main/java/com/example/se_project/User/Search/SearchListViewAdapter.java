@@ -3,6 +3,7 @@ package com.example.se_project.User.Search;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -19,13 +20,16 @@ import com.example.se_project.R;
 import java.util.ArrayList;
 import java.util.Locale;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class SearchListViewAdapter extends BaseAdapter {
 
     // Declare Variables
     String TAG = "SearchListViewAdapter";
     Context mContext;
     LayoutInflater inflater;
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<SearchTitleClass> titlesList;
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<SearchTitleClass> arraylist;
     RelativeLayout itemList;
 
@@ -59,6 +63,7 @@ public class SearchListViewAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("InflateParams")
     public View getView(final int position, View view, ViewGroup parent) {
         final ViewHolder holder;
         if (view == null) {

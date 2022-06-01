@@ -1,5 +1,6 @@
 package com.example.se_project.Center;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.example.se_project.R;
 import java.util.ArrayList;
 import java.util.Locale;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class ReservationAdapter extends BaseAdapter  {
 
     private static final String TAG = "예약관 어뎁터";
@@ -25,6 +27,7 @@ public class ReservationAdapter extends BaseAdapter  {
     // Declare Variables
     Context mContext;
     LayoutInflater inflater;
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Reservation_Info> DataList;
     CardView itemList;
 
@@ -38,7 +41,7 @@ public class ReservationAdapter extends BaseAdapter  {
 
     public View getView(final int position, View itemview, ViewGroup parent) {
 
-        View view = inflater.inflate(R.layout.activity_center_reservation_items, null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.activity_center_reservation_items, null);
 
         TextView name = (TextView)view.findViewById(R.id.name);
         TextView phone = (TextView)view.findViewById(R.id.phone);

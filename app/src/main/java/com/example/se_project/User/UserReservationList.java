@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+@SuppressWarnings("ALL")
 public class UserReservationList extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -45,6 +46,7 @@ public class UserReservationList extends AppCompatActivity {
     TextView reservationDay;
     ReservationListViewAdapter adapter;
     ListView list;
+    @SuppressWarnings("FieldMayBeFinal")
     private String TAG = "reservation list";
     CalendarView calendarView;
     java.util.HashMap<String,Object> HashMap = new HashMap<String,Object>();

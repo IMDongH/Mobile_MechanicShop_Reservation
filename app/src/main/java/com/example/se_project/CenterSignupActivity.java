@@ -1,5 +1,6 @@
 package com.example.se_project;
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -199,6 +200,7 @@ public class CenterSignupActivity extends AppCompatActivity {
 
     //클릭이벤트들
     View.OnClickListener onClickListener = new View.OnClickListener() {
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             switch (view.getId()) {

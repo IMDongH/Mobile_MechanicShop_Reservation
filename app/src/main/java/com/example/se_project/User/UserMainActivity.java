@@ -2,6 +2,7 @@ package com.example.se_project.User;
 
 //import android.Manifest;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 //import android.content.Context;
 import android.content.DialogInterface;
@@ -77,6 +78,7 @@ import java.util.List;
 //import java.util.List;
 //import java.util.Locale;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class UserMainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FirebaseAuth mAuth;
@@ -91,6 +93,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 //    private int flag = 0;
     private Toast terminate_guide_msg;
     private String region;
+    @SuppressWarnings("FieldMayBeFinal")
     private String TAG = "UserMainActivity : ";
     SearchListViewAdapter adapter;
     ListView list;
@@ -243,6 +246,7 @@ public class UserMainActivity extends AppCompatActivity implements OnMapReadyCal
 
         return super.onCreateOptionsMenu(menu);
     }
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
