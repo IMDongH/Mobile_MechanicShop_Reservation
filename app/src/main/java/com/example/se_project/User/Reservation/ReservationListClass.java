@@ -1,9 +1,14 @@
 package com.example.se_project.User.Reservation;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class ReservationListClass {
+    @SuppressWarnings("FieldMayBeFinal")
     private String Date;
+    @SuppressWarnings("FieldMayBeFinal")
     private String Name;
+    @SuppressWarnings("FieldMayBeFinal")
     private String Location;
+    @SuppressWarnings("FieldMayBeFinal")
     private String Time;
     public ReservationListClass(String Date,String Name, String Location, String Time) {
         this.Date = Date;

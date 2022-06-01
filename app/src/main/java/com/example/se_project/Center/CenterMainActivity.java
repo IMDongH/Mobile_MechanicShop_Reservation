@@ -1,6 +1,7 @@
 package com.example.se_project.Center;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -168,6 +169,7 @@ public class CenterMainActivity extends AppCompatActivity {
 
 
     // 로그아웃, 날짜 선택
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

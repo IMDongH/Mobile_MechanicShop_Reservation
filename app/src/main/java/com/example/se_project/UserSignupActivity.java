@@ -1,5 +1,6 @@
 package com.example.se_project;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -27,10 +28,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class UserSignupActivity  extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseFirestore db;
+    @SuppressWarnings("FieldMayBeFinal")
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
     private static final String TAG = "SignUpActivity";
@@ -109,6 +112,7 @@ public class UserSignupActivity  extends AppCompatActivity {
 
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             // view에서 id를 받아오는데

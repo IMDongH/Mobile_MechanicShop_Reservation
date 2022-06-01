@@ -44,7 +44,8 @@
             android:text="예약 시간 선택하기"
             android:fontFamily="@font/hssaemaul_regular"
             android:textSize="15sp"
-            android:focusable="false" />
+            android:focusable="false"
+            tools:ignore="LabelFor" />
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

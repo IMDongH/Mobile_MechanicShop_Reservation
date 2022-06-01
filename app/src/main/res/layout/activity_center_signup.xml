@@ -119,7 +119,8 @@
                     android:textSize="15sp"
                     android:clickable="true"
                     android:editable="false"
-                    android:focusable="false" />
+                    android:focusable="false"
+                    tools:ignore="KeyboardInaccessibleWidget" />
 
                 <EditText
                     android:id="@+id/centerEndTime"
@@ -131,7 +132,8 @@
                     android:textSize="15sp"
                     android:clickable="true"
                     android:editable="false"
-                    android:focusable="false" />
+                    android:focusable="false"
+                    tools:ignore="KeyboardInaccessibleWidget" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

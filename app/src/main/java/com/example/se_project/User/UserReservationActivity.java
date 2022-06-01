@@ -1,5 +1,6 @@
 package com.example.se_project.User;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -278,6 +279,7 @@ public class UserReservationActivity extends AppCompatActivity
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             switch (view.getId()) {

@@ -1,5 +1,6 @@
 package com.example.se_project.User;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -50,6 +51,7 @@ public class PopUpCenterInfo extends Activity {
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             switch (view.getId()){

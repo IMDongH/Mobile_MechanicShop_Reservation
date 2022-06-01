@@ -1,5 +1,6 @@
 package com.example.se_project.Center;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.example.se_project.R;
 import java.util.ArrayList;
 import java.util.Locale;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class Popup_ListViewAdapter extends BaseAdapter  {
 
     private static final String TAG = "팝업 어뎁터";
@@ -23,7 +25,9 @@ public class Popup_ListViewAdapter extends BaseAdapter  {
     // Declare Variables
     Context mContext;
     LayoutInflater inflater;
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Popup_CenterNameInfo> SearchedList;
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Popup_CenterNameInfo> DataList;
 
     public Popup_ListViewAdapter(Context context, ArrayList<Popup_CenterNameInfo> dataList) {
@@ -40,6 +44,7 @@ public class Popup_ListViewAdapter extends BaseAdapter  {
         TextView itemTextView;
     }
 
+    @SuppressLint("InflateParams")
     public View getView(final int position, View itemview, ViewGroup parent) {
 
         final ViewHolder holder;
