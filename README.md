@@ -5,17 +5,19 @@
 ### Sign in
 
  The sign-in service can change personal information from membership. Members can login via two different account types : Car-Center and guests.
+ 
 ![image](https://user-images.githubusercontent.com/84771856/172035257-f47e2c3a-2194-4ceb-b6bc-360900b5ca05.png)
 
 
 ### User register
 
  User can choose an appropriate account type between Guest and Car-Center
+ 
 ![image](https://user-images.githubusercontent.com/84771856/172035276-005f9b0a-baf9-432d-a003-7a2cdb59e4ed.png)
 
 ### Register account type : Guest
 
- Guest type registration requires followings:
+Guest type registration requires followings:
 Email,
 Password,
 Name,
