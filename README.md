@@ -1,5 +1,7 @@
 # 우리동네 정비소
+## INTRODUCTION
 
+It is a reservation system app for MechanicShop in Gyeonggi-do.
 ## SCREEN
 
 ### Sign in
