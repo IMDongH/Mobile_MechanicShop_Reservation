@@ -1,0 +1,821 @@
+<html>
+<head>
+<title>UserMainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+UserMainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.se_project.User</span><span class="s0">;</span>
+
+<span class="s2">//import android.Manifest;</span>
+<span class="s0">import </span><span class="s1">android.Manifest</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.app.AlertDialog</span><span class="s0">;</span>
+<span class="s2">//import android.content.Context;</span>
+<span class="s0">import </span><span class="s1">android.content.DialogInterface</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s2">//import android.content.IntentSender;</span>
+<span class="s2">//import android.content.pm.PackageManager;</span>
+<span class="s2">//import android.location.Address;</span>
+<span class="s2">//import android.location.Geocoder;</span>
+<span class="s2">//import android.location.Location;</span>
+<span class="s2">//import android.location.LocationManager;</span>
+<span class="s0">import </span><span class="s1">android.location.Address</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.location.Geocoder</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s2">//import android.os.Looper;</span>
+<span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.Menu</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.MenuInflater</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.MenuItem</span><span class="s0">;</span>
+<span class="s2">//import android.view.View;</span>
+<span class="s2">//import android.view.WindowManager;</span>
+<span class="s0">import </span><span class="s1">android.widget.ListView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.SearchView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s2">//import androidx.annotation.LongDef;</span>
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.annotation.Nullable</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.ActionBar</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s2">//import androidx.core.app.ActivityCompat;</span>
+<span class="s2">//import androidx.core.content.ContextCompat;</span>
+
+<span class="s0">import </span><span class="s1">com.example.se_project.LoginActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.example.se_project.R</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.example.se_project.User.Search.SearchListViewAdapter</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.example.se_project.User.Search.SearchTitleClass</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.example.se_project.User.Search.UserSearchActivity</span><span class="s0">;</span>
+<span class="s2">//import com.google.android.gms.common.api.ResolvableApiException;</span>
+<span class="s2">//import com.google.android.gms.location.FusedLocationProviderClient;</span>
+<span class="s2">//import com.google.android.gms.location.LocationRequest;</span>
+<span class="s2">//import com.google.android.gms.location.LocationSettingsResponse;</span>
+<span class="s2">//import com.google.android.gms.location.SettingsClient;</span>
+<span class="s2">//import com.google.android.gms.maps.CameraUpdate;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.location.FusedLocationProviderClient</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.maps.CameraUpdateFactory</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.maps.GoogleMap</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.maps.OnMapReadyCallback</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.maps.SupportMapFragment</span><span class="s0">;</span>
+<span class="s2">//import com.google.android.gms.maps.model.BitmapDescriptorFactory;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.maps.model.LatLng</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.maps.model.Marker</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.maps.model.MarkerOptions</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnCompleteListener</span><span class="s0">;</span>
+<span class="s2">//import com.google.android.gms.tasks.OnFailureListener;</span>
+<span class="s2">//import com.google.android.gms.tasks.OnSuccessListener;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.Task</span><span class="s0">;</span>
+<span class="s2">//import com.google.android.material.snackbar.Snackbar;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseAuth</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseUser</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.firestore.DocumentSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.firestore.FirebaseFirestore</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.firestore.QueryDocumentSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.firestore.QuerySnapshot</span><span class="s0">;</span>
+<span class="s2">//import com.google.android.gms.location.LocationCallback;</span>
+<span class="s2">//import com.google.android.gms.location.LocationRequest;</span>
+<span class="s2">//import com.google.android.gms.location.LocationResult;</span>
+<span class="s2">//import com.google.android.gms.location.LocationServices;</span>
+<span class="s2">//import com.google.android.gms.location.LocationSettingsRequest;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.HashMap</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<span class="s2">//import java.util.List;</span>
+<span class="s2">//import java.util.Locale;</span>
+
+<span class="s0">public class </span><span class="s1">UserMainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity </span><span class="s0">implements </span><span class="s1">OnMapReadyCallback {</span>
+    <span class="s0">private </span><span class="s1">GoogleMap mMap</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">FirebaseAuth mAuth</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">FirebaseUser user</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">FirebaseFirestore db</span><span class="s0">;</span>
+    <span class="s0">final </span><span class="s1">String[] selectOption = {</span><span class="s3">&quot;가평군&quot;</span><span class="s0">, </span><span class="s3">&quot;고양시&quot;</span><span class="s0">, </span><span class="s3">&quot;구리시&quot;</span><span class="s0">, </span><span class="s3">&quot;김포시&quot;</span><span class="s0">, </span><span class="s3">&quot;남양주시&quot;</span><span class="s0">,</span>
+            <span class="s3">&quot;부천시&quot;</span><span class="s0">, </span><span class="s3">&quot;성남시&quot;</span><span class="s0">, </span><span class="s3">&quot;수원시&quot;</span><span class="s0">, </span><span class="s3">&quot;시흥시&quot;</span><span class="s0">, </span><span class="s3">&quot;안산시&quot;</span><span class="s0">,</span>
+            <span class="s3">&quot;안양시&quot;</span><span class="s0">, </span><span class="s3">&quot;양주시&quot;</span><span class="s0">, </span><span class="s3">&quot;양평군&quot;</span><span class="s0">, </span><span class="s3">&quot;여주시&quot;</span><span class="s0">, </span><span class="s3">&quot;연천군시&quot;</span><span class="s0">,</span>
+            <span class="s3">&quot;오산시&quot;</span><span class="s0">, </span><span class="s3">&quot;용인시&quot;</span><span class="s0">, </span><span class="s3">&quot;의왕시&quot;</span><span class="s0">, </span><span class="s3">&quot;의정부시&quot;</span><span class="s0">, </span><span class="s3">&quot;이천시&quot;</span><span class="s0">,</span>
+            <span class="s3">&quot;파주시&quot;</span><span class="s0">, </span><span class="s3">&quot;평택시&quot;</span><span class="s0">, </span><span class="s3">&quot;포천시&quot;</span><span class="s0">, </span><span class="s3">&quot;하남시&quot;</span><span class="s0">, </span><span class="s3">&quot;화성시&quot;</span><span class="s1">}</span><span class="s0">;</span>
+    <span class="s0">private long </span><span class="s1">backKeyPressedTime = </span><span class="s4">0</span><span class="s0">;</span>
+<span class="s2">//    private int flag = 0;</span>
+    <span class="s0">private </span><span class="s1">Toast terminate_guide_msg</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String region</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String TAG = </span><span class="s3">&quot;UserMainActivity : &quot;</span><span class="s0">;</span>
+    <span class="s1">SearchListViewAdapter adapter</span><span class="s0">;</span>
+    <span class="s1">ListView list</span><span class="s0">;</span>
+    <span class="s1">SearchView searchView</span><span class="s0">;</span>
+    <span class="s1">ArrayList&lt;SearchTitleClass&gt; arraylist = </span><span class="s0">new </span><span class="s1">ArrayList&lt;SearchTitleClass&gt;()</span><span class="s0">;</span>
+    <span class="s1">java.util.HashMap&lt;String</span><span class="s0">,</span><span class="s1">Object&gt; HashMap = </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s0">,</span><span class="s1">Object&gt;()</span><span class="s0">;</span>
+    <span class="s1">ArrayList&lt;String&gt; regList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+    <span class="s1">HashMap&lt;String</span><span class="s0">, </span><span class="s1">String&gt; regTable = </span><span class="s0">new </span><span class="s1">HashMap&lt;&gt;()</span><span class="s0">;</span>
+    <span class="s1">Geocoder geocoder</span><span class="s0">;</span>
+    <span class="s1">String address</span><span class="s0">;</span>
+    <span class="s1">String target</span><span class="s0">;</span>
+    <span class="s1">MenuItem regionMenu</span><span class="s0">;</span>
+    <span class="s1">LatLng curPo</span><span class="s0">;</span>
+
+<span class="s2">//    HashMap &lt;String, String&gt; regMap = new HashMap&lt;&gt;();</span>
+<span class="s2">//     실제 GPS를 따오는데 사용되는 코드</span>
+<span class="s2">//    private Marker currentMarker = null;</span>
+<span class="s2">//    private static final int GPS_ENABLE_REQUEST_CODE = 2001;</span>
+<span class="s2">//    private static final int UPDATE_INTERVAL_MS = 1000;  // 1초</span>
+<span class="s2">//    private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초</span>
+<span class="s2">//     onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.</span>
+<span class="s2">//    private static final int PERMISSIONS_REQUEST_CODE = 100;</span>
+<span class="s2">//    boolean needRequest = false;</span>
+<span class="s2">//     앱을 실행하기 위해 필요한 퍼미션을 정의합니다.</span>
+<span class="s2">//    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소</span>
+<span class="s2">//</span>
+<span class="s2">//    Location mCurrentLocatiion;</span>
+<span class="s2">//    LatLng currentPosition;</span>
+<span class="s2">//    String curAddress;</span>
+<span class="s2">//    private FusedLocationProviderClient mFusedLocationClient;</span>
+<span class="s2">//    private LocationRequest locationRequest;</span>
+<span class="s2">//    private Location location;</span>
+<span class="s2">//</span>
+<span class="s2">//    private View mLayout;</span>
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+<span class="s2">//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);</span>
+        <span class="s1">setContentView(R.layout.activity_user_main)</span><span class="s0">;</span>
+        <span class="s1">ActionBar ac = getSupportActionBar()</span><span class="s0">;</span>
+        <span class="s1">ac.setTitle(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s2">//        ActionBar actionBar = getSupportActionBar();</span>
+<span class="s2">//        actionBar.hide();</span>
+
+<span class="s2">//        mLayout = findViewById(R.id.layout_user_main);</span>
+
+<span class="s2">//        locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);</span>
+
+<span class="s2">//        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();</span>
+<span class="s2">//        SettingsClient client = LocationServices.getSettingsClient(this);</span>
+<span class="s2">//        Task&lt;LocationSettingsResponse&gt; task = client.checkLocationSettings(builder.build());</span>
+<span class="s2">//        task.addOnSuccessListener(this, new OnSuccessListener&lt;LocationSettingsResponse&gt;() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {</span>
+<span class="s2">//                Log.d(TAG,&quot;location request initialized&quot;);</span>
+<span class="s2">//                locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);</span>
+<span class="s2">//            }</span>
+<span class="s2">//        }).addOnFailureListener(this, new OnFailureListener() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onFailure(@NonNull Exception e) {</span>
+<span class="s2">//                if (e instanceof ResolvableApiException){</span>
+<span class="s2">//                    try {</span>
+<span class="s2">//                        ResolvableApiException resolvable = (ResolvableApiException) e;</span>
+<span class="s2">//                        resolvable.startResolutionForResult(UserMainActivity.this, PERMISSIONS_REQUEST_CODE);</span>
+<span class="s2">//                    }catch (IntentSender.SendIntentException sendEx){</span>
+<span class="s2">//                        Log.d(TAG, sendEx.toString());</span>
+<span class="s2">//                    }</span>
+<span class="s2">//                }</span>
+<span class="s2">//            }</span>
+<span class="s2">//        });</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        builder.addLocationRequest(locationRequest);</span>
+<span class="s2">//</span>
+<span class="s2">//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);</span>
+        <span class="s1">mAuth = FirebaseAuth.getInstance()</span><span class="s0">;</span>
+        <span class="s1">user = mAuth.getCurrentUser()</span><span class="s0">;</span>
+        <span class="s1">db = FirebaseFirestore.getInstance()</span><span class="s0">;</span>
+        <span class="s1">geocoder = </span><span class="s0">new </span><span class="s1">Geocoder(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)</span><span class="s0">;</span>
+        <span class="s1">mapFragment.getMapAsync(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+
+
+
+    <span class="s1">}</span>
+
+<span class="s2">//    @Override</span>
+<span class="s2">//    protected void onStart() {</span>
+<span class="s2">//        super.onStart();</span>
+<span class="s2">//        Log.d(TAG, &quot;onStart&quot;);</span>
+<span class="s2">//        if (checkPermission()) {</span>
+<span class="s2">//            Log.d(TAG, &quot;onStart : call mFusedLocationClient.requestLocationUpdates&quot;);</span>
+<span class="s2">//            mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());</span>
+<span class="s2">//            if (mMap!=null)</span>
+<span class="s2">//                mMap.setMyLocationEnabled(true);</span>
+<span class="s2">//        }</span>
+<span class="s2">//    }</span>
+
+
+
+<span class="s2">//    @Override</span>
+<span class="s2">//    protected void onStop() {</span>
+<span class="s2">//</span>
+<span class="s2">//        super.onStop();</span>
+<span class="s2">//</span>
+<span class="s2">//        if (mFusedLocationClient != null) {</span>
+<span class="s2">//</span>
+<span class="s2">//            Log.d(TAG, &quot;onStop : call stopLocationUpdates&quot;);</span>
+<span class="s2">//            mFusedLocationClient.removeLocationUpdates(locationCallback);</span>
+<span class="s2">//        }</span>
+<span class="s2">//    }</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onBackPressed() {</span>
+
+        <span class="s0">if </span><span class="s1">(System.currentTimeMillis() &gt; backKeyPressedTime + </span><span class="s4">1000</span><span class="s1">) {</span>
+            <span class="s1">backKeyPressedTime = System.currentTimeMillis()</span><span class="s0">;</span>
+            <span class="s1">terminate_guide_msg = Toast.makeText(</span><span class="s0">this, </span><span class="s3">&quot;</span><span class="s0">\'</span><span class="s3">뒤로</span><span class="s0">\' </span><span class="s3">버튼을 한번 더 누르시면 종료됩니다.&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT)</span><span class="s0">;</span>
+            <span class="s1">terminate_guide_msg.show()</span><span class="s0">;</span>
+            <span class="s0">return;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(System.currentTimeMillis() &lt;= backKeyPressedTime + </span><span class="s4">1000</span><span class="s1">) {</span>
+            <span class="s1">terminate_guide_msg.cancel()</span><span class="s0">;</span>
+            <span class="s1">moveTaskToBack(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">android.os.Process.killProcess(android.os.Process.myPid())</span><span class="s0">;</span>
+            <span class="s1">System.exit(</span><span class="s4">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">StartActivity(Class c) {</span>
+        <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this, </span><span class="s1">c)</span><span class="s0">;</span>
+        <span class="s2">// 동일한 창이 여러번 뜨게 만드는 것이 아니라 기존에 켜져있던 창을 앞으로 끌어와주는 기능.</span>
+        <span class="s2">// 이 플래그를 추가하지 않을 경우 창들이 중복돼서 계속 팝업되게 된다.</span>
+        <span class="s2">// 메인화면을 띄우는 모든 코드에서 이 플래그를 추가해줘야 하는 것 같다.</span>
+        <span class="s1">intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)</span><span class="s0">;</span>
+        <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onCreateOptionsMenu(Menu menu) {</span>
+        <span class="s1">MenuInflater inflater = getMenuInflater()</span><span class="s0">;</span>
+        <span class="s1">inflater.inflate(R.menu.actionbar_menu</span><span class="s0">, </span><span class="s1">menu)</span><span class="s0">;</span>
+
+        <span class="s1">MenuItem menuItem = menu.findItem(R.id.SearchMenu)</span><span class="s0">;</span>
+        <span class="s1">searchView = (SearchView) menuItem.getActionView()</span><span class="s0">;</span>
+        <span class="s1">regionMenu = menu.findItem(R.id.Region)</span><span class="s0">;</span>
+
+
+        <span class="s0">return super</span><span class="s1">.onCreateOptionsMenu(menu)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onOptionsItemSelected(MenuItem item) {</span>
+
+        <span class="s0">switch </span><span class="s1">(item.getItemId()){</span>
+            <span class="s0">case </span><span class="s1">R.id.LogoutMenu:</span>
+                <span class="s1">FirebaseAuth.getInstance().signOut()</span><span class="s0">;</span>
+                <span class="s1">StartActivity(LoginActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.SearchMenu:</span>
+<span class="s2">//                if(flag==1){</span>
+                    <span class="s1">Log.d(</span><span class="s3">&quot;TEST&quot;</span><span class="s0">,</span><span class="s3">&quot;test&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this,</span><span class="s1">UserSearchActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">intent.putExtra(</span><span class="s3">&quot;region&quot;</span><span class="s0">, </span><span class="s1">region)</span><span class="s0">;</span>
+                    <span class="s1">startActivityForResult(intent</span><span class="s0">, </span><span class="s4">1</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s2">//                }</span>
+<span class="s2">//                else {</span>
+<span class="s2">//                    Log.d(&quot;TEST&quot;,&quot;test&quot;+flag);</span>
+<span class="s2">//                    StartToast(&quot;지역을 선택해주세요.&quot;);</span>
+<span class="s2">//                }</span>
+                <span class="s0">break;</span>
+
+            <span class="s0">case </span><span class="s1">R.id.reservationCheck:</span>
+                <span class="s1">StartActivity(UserReservationList.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.Region:</span>
+
+                <span class="s1">selectRegion(item)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">default</span><span class="s1">:</span>
+                <span class="s0">break;</span>
+        <span class="s1">}</span>
+        <span class="s0">return super</span><span class="s1">.onOptionsItemSelected(item)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onActivityResult(</span><span class="s0">int </span><span class="s1">requestCode</span><span class="s0">, int </span><span class="s1">resultCode</span><span class="s0">, </span><span class="s1">@Nullable Intent data) {</span>
+        <span class="s0">super</span><span class="s1">.onActivityResult(requestCode</span><span class="s0">, </span><span class="s1">resultCode</span><span class="s0">, </span><span class="s1">data)</span><span class="s0">;</span>
+        <span class="s1">String moveAddress = data.getStringExtra(</span><span class="s3">&quot;address&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List&lt;Address&gt; movelist = </span><span class="s0">null;</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">movelist = geocoder.getFromLocationName(moveAddress</span><span class="s0">, </span><span class="s4">10</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">catch </span><span class="s1">(Exception e){</span>
+            <span class="s1">Log.d(TAG</span><span class="s0">, </span><span class="s1">e.toString())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">LatLng newPo = </span><span class="s0">new </span><span class="s1">LatLng(movelist.get(</span><span class="s4">0</span><span class="s1">).getLatitude()</span><span class="s0">, </span><span class="s1">movelist.get(</span><span class="s4">0</span><span class="s1">).getLongitude())</span><span class="s0">;</span>
+        <span class="s1">mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newPo</span><span class="s0">, </span><span class="s4">15</span><span class="s1">))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">selectRegion(MenuItem item) {</span>
+        <span class="s1">AlertDialog.Builder ad = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">ad.setTitle(</span><span class="s3">&quot;지역을 선택하세요&quot;</span><span class="s1">).setIcon(R.drawable.location)</span>
+                <span class="s1">.setItems(selectOption</span><span class="s0">, new </span><span class="s1">DialogInterface.OnClickListener() {</span>
+                    <span class="s1">@Override</span>
+                    <span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog</span><span class="s0">, int </span><span class="s1">i) {</span>
+                        <span class="s1">String RG = selectOption[i].toString()</span><span class="s0">;</span>
+                        <span class="s1">item.setTitle(RG)</span><span class="s0">;</span>
+<span class="s2">//                        flag=1;</span>
+                        <span class="s1">region =RG</span><span class="s0">;</span>
+<span class="s2">//                        regMap = new HashMap&lt;&gt;();</span>
+                        <span class="s1">regList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+                        <span class="s1">regTable = </span><span class="s0">new </span><span class="s1">HashMap&lt;&gt;()</span><span class="s0">;</span>
+                        <span class="s1">mMap.clear()</span><span class="s0">;</span>
+                        <span class="s1">db.collection(RG).get().addOnCompleteListener(</span><span class="s0">new </span><span class="s1">OnCompleteListener&lt;QuerySnapshot&gt;() {</span>
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onComplete(@NonNull Task&lt;QuerySnapshot&gt; task) {</span>
+                                <span class="s0">if </span><span class="s1">(task.isSuccessful()) {</span>
+                                    <span class="s0">double </span><span class="s1">cameraLat = </span><span class="s4">0.0</span><span class="s0">;</span>
+                                    <span class="s0">double </span><span class="s1">camreaLon = </span><span class="s4">0.0</span><span class="s0">;</span>
+                                    <span class="s0">for </span><span class="s1">(QueryDocumentSnapshot document : task.getResult()){</span>
+                                        <span class="s0">if </span><span class="s1">(document.exists()){</span>
+                                            <span class="s1">String address = (String) document.getData().get(</span><span class="s3">&quot;소재지도로명주소&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">double </span><span class="s1">latitude = (</span><span class="s0">double</span><span class="s1">)document.getData().get(</span><span class="s3">&quot;위도&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">double </span><span class="s1">longitude = (</span><span class="s0">double</span><span class="s1">)document.getData().get(</span><span class="s3">&quot;경도&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">if </span><span class="s1">(cameraLat == </span><span class="s4">0</span><span class="s1">)</span>
+                                                <span class="s1">cameraLat = latitude</span><span class="s0">;</span>
+                                            <span class="s0">if </span><span class="s1">(camreaLon == </span><span class="s4">0</span><span class="s1">)</span>
+                                                <span class="s1">camreaLon = longitude</span><span class="s0">;</span>
+
+
+                                            <span class="s1">LatLng location = </span><span class="s0">new </span><span class="s1">LatLng(latitude</span><span class="s0">, </span><span class="s1">longitude)</span><span class="s0">;</span>
+                                            <span class="s1">MarkerOptions markerOptions = </span><span class="s0">new </span><span class="s1">MarkerOptions()</span><span class="s0">;</span>
+                                            <span class="s1">markerOptions.position(location)</span><span class="s0">;</span>
+                                            <span class="s1">String centerName = (String) document.getData().get(</span><span class="s3">&quot;자동차정비업체명&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s1">String phone</span><span class="s0">;</span>
+                                            <span class="s1">phone = (String) document.getData().get(</span><span class="s3">&quot;phone&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">if </span><span class="s1">(phone==</span><span class="s0">null</span><span class="s1">){</span>
+                                                <span class="s1">phone = </span><span class="s3">&quot;미등록업체&quot;</span><span class="s0">;</span>
+                                            <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                                                <span class="s1">cameraLat = latitude</span><span class="s0">;</span>
+                                                <span class="s1">camreaLon = longitude</span><span class="s0">;</span>
+                                                <span class="s1">regList.add(centerName)</span><span class="s0">;</span>
+                                                <span class="s1">regTable.put(centerName</span><span class="s0">, </span><span class="s1">phone)</span><span class="s0">;</span>
+                                            <span class="s1">}</span>
+
+<span class="s2">//                                            regMap.put(centerName, phone);</span>
+                                            <span class="s1">markerOptions.title(centerName)</span><span class="s0">;</span>
+                                            <span class="s1">markerOptions.snippet(address)</span><span class="s0">;</span>
+
+                                            <span class="s1">mMap.addMarker(markerOptions)</span><span class="s0">;</span>
+                                            <span class="s1">Log.d(TAG</span><span class="s0">,</span><span class="s3">&quot;DocumentSnapshot data: &quot;</span><span class="s1">+document.getData()+</span><span class="s3">&quot;phone : &quot;</span><span class="s1">+phone)</span><span class="s0">;</span>
+
+                                        <span class="s1">}</span>
+                                    <span class="s1">}</span>
+                                    <span class="s1">LatLng cameraLoc = </span><span class="s0">new </span><span class="s1">LatLng(cameraLat</span><span class="s0">, </span><span class="s1">camreaLon)</span><span class="s0">;</span>
+                                    <span class="s1">mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraLoc</span><span class="s0">, </span><span class="s4">15</span><span class="s1">))</span><span class="s0">;</span>
+                                    <span class="s1">mMap.setOnInfoWindowClickListener(</span><span class="s0">new </span><span class="s1">GoogleMap.OnInfoWindowClickListener() {</span>
+                                        <span class="s1">@Override</span>
+                                        <span class="s0">public void </span><span class="s1">onInfoWindowClick(@NonNull Marker marker) {</span>
+                                            <span class="s1">Log.d(TAG</span><span class="s0">,</span><span class="s3">&quot;Info window click :&quot;</span><span class="s1">+marker.getTitle())</span><span class="s0">;</span>
+                                            <span class="s0">if </span><span class="s1">(regList.contains(marker.getTitle())){</span>
+                                                <span class="s1">Bundle data = </span><span class="s0">new </span><span class="s1">Bundle()</span><span class="s0">;</span>
+                                                <span class="s1">data.putString(</span><span class="s3">&quot;centerName&quot;</span><span class="s0">,</span><span class="s1">marker.getTitle())</span><span class="s0">;</span>
+                                                <span class="s1">data.putString(</span><span class="s3">&quot;centerAddress&quot;</span><span class="s0">,</span><span class="s1">marker.getSnippet())</span><span class="s0">;</span>
+                                                <span class="s1">data.putString(</span><span class="s3">&quot;phone&quot;</span><span class="s0">,</span><span class="s1">regTable.get(marker.getTitle()))</span><span class="s0">;</span>
+                                                <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(UserMainActivity.</span><span class="s0">this, </span><span class="s1">PopUpCenterInfo.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                                                <span class="s1">intent.putExtras(data)</span><span class="s0">;</span>
+                                                <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                                            <span class="s1">}</span><span class="s0">else </span><span class="s1">{</span>
+                                                <span class="s1">StartToast(</span><span class="s3">&quot;미등록업체입니다. &quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s1">}</span>
+
+                                        <span class="s1">}</span>
+                                    <span class="s1">})</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                            <span class="s1">}</span>
+                        <span class="s1">})</span><span class="s0">;</span>
+
+
+
+                    <span class="s1">}</span>
+                <span class="s1">})</span>
+                <span class="s1">.setCancelable(</span><span class="s0">true</span><span class="s1">)</span>
+                <span class="s1">.show()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">StartToast(String msg) {</span>
+        <span class="s1">Toast.makeText(</span><span class="s0">this, </span><span class="s1">msg</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onMapReady(</span><span class="s0">final </span><span class="s1">GoogleMap googleMap){</span>
+        <span class="s1">mMap = googleMap</span><span class="s0">;</span>
+<span class="s2">//        setDefaultLocation();</span>
+
+<span class="s2">//        int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);</span>
+<span class="s2">//        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);</span>
+<span class="s2">//</span>
+<span class="s2">//        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &amp;&amp; hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED){</span>
+<span class="s2">//            Log.d(TAG,&quot;should start location update&quot;);</span>
+<span class="s2">//            startLocationUpdates();</span>
+<span class="s2">//        }else{</span>
+<span class="s2">//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {</span>
+<span class="s2">//                Snackbar.make(mLayout, &quot;이 앱을 실행하려면 위치 권한이 필요합니다.&quot;,Snackbar.LENGTH_INDEFINITE).setAction(&quot;확인&quot;, new View.OnClickListener() {</span>
+<span class="s2">//                    @Override</span>
+<span class="s2">//                    public void onClick(View view) {</span>
+<span class="s2">//                        ActivityCompat.requestPermissions(UserMainActivity.this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);</span>
+<span class="s2">//                    }</span>
+<span class="s2">//                }).show();</span>
+<span class="s2">//            }else{</span>
+<span class="s2">//                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);</span>
+<span class="s2">//            }</span>
+<span class="s2">//        }</span>
+<span class="s2">//        HashMap &lt;String, String&gt; regMap = new HashMap&lt;&gt;();</span>
+
+        <span class="s1">db.collection(</span><span class="s3">&quot;users&quot;</span><span class="s1">).document(user.getUid()).get().addOnCompleteListener(</span><span class="s0">new </span><span class="s1">OnCompleteListener&lt;DocumentSnapshot&gt;() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onComplete(@NonNull Task&lt;DocumentSnapshot&gt; task) {</span>
+                <span class="s0">if </span><span class="s1">(task.isSuccessful()) {</span>
+                    <span class="s1">DocumentSnapshot document = task.getResult()</span><span class="s0">;</span>
+                    <span class="s0">if </span><span class="s1">(document.exists()) {</span>
+                        <span class="s1">address = (String) document.getData().get(</span><span class="s3">&quot;address&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(address == </span><span class="s0">null</span><span class="s1">){</span>
+                            <span class="s1">target = </span><span class="s3">&quot;성남시&quot;</span><span class="s0">;</span>
+                        <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                            <span class="s0">for </span><span class="s1">(String temp : selectOption){</span>
+                                <span class="s0">if </span><span class="s1">(address.contains(temp)) {</span>
+                                    <span class="s1">target = temp</span><span class="s0">;</span>
+                                    <span class="s0">break;</span>
+                                <span class="s1">}</span>
+                            <span class="s1">}</span>
+                        <span class="s1">}</span>
+                        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; selectOption.length</span><span class="s0">; </span><span class="s1">i++){</span>
+                            <span class="s0">if </span><span class="s1">(target.equals(selectOption[i])) {</span>
+                                <span class="s1">regionMenu.setTitle(selectOption[i])</span><span class="s0">;</span>
+                                <span class="s1">region = selectOption[i]</span><span class="s0">;</span>
+                                <span class="s0">break;</span>
+                            <span class="s1">}</span>
+                        <span class="s1">}</span>
+
+                        <span class="s1">db.collection(target).get().addOnCompleteListener(</span><span class="s0">new </span><span class="s1">OnCompleteListener&lt;QuerySnapshot&gt;() {</span>
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onComplete(@NonNull Task&lt;QuerySnapshot&gt; task) {</span>
+                                <span class="s0">if </span><span class="s1">(task.isSuccessful()){</span>
+                                    <span class="s2">// latitude - 위도</span>
+                                    <span class="s2">// longitude - 경도</span>
+                                    <span class="s0">double </span><span class="s1">cameraLat = </span><span class="s4">0.0</span><span class="s0">;</span>
+                                    <span class="s0">double </span><span class="s1">camreaLon = </span><span class="s4">0.0</span><span class="s0">;</span>
+                                    <span class="s0">for </span><span class="s1">(QueryDocumentSnapshot document:task.getResult()){</span>
+                                        <span class="s0">if </span><span class="s1">(document.exists()){</span>
+                                            <span class="s1">String address = (String) document.getData().get(</span><span class="s3">&quot;소재지도로명주소&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">double </span><span class="s1">latitude = (</span><span class="s0">double</span><span class="s1">)document.getData().get(</span><span class="s3">&quot;위도&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">double </span><span class="s1">longitude = (</span><span class="s0">double</span><span class="s1">)document.getData().get(</span><span class="s3">&quot;경도&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">if </span><span class="s1">(cameraLat == </span><span class="s4">0</span><span class="s1">)</span>
+                                                <span class="s1">cameraLat = latitude</span><span class="s0">;</span>
+                                            <span class="s0">if </span><span class="s1">(camreaLon == </span><span class="s4">0</span><span class="s1">)</span>
+                                                <span class="s1">camreaLon = longitude</span><span class="s0">;</span>
+
+                                            <span class="s1">LatLng location = </span><span class="s0">new </span><span class="s1">LatLng(latitude</span><span class="s0">, </span><span class="s1">longitude)</span><span class="s0">;</span>
+                                            <span class="s1">MarkerOptions markerOptions = </span><span class="s0">new </span><span class="s1">MarkerOptions()</span><span class="s0">;</span>
+                                            <span class="s1">markerOptions.position(location)</span><span class="s0">;</span>
+                                            <span class="s1">String centerName = (String) document.getData().get(</span><span class="s3">&quot;자동차정비업체명&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s1">String phone = </span><span class="s3">&quot;&quot;</span><span class="s0">;</span>
+                                            <span class="s1">phone = (String) document.getData().get(</span><span class="s3">&quot;phone&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s0">if </span><span class="s1">(phone==</span><span class="s0">null</span><span class="s1">){</span>
+                                                <span class="s1">phone = </span><span class="s3">&quot;미등록업체&quot;</span><span class="s0">;</span>
+                                            <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                                                <span class="s1">cameraLat = latitude</span><span class="s0">;</span>
+                                                <span class="s1">camreaLon = longitude</span><span class="s0">;</span>
+                                                <span class="s1">regList.add(centerName)</span><span class="s0">;</span>
+                                                <span class="s1">regTable.put(centerName</span><span class="s0">, </span><span class="s1">phone)</span><span class="s0">;</span>
+                                            <span class="s1">}</span>
+<span class="s2">//                            regMap.put(centerName, phone);</span>
+
+                                            <span class="s1">markerOptions.title(centerName)</span><span class="s0">;</span>
+                                            <span class="s1">markerOptions.snippet(address)</span><span class="s0">;</span>
+                                            <span class="s1">mMap.addMarker(markerOptions)</span><span class="s0">;</span>
+                                            <span class="s1">Log.d(TAG</span><span class="s0">,</span><span class="s3">&quot;DocumentSnapshot data: &quot;</span><span class="s1">+document.getData()+</span><span class="s3">&quot;phone :&quot;</span><span class="s1">+phone)</span><span class="s0">;</span>
+
+                                        <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                                            <span class="s1">Log.d(TAG</span><span class="s0">,</span><span class="s3">&quot;No document&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                        <span class="s1">}</span>
+
+                                    <span class="s1">}</span>
+                                    <span class="s0">if </span><span class="s1">(address == </span><span class="s0">null</span><span class="s1">) {</span>
+                                        <span class="s1">curPo = </span><span class="s0">new </span><span class="s1">LatLng(cameraLat</span><span class="s0">, </span><span class="s1">camreaLon)</span><span class="s0">;</span>
+                                    <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                                        <span class="s1">List&lt;Address&gt; list = </span><span class="s0">null;</span>
+                                        <span class="s0">try </span><span class="s1">{</span>
+                                            <span class="s1">list = geocoder.getFromLocationName(address</span><span class="s0">, </span><span class="s4">3</span><span class="s1">)</span><span class="s0">;</span>
+                                        <span class="s1">}</span><span class="s0">catch </span><span class="s1">(Exception e){</span>
+                                            <span class="s1">Log.d(TAG</span><span class="s0">, </span><span class="s1">e.toString())</span><span class="s0">;</span>
+                                        <span class="s1">}</span>
+
+                                        <span class="s1">curPo = </span><span class="s0">new </span><span class="s1">LatLng(list.get(</span><span class="s4">0</span><span class="s1">).getLatitude()</span><span class="s0">, </span><span class="s1">list.get(</span><span class="s4">0</span><span class="s1">).getLongitude())</span><span class="s0">;</span>
+
+                                    <span class="s1">}</span>
+
+
+                                    <span class="s1">mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curPo</span><span class="s0">, </span><span class="s4">15</span><span class="s1">))</span><span class="s0">;</span>
+                                    <span class="s1">mMap.setOnInfoWindowClickListener(</span><span class="s0">new </span><span class="s1">GoogleMap.OnInfoWindowClickListener() {</span>
+                                        <span class="s1">@Override</span>
+                                        <span class="s0">public void </span><span class="s1">onInfoWindowClick(@NonNull Marker marker) {</span>
+                                            <span class="s1">Log.d(TAG</span><span class="s0">,</span><span class="s3">&quot;Info window click :&quot;</span><span class="s1">+marker.getTitle())</span><span class="s0">;</span>
+<span class="s2">//                            Log.e(TAG,regList.get(marker.getTitle()));</span>
+                                            <span class="s0">if </span><span class="s1">(regList.contains(marker.getTitle())){</span>
+                                                <span class="s1">Bundle data = </span><span class="s0">new </span><span class="s1">Bundle()</span><span class="s0">;</span>
+                                                <span class="s1">data.putString(</span><span class="s3">&quot;centerName&quot;</span><span class="s0">,</span><span class="s1">marker.getTitle())</span><span class="s0">;</span>
+                                                <span class="s1">data.putString(</span><span class="s3">&quot;centerAddress&quot;</span><span class="s0">,</span><span class="s1">marker.getSnippet())</span><span class="s0">;</span>
+                                                <span class="s1">data.putString(</span><span class="s3">&quot;phone&quot;</span><span class="s0">,</span><span class="s1">regTable.get(marker.getTitle()))</span><span class="s0">;</span>
+                                                <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(UserMainActivity.</span><span class="s0">this, </span><span class="s1">PopUpCenterInfo.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                                                <span class="s1">intent.putExtras(data)</span><span class="s0">;</span>
+                                                <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                                            <span class="s1">}</span><span class="s0">else </span><span class="s1">{</span>
+                                                <span class="s1">StartToast(</span><span class="s3">&quot;미등록업체입니다. &quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                            <span class="s1">}</span>
+
+                                        <span class="s1">}</span>
+                                    <span class="s1">})</span><span class="s0">;</span>
+
+
+
+
+                                <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                                    <span class="s1">Log.d(</span><span class="s3">&quot;TAG&quot;</span><span class="s0">, </span><span class="s3">&quot;failed with&quot;</span><span class="s0">, </span><span class="s1">task.getException())</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                            <span class="s1">}</span>
+                        <span class="s1">})</span><span class="s0">;</span>
+
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+
+
+
+
+    <span class="s1">}</span>
+
+<span class="s2">//    LocationCallback locationCallback = new LocationCallback() {</span>
+<span class="s2">//        @Override</span>
+<span class="s2">//        public void onLocationResult(@NonNull LocationResult locationResult) {</span>
+<span class="s2">//            super.onLocationResult(locationResult);</span>
+<span class="s2">//            List&lt;Location&gt; locationList = locationResult.getLocations();</span>
+<span class="s2">//</span>
+<span class="s2">//            if (locationList.size() &gt; 0 ) {</span>
+<span class="s2">//                for (Location loc : locationList){</span>
+<span class="s2">//                    Log.d(TAG,&quot;loc - lat :&quot;+loc.getLatitude()+&quot;, lon:&quot;+loc.getLongitude());</span>
+<span class="s2">//                }</span>
+<span class="s2">//                location = locationList.get(locationList.size() - 1);</span>
+<span class="s2">//                currentPosition = new LatLng(location.getLatitude(), location.getLongitude());</span>
+<span class="s2">//</span>
+<span class="s2">//                String markerTitle = &quot;내 위치&quot;;</span>
+<span class="s2">//                String markerSnippet = getCurrentAddress(currentPosition);</span>
+<span class="s2">//</span>
+<span class="s2">//                Log.d(TAG,&quot;onLocationResult : &quot;+markerSnippet);</span>
+<span class="s2">//</span>
+<span class="s2">//                setCurrentLocation(location, markerTitle, markerSnippet);</span>
+<span class="s2">//</span>
+<span class="s2">////                mCurrentLocatiion = location;</span>
+<span class="s2">////                curAddress = markerSnippet;</span>
+<span class="s2">//</span>
+<span class="s2">//            }</span>
+<span class="s2">//        }</span>
+<span class="s2">//    };</span>
+
+
+<span class="s2">//    public void startLocationUpdates(){</span>
+<span class="s2">//        if (!checkLocationServicesStatus()) {</span>
+<span class="s2">//            Log.d(TAG, &quot;startLocationUpdates: call showDialogForLocationServiceSettings&quot;);</span>
+<span class="s2">//            showDialogForLocationServiceSetting();</span>
+<span class="s2">//        }else{</span>
+<span class="s2">//            int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);</span>
+<span class="s2">//            int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);</span>
+<span class="s2">//</span>
+<span class="s2">//            if (hasFineLocationPermission != PackageManager.PERMISSION_GRANTED || hasCoarseLocationPermission != PackageManager.PERMISSION_GRANTED   ) {</span>
+<span class="s2">//</span>
+<span class="s2">//                Log.d(TAG, &quot;startLocationUpdates : 퍼미션 안가지고 있음&quot;);</span>
+<span class="s2">//                return;</span>
+<span class="s2">//            }</span>
+<span class="s2">//            Log.d(TAG, &quot;startLocationUpdates : call mFusedLocationClient.requestLocationUpdates&quot;);</span>
+<span class="s2">//</span>
+<span class="s2">//            if (checkPermission()) {</span>
+<span class="s2">//                mMap.setMyLocationEnabled(true);</span>
+<span class="s2">//            }</span>
+<span class="s2">//</span>
+<span class="s2">//            mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        }</span>
+<span class="s2">//    }</span>
+
+
+<span class="s2">//    public String getCurrentAddress(LatLng latLng) {</span>
+<span class="s2">//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());</span>
+<span class="s2">//</span>
+<span class="s2">//        List&lt;Address&gt; addresses;</span>
+<span class="s2">//</span>
+<span class="s2">//        try{</span>
+<span class="s2">//            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        }catch (IOException ioException) {</span>
+<span class="s2">//            Log.d(TAG,&quot;지오코더 사용불가&quot;);</span>
+<span class="s2">//            return &quot;지오코더 사용불가&quot;;</span>
+<span class="s2">//        }catch (IllegalArgumentException illegalArgumentException) {</span>
+<span class="s2">//            Log.d(TAG, &quot;잘못된 GPS&quot;);</span>
+<span class="s2">//            return &quot;잘못된 GPS 좌표&quot;;</span>
+<span class="s2">//        }</span>
+<span class="s2">//</span>
+<span class="s2">//        if (addresses == null || addresses.size() == 0){</span>
+<span class="s2">//            Log.d(TAG, &quot;주소 미발견&quot;);</span>
+<span class="s2">//            return &quot;주소 미발견&quot;;</span>
+<span class="s2">//        }else{</span>
+<span class="s2">//            Address address = addresses.get(0);</span>
+<span class="s2">//            return address.getAddressLine(0).toString();</span>
+<span class="s2">//        }</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//    public boolean checkLocationServicesStatus() {</span>
+<span class="s2">//        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);</span>
+<span class="s2">//</span>
+<span class="s2">//        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//    public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        if (currentMarker != null) currentMarker.remove();</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());</span>
+
+<span class="s2">//        MarkerOptions markerOptions = new MarkerOptions();</span>
+<span class="s2">//        markerOptions.position(currentLatLng);</span>
+<span class="s2">//        markerOptions.title(markerTitle);</span>
+<span class="s2">//        markerOptions.snippet(markerSnippet);</span>
+<span class="s2">//        markerOptions.draggable(true);</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        currentMarker = mMap.addMarker(markerOptions);</span>
+
+<span class="s2">//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);</span>
+<span class="s2">//        mMap.moveCamera(cameraUpdate);</span>
+<span class="s2">//</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//    public void setDefaultLocation() {</span>
+<span class="s2">//</span>
+<span class="s2">//        //디폴트 위치, Seoul</span>
+<span class="s2">//        LatLng DEFAULT_LOCATION = new LatLng(37.4500, 127.1288);</span>
+<span class="s2">//        String markerTitle = &quot;위치정보 가져올 수 없음&quot;;</span>
+<span class="s2">//        String markerSnippet = &quot;위치 퍼미션과 GPS 활성 요부 확인하세요&quot;;</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        if (currentMarker != null) {</span>
+<span class="s2">//            currentMarker.remove();</span>
+<span class="s2">//        }</span>
+<span class="s2">//</span>
+<span class="s2">//        MarkerOptions markerOptions = new MarkerOptions();</span>
+<span class="s2">//        markerOptions.position(DEFAULT_LOCATION);</span>
+<span class="s2">//        markerOptions.title(markerTitle);</span>
+<span class="s2">//        markerOptions.snippet(markerSnippet);</span>
+<span class="s2">//        markerOptions.draggable(true);</span>
+<span class="s2">//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));</span>
+<span class="s2">//        currentMarker = mMap.addMarker(markerOptions);</span>
+<span class="s2">//</span>
+<span class="s2">//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15);</span>
+<span class="s2">//        mMap.moveCamera(cameraUpdate);</span>
+<span class="s2">//</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//    //여기부터는 런타임 퍼미션 처리을 위한 메소드들</span>
+<span class="s2">//    private boolean checkPermission() {</span>
+<span class="s2">//</span>
+<span class="s2">//        int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);</span>
+<span class="s2">//        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);</span>
+<span class="s2">//</span>
+<span class="s2">//        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &amp;&amp; hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {</span>
+<span class="s2">//            return true;</span>
+<span class="s2">//        }</span>
+<span class="s2">//</span>
+<span class="s2">//        return false;</span>
+<span class="s2">//</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//    /*</span>
+<span class="s2">//     * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.</span>
+<span class="s2">//     */</span>
+<span class="s2">//    @Override</span>
+<span class="s2">//    public void onRequestPermissionsResult(int permsRequestCode, @NonNull String[] permissions, @NonNull int[] grandResults) {</span>
+<span class="s2">//</span>
+<span class="s2">//        super.onRequestPermissionsResult(permsRequestCode, permissions, grandResults);</span>
+<span class="s2">//        if (permsRequestCode == PERMISSIONS_REQUEST_CODE &amp;&amp; grandResults.length == REQUIRED_PERMISSIONS.length) {</span>
+<span class="s2">//</span>
+<span class="s2">//            // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면</span>
+<span class="s2">//</span>
+<span class="s2">//            boolean check_result = true;</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//            // 모든 퍼미션을 허용했는지 체크합니다.</span>
+<span class="s2">//</span>
+<span class="s2">//            for (int result : grandResults) {</span>
+<span class="s2">//                if (result != PackageManager.PERMISSION_GRANTED) {</span>
+<span class="s2">//                    check_result = false;</span>
+<span class="s2">//                    break;</span>
+<span class="s2">//                }</span>
+<span class="s2">//            }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//            if (check_result) {</span>
+<span class="s2">//</span>
+<span class="s2">//                // 퍼미션을 허용했다면 위치 업데이트를 시작합니다.</span>
+<span class="s2">//                startLocationUpdates();</span>
+<span class="s2">//            } else {</span>
+<span class="s2">//                // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.</span>
+<span class="s2">//</span>
+<span class="s2">//                if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])</span>
+<span class="s2">//                        || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//                    // 사용자가 거부만 선택한 경우에는 앱을 다시 실행하여 허용을 선택하면 앱을 사용할 수 있습니다.</span>
+<span class="s2">//                    Snackbar.make(mLayout, &quot;퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요. &quot;,</span>
+<span class="s2">//                            Snackbar.LENGTH_INDEFINITE).setAction(&quot;확인&quot;, new View.OnClickListener() {</span>
+<span class="s2">//</span>
+<span class="s2">//                        @Override</span>
+<span class="s2">//                        public void onClick(View view) {</span>
+<span class="s2">//</span>
+<span class="s2">//                            finish();</span>
+<span class="s2">//                        }</span>
+<span class="s2">//                    }).show();</span>
+<span class="s2">//</span>
+<span class="s2">//                } else {</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//                    // &quot;다시 묻지 않음&quot;을 사용자가 체크하고 거부를 선택한 경우에는 설정(앱 정보)에서 퍼미션을 허용해야 앱을 사용할 수 있습니다.</span>
+<span class="s2">//                    Snackbar.make(mLayout, &quot;퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. &quot;,</span>
+<span class="s2">//                            Snackbar.LENGTH_INDEFINITE).setAction(&quot;확인&quot;, new View.OnClickListener() {</span>
+<span class="s2">//</span>
+<span class="s2">//                        @Override</span>
+<span class="s2">//                        public void onClick(View view) {</span>
+<span class="s2">//</span>
+<span class="s2">//                            finish();</span>
+<span class="s2">//                        }</span>
+<span class="s2">//                    }).show();</span>
+<span class="s2">//                }</span>
+<span class="s2">//            }</span>
+<span class="s2">//</span>
+<span class="s2">//        }</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//    //여기부터는 GPS 활성화를 위한 메소드들</span>
+<span class="s2">//    private void showDialogForLocationServiceSetting() {</span>
+<span class="s2">//</span>
+<span class="s2">//        AlertDialog.Builder builder = new AlertDialog.Builder(UserMainActivity.this);</span>
+<span class="s2">//        builder.setTitle(&quot;위치 서비스 비활성화&quot;);</span>
+<span class="s2">//        builder.setMessage(&quot;앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n&quot;</span>
+<span class="s2">//                + &quot;위치 설정을 수정하실래요?&quot;);</span>
+<span class="s2">//        builder.setCancelable(true);</span>
+<span class="s2">//        builder.setPositiveButton(&quot;설정&quot;, new DialogInterface.OnClickListener() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onClick(DialogInterface dialog, int id) {</span>
+<span class="s2">//                Intent callGPSSettingIntent</span>
+<span class="s2">//                        = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);</span>
+<span class="s2">//                startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);</span>
+<span class="s2">//            }</span>
+<span class="s2">//        });</span>
+<span class="s2">//        builder.setNegativeButton(&quot;취소&quot;, new DialogInterface.OnClickListener() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onClick(DialogInterface dialog, int id) {</span>
+<span class="s2">//                dialog.cancel();</span>
+<span class="s2">//            }</span>
+<span class="s2">//        });</span>
+<span class="s2">//        builder.create().show();</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//    @Override</span>
+<span class="s2">//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {</span>
+<span class="s2">//        super.onActivityResult(requestCode, resultCode, data);</span>
+<span class="s2">//</span>
+<span class="s2">//        switch (requestCode) {</span>
+<span class="s2">//</span>
+<span class="s2">//            case GPS_ENABLE_REQUEST_CODE:</span>
+<span class="s2">//</span>
+<span class="s2">//                //사용자가 GPS 활성 시켰는지 검사</span>
+<span class="s2">//                if (checkLocationServicesStatus()) {</span>
+<span class="s2">//                    if (checkLocationServicesStatus()) {</span>
+<span class="s2">//</span>
+<span class="s2">//                        Log.d(TAG, &quot;onActivityResult : GPS 활성화 되있음&quot;);</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//                        needRequest = true;</span>
+<span class="s2">//</span>
+<span class="s2">//                        return;</span>
+<span class="s2">//                    }</span>
+<span class="s2">//                }</span>
+<span class="s2">//</span>
+<span class="s2">//                break;</span>
+<span class="s2">//        }</span>
+<span class="s2">//    }</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
